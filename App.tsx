@@ -1,13 +1,14 @@
-import { StyleSheet } from 'react-native';
+import {Button, StyleSheet} from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { WorkingDayCard } from "./components/WorkingDayCard";
 import { View, Text } from 'react-native';
 import { usePultosokData } from "./hooks/usePultosokData";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { LinearGradient } from "react-native-linear-gradient";
+import Toast from "react-native-toast-message";
 
 export default function App() {
-  const { workingDays } = usePultosokData()
+  const { workingDays, refresh: refreshPultosok } = usePultosokData()
 
   const colorPalettes = [
     ['#B429F9', '#9C43F8','#855DF7','#6D77F6','#5591F5','#3EABF4', '#26C5F3'],
@@ -22,6 +23,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
+      <Button title="Refresh Data" onPress={refreshPultosok} />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <LinearGradient
             colors={colorPalette}
@@ -38,6 +40,7 @@ export default function App() {
           </View>
         </LinearGradient>
       </GestureHandlerRootView>
+      <Toast/>
     </View>
   );
 }

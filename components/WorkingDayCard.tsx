@@ -13,8 +13,8 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
     return (
         <View style={{ ...styles.card, opacity: isJanicsDown ? 0.6 : 1 }}>
             <View style={styles.header}>
-                <Text style={styles.day}>{date.toLocaleDateString(undefined, { weekday: 'long' })}</Text>
-                <Text style={styles.date}>{date.toLocaleDateString(undefined, { dateStyle: "short" })}</Text>
+                <Text style={styles.day}>{schedule.dateStringLong}</Text>
+                <Text style={styles.date}>{schedule.dateStringShort}</Text>
             </View>
             {!isJanicsDown &&
                 <View style={styles.content}>

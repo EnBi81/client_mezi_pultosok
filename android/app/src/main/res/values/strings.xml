@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Mezi Pultos Gárda</string>
+    <string name="previous">Previous</string>
+    <string name="next">Next</string>
 </resources>

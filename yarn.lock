@@ -3777,6 +3777,8 @@ __metadata:
     react-native: 0.74.1
     react-native-gesture-handler: ^2.16.2
     react-native-linear-gradient: ^2.8.3
+    react-native-shared-preferences: ^1.0.2
+    react-native-toast-message: ^2.2.0
     react-test-renderer: 18.2.0
     typescript: 5.0.4
   languageName: unknown
@@ -8000,6 +8002,23 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: f980d324e551bbc475c6406bdc5250a08242020cbe653412fa169bbdf51e28a502e225de105b4d696d6a1a1b733d44782469020f4936d8b3ce0e2c78e51cf58f
+  languageName: node
+  linkType: hard
+
+"react-native-shared-preferences@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "react-native-shared-preferences@npm:1.0.2"
+  checksum: 0edf2aef537f6d9ba05a15d7dca4ce835758b5d5be08a1dec43bcaa6b80e04751f1825df667cb07a3da1fc3768ea30618c9ab3ef8492346fe712eb673f9bcb09
+  languageName: node
+  linkType: hard
+
+"react-native-toast-message@npm:^2.2.0":
+  version: 2.2.0
+  resolution: "react-native-toast-message@npm:2.2.0"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: b286b8d5ca0f21737c2e0a8e9c2d6dab2c06a3895335aa541c69eeb42d526cc6f3951069e59d8d346d3e6cafb8feaa450c35b0efe7c3d51ff81351d1477e71eb
   languageName: node
   linkType: hard
 

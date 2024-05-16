@@ -6,4 +6,7 @@
         <item name="android:editTextBackground">@drawable/rn_edit_text_material</item>
     </style>
 
+    <color name="semi_transparent_dark">#90000000</color>
+    <color name="image_button_transparent">#00000000</color>
+    <color name="text_light">#ffffff</color>
 </resources>
