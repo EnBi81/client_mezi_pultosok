@@ -20,6 +20,7 @@
             android:orientation="horizontal"
             android:gravity="center"
             android:padding="8dp"
+            android:radius="20dp"
             android:background="@drawable/widget_pultosok_top_background">
 
             <TextView

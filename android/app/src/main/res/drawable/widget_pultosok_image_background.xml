@@ -1,18 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Bitmap with rounded corners -->
+    <item>
+        <shape android:shape="rectangle">
+            <corners android:radius="20dp" />
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
 
     <!-- Black fade gradient -->
-    <item>
+    <item android:gravity="center">
         <bitmap
-            android:src="@drawable/widget_main_bg" />
+            android:src="@drawable/widget_main_bg"
+            android:gravity="clip_horizontal"
+            android:tileMode="disabled"
+            android:tileModeX="disabled"
+            android:tileModeY="disabled"
+            android:antialias="true"
+            android:filter="true"
+            android:dither="true"/>
     </item>
+
+    <!-- Gradient overlay with rounded corners -->
     <item>
         <shape android:shape="rectangle">
             <gradient
                 android:startColor="#66000000"
                 android:endColor="#77000000"
                 android:angle="90" />
-            <corners android:radius="16dp" />
+            <corners android:radius="20dp" />
         </shape>
     </item>
 </layer-list>
