@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Black fade gradient -->
+    <item>
+        <bitmap
+            android:src="@drawable/widget_main_bg" />
+    </item>
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#66000000"
+                android:endColor="#77000000"
+                android:angle="90" />
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</layer-list>

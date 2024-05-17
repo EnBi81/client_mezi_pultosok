@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import java.io.IOException;
 import java.time.LocalDate;
@@ -28,6 +30,7 @@ public class PultosokAppWidgetProvider extends AppWidgetProvider {
 
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_pultosok);
+
 
             if (today != null) {
                 views.setTextViewText(R.id.date_text, today.getDateStringShort() + " " + today.getDateStringLong());
