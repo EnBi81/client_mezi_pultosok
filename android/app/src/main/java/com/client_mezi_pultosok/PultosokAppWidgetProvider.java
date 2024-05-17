@@ -33,7 +33,7 @@ public class PultosokAppWidgetProvider extends AppWidgetProvider {
 
 
             if (today != null) {
-                views.setTextViewText(R.id.date_text, today.getDateStringShort() + " " + today.getDateStringLong());
+                views.setTextViewText(R.id.date_text, today.getDateStringLong());
 
                 var cikola = today.getCikola();
                 views.setTextViewText(R.id.cikola_text_1, cikola.length >= 1 ? cikola[0] : "");
