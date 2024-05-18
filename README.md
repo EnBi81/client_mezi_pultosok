@@ -1,4 +1,4 @@
-https://stackoverflow.com/questions/35935060/how-can-i-generate-an-apk-that-can-run-without-server-with-react-native
+https://stackoverflow.com/questions/4967669/android-install-apk-programmatically/4969421#4969421
 
 
 
