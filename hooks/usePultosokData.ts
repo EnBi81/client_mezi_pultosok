@@ -8,7 +8,7 @@ export const usePultosokData = () => {
     const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        fetch('http://kisvesszosi-munka-beosztas.mypremiumhost.tech:25566/spreadsheet-data')
+        fetch('https://kisvesszosi-munka-beosztas.mypremiumhost.tech/spreadsheet-data')
             .then(data => {
                 if(!data.ok)
                     throw new Error('Response Failed');
@@ -16,7 +16,7 @@ export const usePultosokData = () => {
                 return data.json();
             })
             .then(data => {
-                let arr = data;
+                let arr = data.data;
                 if(!Array.isArray(arr))
                     throw new Error('Invalid Response (err 12425)')
 
