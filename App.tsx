@@ -8,7 +8,7 @@ import { LinearGradient } from "react-native-linear-gradient";
 import Toast from "react-native-toast-message";
 
 export default function App() {
-  const { workingDays, refresh: refreshPultosok } = usePultosokData()
+  const { workingDays, refresh: refreshPultosok } = usePultosokData();
 
   const colorPalettes = [
     ['#B429F9', '#9C43F8','#855DF7','#6D77F6','#5591F5','#3EABF4', '#26C5F3'],
@@ -23,7 +23,7 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Button title="Refresh Data" onPress={refreshPultosok} />
+      <Button title="Refresh Data" style={styles.refreshDataButton} onPress={refreshPultosok}  />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <LinearGradient
             colors={colorPalette}

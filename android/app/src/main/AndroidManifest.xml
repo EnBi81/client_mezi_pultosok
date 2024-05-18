@@ -7,6 +7,7 @@
       android:label="@string/app_name"
       android:icon="@mipmap/mezi_logo"
       android:roundIcon="@mipmap/mezi_logo_rounded"
+        android:usesCleartextTraffic="true"
       android:allowBackup="false"
       android:theme="@style/AppTheme">
       <activity

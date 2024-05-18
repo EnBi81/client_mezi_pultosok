@@ -5,10 +5,10 @@ import PultosokSharedPreferences from 'react-native-shared-preferences';
 
 export const usePultosokData = () => {
     const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>([]);
-    const [counter, setCounter] = useState(0)
+    const [counter, setCounter] = useState(0);
 
     useEffect(() => {
-        fetch('http://176.31.93.249:25566/spreadsheet-data')
+        fetch('http://kisvesszosi-munka-beosztas.mypremiumhost.tech:25566/spreadsheet-data')
             .then(data => {
                 if(!data.ok)
                     throw new Error('Response Failed');
