@@ -6,8 +6,11 @@ import PultosokSharedPreferences from 'react-native-shared-preferences';
 export const usePultosokData = () => {
     const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>([]);
     const [counter, setCounter] = useState(0);
+    const [isRefreshing, setIsRefreshing] = useState(false);
 
     useEffect(() => {
+        setIsRefreshing(true);
+
         fetch('https://kisvesszosi-munka-beosztas.mypremiumhost.tech/spreadsheet-data')
             .then(data => {
                 if(!data.ok)
@@ -41,6 +44,8 @@ export const usePultosokData = () => {
                     text1: 'Pultosok Refreshed',
                     text2: '',
                 });
+
+                setIsRefreshing(false);
             })
             .catch(err => {
                 console.error(err)
@@ -50,6 +55,8 @@ export const usePultosokData = () => {
                     text1: 'Failed to load data.',
                     text2: '',
                 });
+
+                setIsRefreshing(false);
             })
     }, [counter])
 
@@ -67,6 +74,7 @@ export const usePultosokData = () => {
 
     return {
         workingDays,
-        refresh: refresh
+        refresh: refresh,
+        isRefreshing
     };
 }

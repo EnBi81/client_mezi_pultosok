@@ -1,4 +1,4 @@
-import {Button, StyleSheet} from 'react-native';
+import {Button, StyleSheet, RefreshControl, SafeAreaView, FlatList} from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { WorkingDayCard } from "./components/WorkingDayCard";
 import { View, Text } from 'react-native';
@@ -8,7 +8,7 @@ import { LinearGradient } from "react-native-linear-gradient";
 import Toast from "react-native-toast-message";
 
 export default function App() {
-  const { workingDays, refresh: refreshPultosok } = usePultosokData();
+  const { workingDays, refresh: refreshPultosok, isRefreshing } = usePultosokData();
 
   const colorPalettes = [
     ['#B429F9', '#9C43F8','#855DF7','#6D77F6','#5591F5','#3EABF4', '#26C5F3'],
@@ -23,20 +23,19 @@ export default function App() {
 
   return (
     <View style={styles.container}>
-      <Button title="Refresh Data" style={styles.refreshDataButton} onPress={refreshPultosok}  />
       <GestureHandlerRootView style={{ flex: 1 }}>
         <LinearGradient
             colors={colorPalette}
             start={{x: 0, y: 0}}
             end={{x: 1, y: 1}}
-            style={{ width: '100%'}}
+            style={{ width: '100%', height: '100%'}}
         >
           <View style={styles.tasksWrapper}>
-            <ScrollView>
-              <View style={styles.workingDayContainer}>
-                {workingDays.map((day, i) => (<View key={i} style={{marginHorizontal: 20}}><WorkingDayCard  schedule={day} /></View>))}
-              </View>
-            </ScrollView>
+            <SafeAreaView>
+              <FlatList refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refreshPultosok} />} data={workingDays} renderItem={({ item }) => {
+                return <View style={{marginHorizontal: 20}}><WorkingDayCard  schedule={item} /></View>
+              }} />
+            </SafeAreaView>
           </View>
         </LinearGradient>
       </GestureHandlerRootView>
