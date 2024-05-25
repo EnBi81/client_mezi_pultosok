@@ -36,27 +36,6 @@ export const useApkUpdateChecker = () => {
 
 
 
-    const installAPK = (apkPath) => {
-        if (Platform.OS === 'android') {
-            RNInstallApk.install(apkPath)
-                .then(() => {
-                    // Delete the APK file after successful installation
-                    RNFS.unlink(apkPath)
-                        .then(() => {
-                            console.log('APK file deleted');
-                        })
-                        .catch((err) => {
-                            console.error('Failed to delete APK file', err);
-                        });
-                })
-                .catch((err) => {
-                    console.error('Failed to install APK', err);
-                });
-        } else {
-            Linking.openURL(apkPath); // For non-Android platforms, handle accordingly
-        }
-    };
-
     return {
         latestApkVersion,
         isUpdateAvailable

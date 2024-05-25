@@ -3,7 +3,6 @@ import RNFS from 'react-native-fs';
 import {API_ENDPOINT} from '../../constants'
 
 export const useApkDownloader = () => {
-    //const [latestApkDownloadPath] = useState(`${RNFS.CachesDirectoryPath}/mezi_pultos_garda_update.apk`);
     const [latestApkDownloadPath] = useState({
         fileName: 'mezi_pultos_garda_update.apk',
         fullPath: `${RNFS.ExternalDirectoryPath}/mezi_pultos_garda_update.apk`
@@ -50,12 +49,12 @@ export const useApkDownloader = () => {
 
     // delete the apk file if exists
     useEffect(() => {
-        RNFS.exists(latestApkDownloadPath)
+        RNFS.exists(latestApkDownloadPath.fullPath)
             .then(exists => {
                 if(!exists)
                     return;
 
-                RNFS.unlink(latestApkDownloadPath)
+                RNFS.unlink(latestApkDownloadPath.fullPath)
                     .then(() => {
                         console.log('FILE DELETED');
                     })

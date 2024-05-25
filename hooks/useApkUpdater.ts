@@ -3,7 +3,6 @@ import {useApkDownloader} from "./apkUpdater/useApkDownloader";
 import {useApkInstaller} from "./apkUpdater/useApkInstaller";
 import {useEffect} from "react";
 import Toast from "react-native-toast-message";
-import {PermissionsAndroid} from 'react-native';
 
 export const useApkUpdater = () => {
     const { latestApkVersion, isUpdateAvailable } = useApkUpdateChecker();
