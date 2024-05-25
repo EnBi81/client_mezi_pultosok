@@ -13,13 +13,11 @@ export const usePultosokDataCaching = () => {
     const [isInitialCacheLoaded, setIsInitialCacheLoaded] = useState<boolean>(false)
 
     const getData = async () => {
-        console.log('get cache')
         const jsonValue = await AsyncStorage.getItem(dataCacheKey);
         return jsonValue != null ? JSON.parse(jsonValue) : null;
     };
 
     const storeData = async (value) => {
-        console.log('store cache')
         const jsonValue = JSON.stringify(value);
         await AsyncStorage.setItem(dataCacheKey, jsonValue);
     };

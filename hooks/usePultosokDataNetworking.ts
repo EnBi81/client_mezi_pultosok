@@ -1,5 +1,6 @@
 import {useEffect, useState} from "react";
 import {WorkingDaySchedule} from "../interfaces/WorkingDaySchedule";
+import {API_ENDPOINT} from '../constants'
 
 export const usePultosokDataNetworking = () => {
     const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
@@ -14,7 +15,8 @@ export const usePultosokDataNetworking = () => {
     useEffect(() => {
         setIsRefreshing(true);
 
-        fetch('https://kisvesszosi-munka-beosztas.mypremiumhost.tech/spreadsheet-data')
+        const timezoneOffset = new Date().getTimezoneOffset();
+        fetch(`${API_ENDPOINT}/spreadsheet-data?tzo=${timezoneOffset}`)
             // catch network error
             .catch(() => {
                 setError({

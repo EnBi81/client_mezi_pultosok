@@ -1,6 +1,24 @@
 https://stackoverflow.com/questions/4967669/android-install-apk-programmatically/4969421#4969421
 
 
+# Fixing Errors
+
+A problem occurred evaluating project ':react-native-os'. > Could not find method compile() for arguments [com.facebook.react:react-native:+] o
+n object of type org.gradle.api.internal.artifacts.dsl.dependencies.DefaultDependencyHandler.
+https://stackoverflow.com/questions/72951365/could-not-find-method-compile-for-arguments-com-facebook-reactreact-native
+
+Step 1 -> Go to node_modules/react-native-os/android/build.gradle
+
+Step 2 -> Under dependencies -> replace compile with implementation
+
+dependencies {
+compile 'com.facebook.react:react-native:+'
+}
+
+dependencies {
+implementation 'com.facebook.react:react-native:+'
+}
+
 
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 

@@ -21,7 +21,6 @@ export const usePultosokData = () => {
 
         // if only the cache data is available, load that
         if(cachedData && !networkingData){
-            console.log('load cache data');
             setWorkingDays(cachedData.data);
             return;
         }
@@ -35,15 +34,12 @@ export const usePultosokData = () => {
 
             cacheData(data);
             setWorkingDays(data);
-            console.log('load networking data');
             return;
         }
 
         // double-checking
         if(!networkingData || !cachedData)
             return;
-
-        console.log('load cache x networking data');
 
         // here both the networking and cache data is available
         const days: WorkingDaySchedule[] = networkingData.map(d => {
@@ -55,18 +51,16 @@ export const usePultosokData = () => {
             if(!cachedDay){
                 isNew = true;
                 newDateRegistered = now;
-                console.log('cache not exists for', d);
             }
             // if in the cache it was set to new
             else if(cachedDay.isNew){
                 newDateRegistered = cachedDay.isNewDateRegistered ?? now;
 
                 const now = new Date().getTime();
-                //const newThresholdMilliSeconds = 1000 * 60 * 60 * 24; // 1 day
-                const newThresholdMilliSeconds = 1000 * 60; // 1 minute
+                const newThresholdMilliSeconds = 1000 * 60 * 60 * 24; // 1 day
+                //const newThresholdMilliSeconds = 1000 * 60; // 1 minute
                 if(now - newDateRegistered < newThresholdMilliSeconds){
                     isNew = true;
-                    console.log('keeping is new based on cache')
                 }
             }
             else {
@@ -74,7 +68,6 @@ export const usePultosokData = () => {
                     (JSON.stringify(d.doborgaz) !== JSON.stringify(cachedDay.doborgaz));
 
                 if(isNew){
-                    console.log('day changed');
                     newDateRegistered = now;
                 }
             }
@@ -100,19 +93,6 @@ export const usePultosokData = () => {
         PultosokSharedPreferences.setItem("apiData", JSON.stringify(workingDays));
     }, [workingDays])
 
-    //
-    //
-    //
-    //
-    //
-    //
-
-    //
-    //
-    //
-    //
-    //
-    //
 
     useEffect(() => {
         if(networkingError.isError) {

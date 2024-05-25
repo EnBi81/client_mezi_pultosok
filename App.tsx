@@ -1,4 +1,4 @@
-import {Button, StyleSheet, RefreshControl, SafeAreaView, FlatList} from 'react-native';
+import {Button, StyleSheet, RefreshControl, SafeAreaView, FlatList, TouchableOpacity} from 'react-native';
 import React, { useState, useEffect } from 'react'
 import { WorkingDayCard } from "./components/WorkingDayCard";
 import { View, Text } from 'react-native';
@@ -7,10 +7,13 @@ import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler
 import { LinearGradient } from "react-native-linear-gradient";
 import Toast from "react-native-toast-message";
 import {ColorPalette} from "./interfaces/ColorPalette";
+import {CURRENT_APK_VERSION} from "./constants";
+import {useApkUpdater} from "./hooks/useApkUpdater";
 
 
 export default function App() {
   const { workingDays, refresh: refreshPultosok, isRefreshing } = usePultosokData();
+  const {latestApkVersion, isUpdateAvailable, isDownloading, downloadPercent, downloadAndInstall} = useApkUpdater();
 
   const colorPalettes: ColorPalette[] = [
     { gradient: ['#B429F9', '#9C43F8','#855DF7','#6D77F6','#5591F5','#3EABF4', '#26C5F3'], textColor: '#FFF' },
@@ -24,7 +27,6 @@ export default function App() {
   const colorPalette = colorPalettes[(today.getDate() * 31) % colorPalettes.length];
 
   return (
-
     <View style={styles.container}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <LinearGradient
@@ -33,6 +35,24 @@ export default function App() {
             end={{x: 1, y: 1}}
             style={{ width: '100%', height: '100%'}}
         >
+          {isUpdateAvailable &&
+              <TouchableOpacity
+                  style={{
+                    ...styles.updateButtonWrapper,
+                    backgroundColor: isDownloading ? '#ccc' : '#62a4ff'
+                  }}
+                  onPress={() => downloadAndInstall()}>
+                <View style={{
+                  ...styles.updateButtonProgressBar,
+                  width: `${downloadPercent ?? 0}%`,
+                }}></View>
+                <Text style={styles.updateButton}>
+                  {isDownloading && `Downloading update... (${downloadPercent}%)`}
+                  {!isDownloading && `Update to ${latestApkVersion} (current: ${CURRENT_APK_VERSION})`}
+                </Text>
+              </TouchableOpacity>
+          }
+
           <View style={styles.tasksWrapper}>
             <SafeAreaView>
               {workingDays &&
@@ -93,5 +113,26 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 24,
+  },
+  updateButtonWrapper: {
+    width: '100%',
+    height: 40,
+    backgroundColor: '#ccc',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  updateButton: {
+    backgroundColor: '#00000000',
+    fontSize: 20,
+    color: 'black'
+  },
+  updateButtonProgressBar: {
+    height: '100%',
+    backgroundColor: '#62a4ff',
+    position: 'absolute',
+    left: 0,
+    top: 0,
   }
 });
