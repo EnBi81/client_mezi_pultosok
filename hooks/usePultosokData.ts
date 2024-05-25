@@ -25,11 +25,14 @@ export const usePultosokData = () => {
             return;
         }
 
+        const now = new Date().getTime();
+
         // if no cache data is available but the data from the server is, then load that
         if(!cachedData && networkingData){
             const data = networkingData.map(d => ({
                 ...d,
                 isNew: true,
+                isNewDateRegistered: now,
             }));
 
             cacheData(data);
@@ -46,7 +49,6 @@ export const usePultosokData = () => {
             const cachedDay = cachedData.data.find(f => f.date === d.date);
             let isNew = false;
             let newDateRegistered = undefined;
-            const now = new Date().getTime();
 
             if(!cachedDay){
                 isNew = true;
