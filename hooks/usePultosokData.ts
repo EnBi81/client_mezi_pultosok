@@ -91,7 +91,7 @@ export const usePultosokData = () => {
         if(!workingDays)
             return;
 
-        PultosokSharedPreferences.setName("com.client_mez_pultosok.PultosokSharedPreferences");
+        PultosokSharedPreferences.setName("com.client_mezi_pultosok.PultosokSharedPreferences");
         PultosokSharedPreferences.setItem("apiData", JSON.stringify(workingDays));
     }, [workingDays])
 

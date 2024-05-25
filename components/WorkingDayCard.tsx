@@ -18,7 +18,10 @@ export const WorkingDayCard = ({ schedule, colorPalette }: { schedule: WorkingDa
             ...styles.card,
             opacity: isJanicsDown ? 0.6 : 1,
         }}>
-            <View style={styles.header}>
+            <View style={{
+                ...styles.header,
+                borderBottomWidth: isJanicsDown ? 0 : 1,
+            }}>
                 <View style={{flexDirection: 'row'}}>
                     <Text style={styles.day}>{schedule.dateStringLong}</Text>
                     { !isJanicsDown && schedule.isNew &&
