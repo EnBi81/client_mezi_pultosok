@@ -57,9 +57,20 @@ export default function App() {
             <SafeAreaView>
               {workingDays &&
                   <FlatList
-                      refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refreshPultosok} />}
-                      data={workingDays}
-                      renderItem={({ item }) => (<View style={{marginHorizontal: 20}}><WorkingDayCard  schedule={item} colorPalette={colorPalette} /></View>)} /> }
+                    refreshControl={
+                      <RefreshControl
+                          refreshing={isRefreshing}
+                          onRefresh={refreshPultosok}
+                      />}
+                    data={workingDays}
+                    renderItem={({ item }) => (
+                      <>
+                        <View style={{marginHorizontal: 20}}>
+                          <WorkingDayCard  schedule={item} colorPalette={colorPalette} />
+                        </View>
+                        {new Date(item.date).getDay() === 0 && <View style={styles.weekDivider}></View>}
+                      </>)} />
+                    }
               {!workingDays &&
                   <View style={styles.loadingContainer}>
                     <View style={styles.loadingContainerInner}>
@@ -134,5 +145,10 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     top: 0,
+  },
+  weekDivider: {
+    width: '100%',
+    height: 1,
+    paddingVertical: 30,
   }
 });
