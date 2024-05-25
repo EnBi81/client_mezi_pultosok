@@ -2,47 +2,78 @@ import {StyleSheet} from "react-native";
 import React from "react";
 import {WorkingDaySchedule} from "../interfaces/WorkingDaySchedule";
 import {View, Text, Button, Image, ImageBackground} from 'react-native';
+import { Tooltip } from 'react-native-paper';
+import { LinearGradient } from "react-native-linear-gradient";
+import {ColorPalette} from "../interfaces/ColorPalette";
 
-export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) => {
-    const date = new Date(schedule.date);
 
+export const WorkingDayCard = ({ schedule, colorPalette }: { schedule: WorkingDaySchedule, colorPalette: ColorPalette }) => {
     const isCikolaDown = schedule.cikola.length === 0;
     const isDoborgazDown = schedule.doborgaz.length === 0;
     const isJanicsDown = isCikolaDown && isDoborgazDown;
+    const tooltipTouchDelay = 300;
 
     return (
-        <View style={{ ...styles.card, opacity: isJanicsDown ? 0.6 : 1 }}>
+        <View style={{
+            ...styles.card,
+            opacity: isJanicsDown ? 0.6 : 1,
+        }}>
             <View style={styles.header}>
-                <Text style={styles.day}>{schedule.dateStringLong}</Text>
+                <View style={{flexDirection: 'row'}}>
+                    <Text style={styles.day}>{schedule.dateStringLong}</Text>
+                    { !isJanicsDown && schedule.isNew &&
+                        <LinearGradient
+                                colors={colorPalette.gradient}
+                                start={{x: 0, y: 0}}
+                                end={{x: 1, y: 1}}
+                                style={styles.newTag}
+                            >
+                            <Text style={{fontWeight: 'bold', color: colorPalette.textColor}}>New</Text>
+                        </LinearGradient>
+                    }
+                </View>
+
                 <Text style={styles.date}>{schedule.dateStringShort}</Text>
             </View>
             {!isJanicsDown &&
                 <View style={styles.content}>
                     {!isJanicsDown && isCikolaDown &&
-                        <View style={styles.leftSide}>
-                            <Text style={styles.cityNameRight}>(Cikola)</Text>
-                            <Text style={styles.worker}>-</Text>
-                        </View>}
+                        <View style={styles.leftSideOuter}>
+                            <Tooltip enterTouchDelay={tooltipTouchDelay} title={'Cikola'}>
+                                <View style={styles.leftSideInner}>
+                                    <Text style={styles.worker}>-</Text>
+                                </View>
+                            </Tooltip>
+                        </View>
+                        }
                     {!isJanicsDown && !isCikolaDown &&
-                        <View style={styles.leftSide}>
-                            <Text style={styles.cityNameRight}>(Cikola)</Text>
-                            <View>
-                                {schedule.cikola.map((p, i) => (<Text key={i} style={styles.worker}>{p}</Text>))}
-                            </View>
-                        </View>}
+                        <View style={styles.leftSideOuter}>
+                            <Tooltip enterTouchDelay={tooltipTouchDelay} title={'Cikola'}>
+                                <View style={styles.leftSideInner}>
+                                    {schedule.cikola.map((p, i) => (<Text key={i} style={styles.worker}>{p}</Text>))}
+                                </View>
+                            </Tooltip>
+                        </View>
+                    }
+
+                    <View style={styles.middleLine}/>
 
                     {!isJanicsDown && isDoborgazDown &&
-                        <View style={styles.rightSide}>
-                            <Text style={styles.cityNameLeft}>(Doborgaz)</Text>
-                            <Text style={styles.worker}>-</Text>
+                        <View style={styles.rightSideOuter}>
+                            <Tooltip enterTouchDelay={tooltipTouchDelay} title={'Doborgaz'}>
+                                <View style={styles.rightSideInner}>
+                                    <Text style={styles.worker}>-</Text>
+                                </View>
+                            </Tooltip>
                         </View>
                     }
                     {!isJanicsDown && !isDoborgazDown &&
-                        <View style={styles.rightSide}>
-                            <Text style={styles.cityNameLeft}>(Doborgaz)</Text>
-                            <View>
-                                {schedule.doborgaz.map((p, i) => (<Text key={i} style={styles.worker}>{p}</Text>))}
-                            </View>
+                        <View style={styles.rightSideOuter}>
+                            <Tooltip enterTouchDelay={tooltipTouchDelay} title={'Doborgaz'}>
+                                <View style={styles.rightSideInner}>
+                                    {schedule.doborgaz.map((p, i) => (<Text key={i} style={styles.worker}>{p}</Text>))}
+                                </View>
+                            </Tooltip>
                         </View>
                     }
                 </View>
@@ -56,13 +87,20 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: '#fff',
         borderRadius: 12,
-        overflow: 'hidden',
         marginVertical: 8,
         shadowColor: '#000',
         shadowRadius: 6,
         shadowOffset: { width: 0, height: 4 },
         shadowOpacity: 0.15,
         elevation: 8,
+    },
+    newTag: {
+        borderRadius: 20,
+        width: 50,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginLeft: 10,
     },
     header: {
         flexDirection: 'row',
@@ -85,17 +123,28 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         position: 'relative'
     },
-    leftSide: {
+    leftSideOuter: {
         width: '50%',
+    },
+    leftSideInner: {
         padding: 10,
+        paddingLeft: 16,
         paddingTop: 15,
     },
-    rightSide: {
+    rightSideOuter: {
         width: '50%',
+        borderLeftWidth: 1,
+        borderLeftColor: '#00000020'
+    },
+    rightSideInner: {
         flexDirection: "row",
         justifyContent: 'flex-end',
         padding: 10,
+        paddingRight: 16,
         paddingTop: 15,
+    },
+    middleLine: {
+        height: '100%',
         borderLeftWidth: 1,
         borderLeftColor: '#00000020'
     },
@@ -103,18 +152,4 @@ const styles = StyleSheet.create({
         fontSize: 20,
         color: '#000'
     },
-    cityNameRight: {
-        fontStyle: 'italic',
-        position: "absolute",
-        width: '100%',
-        paddingLeft: 10,
-        textAlign: 'center'
-    },
-    cityNameLeft: {
-        fontStyle: 'italic',
-        position: "absolute",
-        width: '100%',
-        paddingRight: 10,
-        textAlign: 'center'
-    }
 });

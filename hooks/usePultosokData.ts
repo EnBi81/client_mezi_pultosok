@@ -2,63 +2,138 @@ import {useEffect, useState} from "react";
 import {WorkingDaySchedule} from "../interfaces/WorkingDaySchedule";
 import Toast from 'react-native-toast-message';
 import PultosokSharedPreferences from 'react-native-shared-preferences';
+import {usePultosokDataNetworking} from "./usePultosokDataNetworking";
+import {usePultosokDataCaching} from "./usePultosokDataCaching";
 
 export const usePultosokData = () => {
-    const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>([]);
-    const [counter, setCounter] = useState(0);
-    const [isRefreshing, setIsRefreshing] = useState(false);
+    const { refresh, data: networkingData, isRefreshing, error: networkingError } = usePultosokDataNetworking();
+    const { cachedData, cacheData, isInitialCacheLoaded } = usePultosokDataCaching();
+    const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
+
+    // handling cache x network data
+    useEffect(() => {
+        if(!isInitialCacheLoaded)
+            return;
+
+        // if no data is available, skip
+        if(!cachedData && !networkingData)
+            return;
+
+        // if only the cache data is available, load that
+        if(cachedData && !networkingData){
+            console.log('load cache data');
+            setWorkingDays(cachedData.data);
+            return;
+        }
+
+        // if no cache data is available but the data from the server is, then load that
+        if(!cachedData && networkingData){
+            const data = networkingData.map(d => ({
+                ...d,
+                isNew: true,
+            }));
+
+            cacheData(data);
+            setWorkingDays(data);
+            console.log('load networking data');
+            return;
+        }
+
+        // double-checking
+        if(!networkingData || !cachedData)
+            return;
+
+        console.log('load cache x networking data');
+
+        // here both the networking and cache data is available
+        const days: WorkingDaySchedule[] = networkingData.map(d => {
+            const cachedDay = cachedData.data.find(f => f.date === d.date);
+            let isNew = false;
+            let newDateRegistered = undefined;
+            const now = new Date().getTime();
+
+            if(!cachedDay){
+                isNew = true;
+                newDateRegistered = now;
+                console.log('cache not exists for', d);
+            }
+            // if in the cache it was set to new
+            else if(cachedDay.isNew){
+                newDateRegistered = cachedDay.isNewDateRegistered ?? now;
+
+                const now = new Date().getTime();
+                //const newThresholdMilliSeconds = 1000 * 60 * 60 * 24; // 1 day
+                const newThresholdMilliSeconds = 1000 * 60; // 1 minute
+                if(now - newDateRegistered < newThresholdMilliSeconds){
+                    isNew = true;
+                    console.log('keeping is new based on cache')
+                }
+            }
+            else {
+                isNew = (JSON.stringify(d.cikola) !== JSON.stringify(cachedDay.cikola)) ||
+                    (JSON.stringify(d.doborgaz) !== JSON.stringify(cachedDay.doborgaz));
+
+                if(isNew){
+                    console.log('day changed');
+                    newDateRegistered = now;
+                }
+            }
+
+            return {
+                ...d,
+                isNewDateRegistered: newDateRegistered,
+                isNew: isNew
+            }
+        })
+
+        setWorkingDays(days);
+        cacheData(days);
+
+    }, [isInitialCacheLoaded, networkingData]);
+
+    // sending data to the widget
+    useEffect(() => {
+        if(!workingDays)
+            return;
+
+        PultosokSharedPreferences.setName("com.client_mez_pultosok.PultosokSharedPreferences");
+        PultosokSharedPreferences.setItem("apiData", JSON.stringify(workingDays));
+    }, [workingDays])
+
+    //
+    //
+    //
+    //
+    //
+    //
+
+    //
+    //
+    //
+    //
+    //
+    //
 
     useEffect(() => {
-        setIsRefreshing(true);
+        if(networkingError.isError) {
+            Toast.show({
+                type: 'error',
+                position: 'bottom',
+                text1: networkingError.errorMessage,
+                text2: '',
+            });
 
-        fetch('https://kisvesszosi-munka-beosztas.mypremiumhost.tech/spreadsheet-data')
-            .then(data => {
-                if(!data.ok)
-                    throw new Error('Response Failed');
+            return;
+        }
 
-                return data.json();
-            })
-            .then(data => {
-                let arr = data.data;
-                if(!Array.isArray(arr))
-                    throw new Error('Invalid Response (err 12425)')
+        Toast.show({
+            type: 'success',
+            position: 'bottom',
+            text1: 'Pultosok Updated',
+            text2: '',
+        });
 
-                arr = arr.map(d => {
-                    const date = new Date(d.date);
-
-                    return {
-                        ...d,
-                        dateStringShort: date.toLocaleDateString(undefined, { dateStyle: 'short' }),
-                        dateStringLong: date.toLocaleDateString(undefined, { weekday: 'long' })
-                    };
-                })
-
-                setWorkingDays(arr);
-
-                PultosokSharedPreferences.setName("com.client_mez_pultosok.PultosokSharedPreferences");
-                PultosokSharedPreferences.setItem("apiData", JSON.stringify(arr));
-
-                Toast.show({
-                    type: 'success',
-                    position: 'bottom',
-                    text1: 'Pultosok Refreshed',
-                    text2: '',
-                });
-
-                setIsRefreshing(false);
-            })
-            .catch(err => {
-                console.error(err)
-                Toast.show({
-                    type: 'error',
-                    position: 'bottom',
-                    text1: 'Failed to load data.',
-                    text2: '',
-                });
-
-                setIsRefreshing(false);
-            })
-    }, [counter])
+    }, [networkingData, networkingError])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -68,9 +143,6 @@ export const usePultosokData = () => {
         return () => clearInterval(interval);
     }, [])
 
-    function refresh() {
-        setCounter(prev => prev + 1)
-    }
 
     return {
         workingDays,
