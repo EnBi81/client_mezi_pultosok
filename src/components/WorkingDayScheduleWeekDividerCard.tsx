@@ -21,9 +21,9 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     marginVertical: 8,
     shadowColor: '#000',
-    shadowRadius: 6,
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.6,
     elevation: 8,
   },
   header: {
