@@ -2,7 +2,6 @@ import { useApkUpdateChecker } from './apkUpdater/useApkUpdateChecker';
 import { useApkDownloader } from './apkUpdater/useApkDownloader';
 import { useApkInstaller } from './apkUpdater/useApkInstaller';
 import { useEffect } from 'react';
-import Toast from 'react-native-toast-message';
 
 export const useApkUpdater = () => {
   const { latestApkVersion, isUpdateAvailable } = useApkUpdateChecker();
@@ -24,12 +23,9 @@ export const useApkUpdater = () => {
   useEffect(() => {
     if (downloadError === undefined) return;
 
-    Toast.show({
-      type: 'error',
-      position: 'bottom',
-      text1: 'Error occured while downloading the update.',
-      text2: downloadError,
-    });
+    console.error(
+      'Error occured while downloading the update: ' + downloadError,
+    );
   }, [downloadError]);
 
   async function downloadAndInstall() {

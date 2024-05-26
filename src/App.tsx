@@ -11,7 +11,6 @@ import { View, Text } from 'react-native';
 import { usePultosokData } from './hooks/usePultosokData';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { LinearGradient } from 'react-native-linear-gradient';
-import Toast from 'react-native-toast-message';
 import { CURRENT_APK_VERSION } from './constants';
 import { useApkUpdater } from './hooks/useApkUpdater';
 import { ColorPalettes } from './colorPalettes';
@@ -22,6 +21,7 @@ export default function App() {
     refresh: refreshPultosok,
     isRefreshing,
   } = usePultosokData();
+
   const {
     latestApkVersion,
     isUpdateAvailable,
@@ -46,6 +46,7 @@ export default function App() {
           end={{ x: 1, y: 1 }}
           style={{ width: '100%', height: '100%' }}
         >
+          {/* Download & Update Button */}
           {isUpdateAvailable && (
             <TouchableOpacity
               style={{
@@ -71,6 +72,17 @@ export default function App() {
 
           <View style={styles.tasksWrapper}>
             <SafeAreaView>
+              {/* Loading Object */}
+              {!workingDays ||
+                (true && (
+                  <View style={styles.loadingContainer}>
+                    <View style={styles.loadingContainerInner}>
+                      <Text style={styles.loadingText}>Loading...</Text>
+                    </View>
+                  </View>
+                ))}
+
+              {/* Data View */}
               {workingDays && (
                 <FlatList
                   refreshControl={
@@ -95,18 +107,10 @@ export default function App() {
                   )}
                 />
               )}
-              {!workingDays && (
-                <View style={styles.loadingContainer}>
-                  <View style={styles.loadingContainerInner}>
-                    <Text style={styles.loadingText}>Loading...</Text>
-                  </View>
-                </View>
-              )}
             </SafeAreaView>
           </View>
         </LinearGradient>
       </GestureHandlerRootView>
-      <Toast />
     </View>
   );
 }
@@ -136,7 +140,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   loadingContainerInner: {
-    width: '80%',
+    width: '90%',
     height: 60,
     flexDirection: 'row',
     justifyContent: 'center',
