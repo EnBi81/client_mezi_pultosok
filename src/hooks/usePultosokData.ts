@@ -33,7 +33,7 @@ export const usePultosokData = () => {
 
     // if no cache data is available but the data from the server is, then load that
     if (!cachedData && networkingData) {
-      const data = networkingData.map((d) => ({
+      const data: WorkingDaySchedule[] = networkingData.map((d) => ({
         ...d,
         isNew: true,
         isNewDateRegistered: now,
