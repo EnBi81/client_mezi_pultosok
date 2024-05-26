@@ -14,12 +14,15 @@ import { LinearGradient } from 'react-native-linear-gradient';
 import { CURRENT_APK_VERSION } from './constants';
 import { useApkUpdater } from './hooks/useApkUpdater';
 import { ColorPalettes } from './colorPalettes';
+import { WorkingDayCardSkeleton } from './components/WorkingDayCardSkeleton';
+import { ErrorCard } from './components/ErrorCard';
 
 export default function App() {
   const {
     workingDays,
     refresh: refreshPultosok,
     isRefreshing,
+    error: pultosokDataError,
   } = usePultosokData();
 
   const {
@@ -72,15 +75,26 @@ export default function App() {
 
           <View style={styles.tasksWrapper}>
             <SafeAreaView>
+              {!workingDays && pultosokDataError.isError && (
+                <View style={{ marginHorizontal: 20 }}>
+                  <ErrorCard
+                    errorText={
+                      pultosokDataError.errorMessage ??
+                      'Unexpected error occured.'
+                    }
+                  />
+                </View>
+              )}
+
               {/* Loading Object */}
-              {!workingDays ||
-                (true && (
-                  <View style={styles.loadingContainer}>
-                    <View style={styles.loadingContainerInner}>
-                      <Text style={styles.loadingText}>Loading...</Text>
-                    </View>
-                  </View>
-                ))}
+              {!workingDays && !pultosokDataError.isError && (
+                <View style={{ marginHorizontal: 20 }}>
+                  <WorkingDayCardSkeleton />
+                  <WorkingDayCardSkeleton />
+                  <WorkingDayCardSkeleton />
+                  <WorkingDayCardSkeleton />
+                </View>
+              )}
 
               {/* Data View */}
               {workingDays && (

@@ -122,5 +122,6 @@ export const usePultosokData = () => {
     workingDays,
     refresh: refresh,
     isRefreshing,
+    error: networkingError,
   };
 };

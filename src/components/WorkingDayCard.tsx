@@ -150,8 +150,6 @@ const styles = StyleSheet.create({
   },
   rightSideOuter: {
     width: '50%',
-    borderLeftWidth: 1,
-    borderLeftColor: '#00000020',
   },
   rightSideInner: {
     flexDirection: 'row',
