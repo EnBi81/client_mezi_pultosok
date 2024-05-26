@@ -1,17 +1,10 @@
 import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
 import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
-import {
-  View,
-  Text,
-  ToastAndroid,
-  Platform,
-  TouchableNativeFeedback,
-} from 'react-native';
+import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { ColorPalette } from '../interfaces/ColorPalette';
-
-const weekendDays = [0, 5, 6];
+import { capitalizeFirstLetter, toast } from '../utils';
 
 export const WorkingDayCard = ({
   schedule,
@@ -23,19 +16,6 @@ export const WorkingDayCard = ({
   const isCikolaDown = schedule.cikola.length === 0;
   const isDoborgazDown = schedule.doborgaz.length === 0;
   const isJanicsDown = isCikolaDown && isDoborgazDown;
-
-  const showToast = (text: string) => {
-    if (Platform.OS === 'android') {
-      ToastAndroid.showWithGravity(
-        text,
-        ToastAndroid.SHORT,
-        ToastAndroid.CENTER,
-      );
-    } else {
-      // Handle iOS or other platforms
-      throw new Error('iOS toast not implemented');
-    }
-  };
 
   const [ripple] = useState(TouchableNativeFeedback.Ripple('#ccc', false));
 
@@ -70,14 +50,16 @@ export const WorkingDayCard = ({
           )}
         </View>
 
-        <Text style={styles.date}>{schedule.dateStringShort}</Text>
+        <Text style={styles.date}>
+          {capitalizeFirstLetter(schedule.dateStringShort)}
+        </Text>
       </View>
 
       {!isJanicsDown && (
         <View style={styles.content}>
           <TouchableNativeFeedback
             style={styles.touchableFeedback}
-            onLongPress={() => showToast('Cikola')}
+            onLongPress={() => toast('Cikola')}
             background={ripple}
           >
             <View style={styles.leftSideOuter}>
@@ -97,7 +79,7 @@ export const WorkingDayCard = ({
 
           <TouchableNativeFeedback
             style={styles.touchableFeedback}
-            onLongPress={() => showToast('Doborgaz')}
+            onLongPress={() => toast('Doborgaz')}
             background={ripple}
           >
             <View style={styles.rightSideOuter}>

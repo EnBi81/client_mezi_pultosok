@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
-import Toast from 'react-native-toast-message';
 import PultosokSharedPreferences from 'react-native-shared-preferences';
 import { usePultosokDataNetworking } from './pultosokData/usePultosokDataNetworking';
 import { usePultosokDataCaching } from './pultosokData/usePultosokDataCaching';
+import { toast } from '../utils';
 
 export const usePultosokData = () => {
   const {
@@ -100,22 +100,11 @@ export const usePultosokData = () => {
 
   useEffect(() => {
     if (networkingError.isError) {
-      Toast.show({
-        type: 'error',
-        position: 'bottom',
-        text1: networkingError.errorMessage,
-        text2: '',
-      });
-
+      console.error(networkingError.errorMessage);
       return;
     }
 
-    Toast.show({
-      type: 'success',
-      position: 'bottom',
-      text1: 'Pultosok Updated',
-      text2: '',
-    });
+    toast('Pultosok Loaded');
   }, [networkingData, networkingError]);
 
   useEffect(() => {
