@@ -3,7 +3,6 @@ import {
   RefreshControl,
   SafeAreaView,
   FlatList,
-  TouchableOpacity,
 } from 'react-native';
 import React, { useMemo } from 'react';
 import { WorkingDayCard } from './components/WorkingDayCard';
@@ -11,8 +10,6 @@ import { View, Text } from 'react-native';
 import { usePultosokData } from './hooks/usePultosokData';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { CURRENT_APK_VERSION } from './constants';
-import { useApkUpdater } from './hooks/useApkUpdater';
 import { ColorPalettes } from './colorPalettes';
 import { WorkingDayCardSkeleton } from './components/WorkingDayCardSkeleton';
 import { ErrorCard } from './components/ErrorCard';
@@ -23,6 +20,7 @@ import {
 import { WorkingDaySchedule } from './interfaces/WorkingDaySchedule';
 import { WorkingDayScheduleWeekDividerCard } from './components/WorkingDayScheduleWeekDividerCard';
 import { getWeekNumber } from './utils';
+import { UpdateButton } from './components/UpdateButton';
 
 type WorkingDayListObject =
   | WorkingDaySchedule
@@ -36,15 +34,6 @@ export default function App() {
     isRefreshing,
     error: pultosokDataError,
   } = usePultosokData();
-
-  const {
-    latestApkVersion,
-    isUpdateAvailable,
-    isDownloading,
-    isDownloadCompleted,
-    downloadPercent,
-    downloadAndInstall,
-  } = useApkUpdater();
 
   const colorPalettes = ColorPalettes;
 
@@ -101,28 +90,7 @@ export default function App() {
           style={{ width: '100%', height: '100%' }}
         >
           {/* Download & Update Button */}
-          {isUpdateAvailable && (
-            <TouchableOpacity
-              style={{
-                ...styles.updateButtonWrapper,
-                backgroundColor:
-                  isDownloading || isDownloadCompleted ? '#ccc' : '#62a4ff',
-              }}
-              onPress={() => downloadAndInstall()}
-            >
-              <View
-                style={{
-                  ...styles.updateButtonProgressBar,
-                  width: `${downloadPercent ?? 0}%`,
-                }}
-              ></View>
-              <Text style={styles.updateButton}>
-                {isDownloading && `Downloading update... (${downloadPercent}%)`}
-                {!isDownloading &&
-                  `Update to ${latestApkVersion} (current: ${CURRENT_APK_VERSION})`}
-              </Text>
-            </TouchableOpacity>
-          )}
+          <UpdateButton />
 
           <View style={styles.tasksWrapper}>
             <SafeAreaView>
@@ -233,27 +201,6 @@ const styles = StyleSheet.create({
   },
   loadingText: {
     fontSize: 24,
-  },
-  updateButtonWrapper: {
-    width: '100%',
-    height: 40,
-    backgroundColor: '#ccc',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
-  },
-  updateButton: {
-    backgroundColor: '#00000000',
-    fontSize: 20,
-    color: 'black',
-  },
-  updateButtonProgressBar: {
-    height: '100%',
-    backgroundColor: '#62a4ff',
-    position: 'absolute',
-    left: 0,
-    top: 0,
   },
   weekDivider: {
     width: '100%',
