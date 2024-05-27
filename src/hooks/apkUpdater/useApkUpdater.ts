@@ -1,6 +1,6 @@
-import { useApkUpdateChecker } from './apkUpdater/useApkUpdateChecker';
-import { useApkDownloader } from './apkUpdater/useApkDownloader';
-import { useApkInstaller } from './apkUpdater/useApkInstaller';
+import { useApkUpdateChecker } from './useApkUpdateChecker';
+import { useApkDownloader } from './useApkDownloader';
+import { useApkInstaller } from './useApkInstaller';
 import { useEffect } from 'react';
 
 export const useApkUpdater = () => {

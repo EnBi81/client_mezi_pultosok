@@ -1,7 +1,7 @@
 import { CURRENT_APK_VERSION } from '../constants';
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
-import { useApkUpdater } from '../hooks/useApkUpdater';
+import { useApkUpdater } from '../hooks/apkUpdater/useApkUpdater';
 
 export const UpdateButton = () => {
   const {
