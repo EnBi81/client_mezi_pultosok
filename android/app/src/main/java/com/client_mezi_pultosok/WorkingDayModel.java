@@ -3,7 +3,7 @@ package com.client_mezi_pultosok;
 public class WorkingDayModel {
     private String date;
     private String dateStringShort;
-    private String dateStringLong;
+    private String dayOfWeekString;
     private Boolean isNew;
     private Long isNewDateRegistered; // Use Long to allow null values
     private String[] cikola;
@@ -13,10 +13,10 @@ public class WorkingDayModel {
     public WorkingDayModel() {}
 
     // Parameterized constructor
-    public WorkingDayModel(String date, String dateStringShort, String dateStringLong, boolean isNew, Long isNewDateRegistered, String[] cikola, String[] doborgaz) {
+    public WorkingDayModel(String date, String dateStringShort, String dayOfWeekString, boolean isNew, Long isNewDateRegistered, String[] cikola, String[] doborgaz) {
         this.date = date;
         this.dateStringShort = dateStringShort;
-        this.dateStringLong = dateStringLong;
+        this.dayOfWeekString = dayOfWeekString;
         this.isNew = isNew;
         this.isNewDateRegistered = isNewDateRegistered;
         this.cikola = cikola;
@@ -40,12 +40,12 @@ public class WorkingDayModel {
         this.dateStringShort = dateStringShort;
     }
 
-    public String getDateStringLong() {
-        return dateStringLong;
+    public String getDayOfWeekString() {
+        return dayOfWeekString;
     }
 
-    public void setDateStringLong(String dateStringLong) {
-        this.dateStringLong = dateStringLong;
+    public void setDayOfWeekString(String dayOfWeekString) {
+        this.dayOfWeekString = dayOfWeekString;
     }
 
     public boolean getIsNew() {

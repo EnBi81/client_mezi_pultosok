@@ -42,7 +42,7 @@ public class PultosokAppWidgetProvider extends AppWidgetProvider {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_pultosok);
 
             if (today != null) {
-                views.setTextViewText(R.id.date_text, today.getDateStringLong());
+                views.setTextViewText(R.id.date_text, today.getDayOfWeekString());
 
                 var cikola = today.getCikola();
                 views.setTextViewText(R.id.cikola_text_1, cikola.length >= 1 ? cikola[0] : "");
@@ -107,7 +107,7 @@ public class PultosokAppWidgetProvider extends AppWidgetProvider {
                 ComponentName thisAppWidget = new ComponentName(context.getPackageName(), getClass().getName());
                 int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
                 onUpdate(context, appWidgetManager, appWidgetIds);
-            }, 1500);
+            }, 500);
         }
     }
 
@@ -138,21 +138,6 @@ public class PultosokAppWidgetProvider extends AppWidgetProvider {
             e.printStackTrace();
             return new WorkingDayModel[0];
         }
-    }
-
-    private Bitmap drawableToBitmap(Drawable drawable) {
-        if (drawable instanceof BitmapDrawable) {
-            return ((BitmapDrawable) drawable).getBitmap();
-        }
-
-        int width = drawable.getIntrinsicWidth();
-        int height = drawable.getIntrinsicHeight();
-        Bitmap bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-
-        return bitmap;
     }
 
     private WorkingDayModel getTodayWorkingDayModel(WorkingDayModel[] data) {

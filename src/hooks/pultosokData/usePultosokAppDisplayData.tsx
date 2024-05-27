@@ -3,12 +3,13 @@ import {
   isWorkingDayScheduleWeekDivider,
   WorkingDayScheduleWeekDivider,
 } from '../../interfaces/WorkingDayScheduleWeekDivider';
-import { getWeekNumber } from '../../utils';
+import { formatString, getWeekNumber } from '../../utils';
 import { WorkingDayCard } from '../../components/WorkingDayCard';
 import { WorkingDayScheduleWeekDividerCard } from '../../components/WorkingDayScheduleWeekDividerCard';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { StyleSheet, View, Text } from 'react-native';
 import { useGlobalColorPalette } from '../useGlobalColorPalette';
+import { useLocale } from '../useLocale';
 
 type WorkingDayListObject =
   | WorkingDaySchedule
@@ -18,6 +19,7 @@ type WorkingDayListObject =
 export const usePultosokAppDisplayData = (
   workingDays: WorkingDaySchedule[] | undefined,
 ) => {
+  const { l } = useLocale();
   const { colorPalette } = useGlobalColorPalette();
 
   // create a new array based on the working days,
@@ -86,7 +88,7 @@ export const usePultosokAppDisplayData = (
         <View style={{ marginHorizontal: 10 }}>
           <View style={styles.weekDivider}>
             <WorkingDayScheduleWeekDividerCard
-              text={`Week ${item.numberOfWeek} - ${item.displayDate}`}
+              text={`${formatString(l.weekNumber, item.numberOfWeek)} - ${item.displayDate}`}
             />
           </View>
         </View>
@@ -95,7 +97,7 @@ export const usePultosokAppDisplayData = (
 
     return (
       <View>
-        <Text>This should not be seen</Text>
+        <Text>{l.thisShouldNotBeSeen}</Text>
       </View>
     );
   };

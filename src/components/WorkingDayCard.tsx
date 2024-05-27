@@ -4,7 +4,8 @@ import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { ColorPalette } from '../interfaces/ColorPalette';
-import { capitalizeFirstLetter, toast } from '../utils';
+import { toast } from '../utils';
+import { useLocale } from '../hooks/useLocale';
 
 export const WorkingDayCard = ({
   schedule,
@@ -18,6 +19,8 @@ export const WorkingDayCard = ({
   const isJanicsDown = isCikolaDown && isDoborgazDown;
 
   const [ripple] = useState(TouchableNativeFeedback.Ripple('#ccc', false));
+
+  const { l } = useLocale();
 
   return (
     <View
@@ -33,7 +36,7 @@ export const WorkingDayCard = ({
         }}
       >
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.day}>{schedule.dateStringLong}</Text>
+          <Text style={styles.day}>{schedule.dayOfWeekString}</Text>
           {!isJanicsDown && schedule.isNew && (
             <LinearGradient
               colors={colorPalette.gradient}
@@ -44,15 +47,13 @@ export const WorkingDayCard = ({
               <Text
                 style={{ fontWeight: 'bold', color: colorPalette.textColor }}
               >
-                New
+                {l.new}
               </Text>
             </LinearGradient>
           )}
         </View>
 
-        <Text style={styles.date}>
-          {capitalizeFirstLetter(schedule.dateStringShort)}
-        </Text>
+        <Text style={styles.date}>{schedule.dateStringShort}</Text>
       </View>
 
       {!isJanicsDown && (

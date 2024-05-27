@@ -8,7 +8,6 @@ import android.content.Intent;
 import androidx.core.content.FileProvider;
 import java.io.File;
 import android.net.Uri;
-import android.util.Log;
 import com.facebook.react.bridge.Promise;
 import java.io.StringWriter;
 import java.io.PrintWriter;
@@ -30,35 +29,30 @@ public class InstallModule extends ReactContextBaseJavaModule {
     public void installApk(String apkPath, Promise promise) {
         try{
             File apkFile = new File(apkPath);
-            //File apkFile = new File(apkPath);
+
             if (!apkFile.exists()) {
                 promise.reject("FileNotFound", "APK file does not exist at path: " + apkPath);
                 return;
             }
 
-            Uri uri = FileProvider.getUriForFile(getReactApplicationContext(), getReactApplicationContext().getPackageName() + ".provider", apkFile);
+            var reactAppContext = getReactApplicationContext();
+            Uri uri = FileProvider.getUriForFile(reactAppContext, reactAppContext.getPackageName() + ".provider", apkFile);
 
             Intent install = new Intent(Intent.ACTION_VIEW);
             install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             install.setDataAndType(uri, "application/vnd.android.package-archive");
 
-            if (getCurrentActivity() != null) {
-                getCurrentActivity().startActivity(install);
+            var currentActivity = getCurrentActivity();
+            if (currentActivity != null) {
+                currentActivity.startActivity(install);
                 promise.resolve("");
             } else {
-                Log.e(getName(), "Current activity is null");
                 promise.reject("Current activity is null");
             }
         }
         catch(Exception e){
-            StringWriter sw = new StringWriter();
-            PrintWriter pw = new PrintWriter(sw);
-            e.printStackTrace(pw);
-            String sStackTrace = sw.toString(); // stack trace as a string
-
-            errorMessage = e.toString() + " " + sStackTrace + " apk path: " + apkPath;
-            promise.reject(errorMessage);
+            promise.reject(e.toString());
         }
     }
 }

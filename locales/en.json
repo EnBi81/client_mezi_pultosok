@@ -1,0 +1,23 @@
+{
+  "errorOccurred": "An error occurred:",
+  "update": {
+    "updateTo": "Update to {0} (current: {1}),",
+    "downloading": "Downloading update... ({0}%)",
+    "installing": "Installing {0}..."
+  },
+  "new": "New",
+  "weekNumber": "Week {0}",
+  "thisShouldNotBeSeen": "This should not be seen",
+  "daysOfWeek": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "networking": {
+    "dataLoaded": "Schedule Loaded"
+  }
+}

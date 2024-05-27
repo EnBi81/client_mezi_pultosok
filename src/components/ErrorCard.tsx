@@ -1,11 +1,14 @@
 import { StyleSheet, View, Text } from 'react-native';
 import React from 'react';
+import { useLocale } from '../hooks/useLocale';
 
 export const ErrorCard = ({ errorText }: { errorText: string }) => {
+  const { l } = useLocale();
+
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.errorHeaderText}>An error occurred:</Text>
+        <Text style={styles.errorHeaderText}>{l.errorOccurred}</Text>
         <View>
           <Text style={styles.errorText}>{errorText}</Text>
         </View>

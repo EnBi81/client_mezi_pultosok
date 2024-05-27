@@ -29,3 +29,9 @@ export function getWeekNumber(d) {
 
   return { year: d.getUTCFullYear(), weekNo };
 }
+
+export function formatString(template, ...args) {
+  return template.replace(/{([0-9]+)}/g, function (match, index) {
+    return typeof args[index] === 'undefined' ? match : args[index];
+  });
+}

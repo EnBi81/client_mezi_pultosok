@@ -1,7 +1,7 @@
 export interface WorkingDaySchedule {
   date: string;
   dateStringShort: string;
-  dateStringLong: string;
+  dayOfWeekString: string;
   isNew: boolean | undefined;
   isNewDateRegistered: number | undefined;
   cikola: string[];

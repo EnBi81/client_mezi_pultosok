@@ -1,0 +1,23 @@
+{
+  "errorOccurred": "Hiba történt:",
+  "update": {
+    "updateTo": "Frissítés erre: {0} (jelenlegi: {1})",
+    "downloading": "Frissítés letöltése... ({0}%)",
+    "installing": "{0} telepítése..."
+  },
+  "new": "Új",
+  "weekNumber": "{0}. Hét",
+  "thisShouldNotBeSeen": "Ennek nem kéne látszania",
+  "daysOfWeek": {
+    "monday": "Hétfő",
+    "tuesday": "Kedd",
+    "wednesday": "Szerda",
+    "thursday": "Csütörtök",
+    "friday": "Péntek",
+    "saturday": "Szombat",
+    "sunday": "Vasárnap"
+  },
+  "networking": {
+    "dataLoaded": "Pultosok Betöltve"
+  }
+}

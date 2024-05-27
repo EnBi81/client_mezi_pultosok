@@ -4,6 +4,7 @@ import PultosokSharedPreferences from 'react-native-shared-preferences';
 import { usePultosokDataNetworking } from './usePultosokDataNetworking';
 import { usePultosokDataCaching } from './usePultosokDataCaching';
 import { toast } from '../../utils';
+import { useLocale } from '../useLocale';
 
 export const usePultosokData = () => {
   const {
@@ -15,6 +16,8 @@ export const usePultosokData = () => {
   const { cachedData, cacheData, isInitialCacheLoaded } =
     usePultosokDataCaching();
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
+
+  const { l } = useLocale();
 
   // handling cache x network data
   useEffect(() => {
@@ -104,7 +107,7 @@ export const usePultosokData = () => {
       return;
     }
 
-    toast('Pultosok Loaded');
+    toast(l.networking.dataLoaded);
   }, [networkingData, networkingError]);
 
   useEffect(() => {

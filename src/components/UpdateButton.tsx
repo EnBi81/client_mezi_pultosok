@@ -2,6 +2,8 @@ import { CURRENT_APK_VERSION } from '../constants';
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { useApkUpdater } from '../hooks/apkUpdater/useApkUpdater';
+import { useLocale } from '../hooks/useLocale';
+import { formatString } from '../utils';
 
 export const UpdateButton = () => {
   const {
@@ -12,6 +14,10 @@ export const UpdateButton = () => {
     downloadPercent,
     downloadAndInstall,
   } = useApkUpdater();
+
+  const canDownloadBePressed = !isDownloading && !isDownloadCompleted;
+
+  const { l } = useLocale();
 
   return (
     <View>
@@ -31,11 +37,16 @@ export const UpdateButton = () => {
             }}
           ></View>
           <Text style={styles.updateButton}>
-            {isDownloading && `Downloading update... (${downloadPercent}%)`}
-            {!isDownloading &&
-              !isDownloadCompleted &&
-              `Update to ${latestApkVersion} (current: ${CURRENT_APK_VERSION})`}
-            {isDownloadCompleted && `Installing ${latestApkVersion}...`}
+            {isDownloading &&
+              formatString(l.update.downloading, downloadPercent)}
+            {canDownloadBePressed &&
+              formatString(
+                l.update.updateTo,
+                latestApkVersion,
+                CURRENT_APK_VERSION,
+              )}
+            {isDownloadCompleted &&
+              formatString(l.update.installing, latestApkVersion)}
           </Text>
         </TouchableOpacity>
       )}
