@@ -12,6 +12,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
+      - name: Read version from package.json
+        run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
       - name: Set up Node.js 20.x
         uses: actions/setup-node@v2
         with:
@@ -30,7 +33,6 @@ jobs:
           build-tools: 34.0.0
           ndk-version: 21.4.7075529
 
-
       - name: Install dependencies
         run: yarn install
 
@@ -43,3 +45,9 @@ jobs:
       - name: Build APK
         run: ./gradlew assembleRelease
         working-directory: android
+
+      - name: Upload file to server
+        run: |
+          curl -X POST "https://kisvesszosi-munka-beosztas.mypremiumhost.tech/upload?version=${{ env.VERSION }}" \
+          -H "Content-Type: multipart/form-data" \
+          -F "file=@android/app/build/outputs/apk/release/app-release.apk"
