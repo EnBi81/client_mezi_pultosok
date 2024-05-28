@@ -34,6 +34,9 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
+      - name: Modify build.gradle in react-native-os
+        run: sed -i "s/compile 'com.facebook.react:react-native:+/implementation 'com.facebook.react:react-native:+/g" node_modules/react-native-os/android/build.gradle
+
       - name: Grant execute permission for gradlew
         run: chmod +x android/gradlew
 
