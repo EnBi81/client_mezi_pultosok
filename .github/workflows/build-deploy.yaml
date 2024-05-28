@@ -34,11 +34,6 @@ jobs:
       - name: Install dependencies
         run: yarn install
 
-      - name: Change to Android directory
-        run: cd android
-
-      - name: Prepare Gradle Wrapper
-        run: ./gradlew wrapper
-
       - name: Build APK
         run: ./gradlew assembleRelease
+        working-directory: android
