@@ -2,6 +2,10 @@ package com.client_mezi_pultosok
 
 import com.rnfs.RNFSPackage
 import android.app.Application
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.content.Context
+import android.os.Build
 import com.facebook.react.PackageList
 import com.facebook.react.ReactApplication
 import com.facebook.react.ReactHost
@@ -14,7 +18,6 @@ import com.facebook.soloader.SoLoader
 import `in`.sriraman.sharedpreferences.RNSharedPreferencesReactPackage
 import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage
 
-
 class MainApplication : Application(), ReactApplication {
 
   override val reactNativeHost: ReactNativeHost =
@@ -23,7 +26,7 @@ class MainApplication : Application(), ReactApplication {
             PackageList(this).packages.apply {
               // Packages that cannot be autolinked yet can be added manually here, for example:
               // add(RNSharedPreferencesReactPackage())
-                add(InstallModulePackage())
+              add(InstallModulePackage())
             }
 
         override fun getJSMainModuleName(): String = "index"
@@ -43,6 +46,19 @@ class MainApplication : Application(), ReactApplication {
     if (BuildConfig.IS_NEW_ARCHITECTURE_ENABLED) {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       load()
+    }
+
+    // Create notification channel for Android O and above
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      val channel = NotificationChannel(
+          "default",
+          "Default Channel",
+          NotificationManager.IMPORTANCE_DEFAULT
+      ).apply {
+        description = "Default Channel 1"
+      }
+      val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+      manager.createNotificationChannel(channel)
     }
   }
 }

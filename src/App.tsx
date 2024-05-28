@@ -4,7 +4,7 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { usePultosokData } from './hooks/pultosokData/usePultosokData';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
@@ -14,6 +14,8 @@ import { ErrorCard } from './components/ErrorCard';
 import { UpdateButton } from './components/UpdateButton';
 import { useGlobalColorPalette } from './hooks/useGlobalColorPalette';
 import { usePultosokAppDisplayData } from './hooks/pultosokData/usePultosokAppDisplayData';
+import './PushNotificationsConfig';
+import PushNotification, { Importance } from 'react-native-push-notification';
 
 export default function App() {
   const { colorPalette } = useGlobalColorPalette();
@@ -30,6 +32,38 @@ export default function App() {
     workingDaysWithDividers,
     stickyHeaderIndices,
   } = usePultosokAppDisplayData(workingDays);
+
+  useEffect(() => {
+    PushNotification.createChannel(
+      {
+        channelId: 'default', // (required)
+        channelName: 'Default channel', // (required)
+        channelDescription: 'A default channel', // (optional) default: undefined.
+        importance: Importance.HIGH, // (optional) default: 4. Int value of the Android notification importance
+        vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
+      },
+      (created) => console.log(`createChannel 'default' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+    );
+
+    setTimeout(() => {
+      console.log('show notification');
+      PushNotification.localNotification({
+        ticker: 'My Notification Ticker',
+        userInfo: {},
+        channelId: 'default',
+        title: 'My Notification Title',
+        message: 'My Notification Message',
+        bigText:
+          'This is a bigger text to be displayed when the notification is expanded',
+        subText: 'This is a subText',
+        color: 'blue',
+        vibrate: false,
+        playSound: false,
+        soundName: 'default',
+        actions: ['Yes', 'No'],
+      });
+    }, 2000);
+  }, []);
 
   return (
     <View style={styles.container}>
