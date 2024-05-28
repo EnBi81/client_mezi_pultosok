@@ -2,7 +2,7 @@ name: Build Client Mezi Pultosok Apk
 
 on:
   push:
-    branches: [github-actions-setup]
+    branches: [main]
 
 jobs:
   build:
