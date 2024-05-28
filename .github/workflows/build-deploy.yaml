@@ -1,0 +1,62 @@
+name: Build Client Mezi Pultosok Apk
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v2
+        with:
+          node-version: 20.x
+
+      - name: Install JDK 17
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt'
+          java-version: '17'
+
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v2
+        with:
+          api-level: 34
+          build-tools: 34.0.0
+          ndk-version: 21.4.7075529
+
+      - name: Install dependencies
+        run: yarn install
+
+      - name: Modify build.gradle in react-native-os
+        run: sed -i "s/compile 'com.facebook.react:react-native:+/implementation 'com.facebook.react:react-native:+/g" node_modules/react-native-os/android/build.gradle
+
+      - name: Grant execute permission for gradlew
+        run: chmod +x android/gradlew
+
+      - name: Build APK
+        run: ./gradlew assembleRelease
+        working-directory: android
+
+      - name: Upload file to server
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        with:
+          username: ${{ secrets.SFTP_USERNAME }}
+          server: ${{ secrets.SFTP_SERVER }}
+          port: ${{ secrets.SFTP_PORT }}
+          local_path: 'android/app/build/outputs/apk/release/app-release.apk'
+          remote_path: 'public/apps/app-updated-release.apk'
+          sftp_only: true
+          password: ${{ secrets.SFTP_PW }}
+
+      - name: Read version from package.json
+        run: echo "VERSION=$(jq -r '.version' package.json)" >> $GITHUB_ENV
+
+      - name: Change latest apk version on the server
+        run: |
+          curl -X POST "https://kisvesszosi-munka-beosztas.mypremiumhost.tech/update-release?version=${{ env.VERSION }}"
