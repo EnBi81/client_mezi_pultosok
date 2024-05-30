@@ -107,7 +107,7 @@ export const usePultosokData = () => {
       return;
     }
 
-    toast(l.networking.dataLoaded);
+    //toast(l.networking.dataLoaded);
   }, [networkingData, networkingError]);
 
   useEffect(() => {

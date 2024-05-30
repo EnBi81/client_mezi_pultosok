@@ -3,6 +3,9 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
 
     <application
       android:name=".MainApplication"
@@ -24,6 +27,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- Custom Widget-->
         <receiver android:name=".PultosokAppWidgetProvider"
                   android:exported="false">
             <intent-filter>
@@ -33,6 +38,8 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/widget_pultosok_info" />
         </receiver>
+
+        <!-- File Provider-->
         <provider
           android:name="androidx.core.content.FileProvider"
           android:authorities="${applicationId}.provider"
@@ -42,20 +49,26 @@
               android:name="android.support.FILE_PROVIDER_PATHS"
               android:resource="@xml/file_paths" />
         </provider>
-        <meta-data  android:name="com.dieam.reactnativepushnotification.notification_foreground"
-            android:value="false"/>
-        <!-- Change the resource name to your App's accent color - or any other color you want -->
-        <meta-data  android:name="com.dieam.reactnativepushnotification.notification_color"
-            android:resource="@color/white"/>
-        <service
-          android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationListenerService"
-          android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-        <service android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationRegistrationService"/>
+
+        <!-- Push Notification-->
         <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationActions" />
         <receiver android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationPublisher" />
+        <receiver
+                android:enabled="true"
+                android:exported="true"
+                android:permission="android.permission.BROADCAST_PACKAGE_REPLACED"
+                android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationBootEventReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </receiver>
+
+        <service
+                android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationService"
+                android:exported="false"
+                android:permission="android.permission.BIND_JOB_SERVICE" />
+
     </application>
 </manifest>

@@ -17,9 +17,6 @@ PushNotification.configure({
     // notification.finish(PushNotificationIOS.FetchResult.NoData);
   },
 
-  // Android only: GCM or FCM Sender ID
-  senderID: 'YOUR GCM (OR FCM) SENDER ID',
-
   // IOS ONLY (optional): default: all - Permissions to register.
   permissions: {
     alert: true,
