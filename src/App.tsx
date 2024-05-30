@@ -13,7 +13,10 @@ import { WorkingDayCardSkeleton } from './components/WorkingDayCardSkeleton';
 import { ErrorCard } from './components/ErrorCard';
 import { UpdateButton } from './components/UpdateButton';
 import { useGlobalColorPalette } from './hooks/useGlobalColorPalette';
-import { usePultosokAppDisplayData } from './hooks/pultosokData/usePultosokAppDisplayData';
+import {
+  usePultosokAppDisplayData,
+  WorkingDayListObjectOptimized,
+} from './hooks/pultosokData/usePultosokAppDisplayData';
 import './PushNotificationsConfig';
 import PushNotification, { Importance } from 'react-native-push-notification';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
@@ -28,11 +31,8 @@ export default function App() {
     error: pultosokDataError,
   } = usePultosokData();
 
-  const {
-    renderWorkingDayListObject,
-    workingDaysWithDividers,
-    stickyHeaderIndices,
-  } = usePultosokAppDisplayData(workingDays);
+  const { workingDaysWithDividers, stickyHeaderIndices } =
+    usePultosokAppDisplayData(workingDays);
 
   useEffect(() => {
     const requestNotificationPermission = async () => {
@@ -62,6 +62,7 @@ export default function App() {
     );
 
     setTimeout(() => {
+      return;
       console.log('show notification');
       PushNotification.localNotification({
         ticker: '',
@@ -121,9 +122,13 @@ export default function App() {
                       onRefresh={refreshPultosok}
                     />
                   }
+                  removeClippedSubviews={true}
+                  initialNumToRender={25}
                   data={workingDaysWithDividers}
                   stickyHeaderIndices={stickyHeaderIndices}
-                  renderItem={renderWorkingDayListObject}
+                  renderItem={(params) => (
+                    <WorkingDayListObjectOptimized item={params.item} />
+                  )}
                 />
               )}
             </SafeAreaView>
