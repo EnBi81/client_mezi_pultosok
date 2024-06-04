@@ -3,6 +3,8 @@ import { SettingsSection } from '../components/settings/general/SettingsSection'
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
 
 export const SettingsPage = () => {
+  // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
+
   return (
     <View style={styles.contentWrapper}>
       <View style={{ height: 30 }}></View>
@@ -15,7 +17,7 @@ export const SettingsPage = () => {
         <View
           style={{
             borderRadius: 12,
-            backgroundColor: '#f8f8fa',
+            backgroundColor: '#f6f6f6',
             width: '100%',
             overflow: 'hidden',
           }}
@@ -31,6 +33,19 @@ export const SettingsPage = () => {
         title={'Notifications'}
         description={'Customize your notifications'}
       />
+
+      <View>
+        <View
+          style={{
+            borderRadius: 12,
+            backgroundColor: '#f6f6f6',
+            width: '100%',
+            overflow: 'hidden',
+          }}
+        >
+          <View></View>
+        </View>
+      </View>
     </View>
   );
 };

@@ -16,7 +16,7 @@ export const SettingsSection = ({
 };
 
 const styles = StyleSheet.create({
-  wrapper: { marginBottom: 30 },
+  wrapper: { marginBottom: 25 },
   title: {
     fontSize: 28,
     fontWeight: '900',
