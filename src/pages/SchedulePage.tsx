@@ -6,7 +6,7 @@ import {
 } from '../hooks/pultosokData/usePultosokAppDisplayData';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { UpdateButton } from '../components/schedule/UpdateButton';
-import { SettingsCircularButton } from '../components/settings/SettingsCircularButton';
+import { SettingsCircularButton } from '../components/settings/general/SettingsCircularButton';
 import { ErrorCard } from '../components/schedule/ErrorCard';
 import { WorkingDayCardSkeleton } from '../components/schedule/WorkingDayCardSkeleton';
 import React from 'react';
