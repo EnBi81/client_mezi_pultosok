@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 8 },
     shadowOpacity: 0.6,
-    elevation: 8,
+    elevation: 6,
   },
   header: {
     padding: 16,

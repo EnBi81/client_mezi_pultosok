@@ -4,22 +4,21 @@ import {
   SafeAreaView,
   FlatList,
 } from 'react-native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View } from 'react-native';
 import { usePultosokData } from './hooks/pultosokData/usePultosokData';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { WorkingDayCardSkeleton } from './components/WorkingDayCardSkeleton';
-import { ErrorCard } from './components/ErrorCard';
-import { UpdateButton } from './components/UpdateButton';
+import { WorkingDayCardSkeleton } from './components/schedule-page/WorkingDayCardSkeleton';
+import { ErrorCard } from './components/schedule-page/ErrorCard';
+import { UpdateButton } from './components/schedule-page/UpdateButton';
 import { useGlobalColorPalette } from './hooks/useGlobalColorPalette';
 import {
   usePultosokAppDisplayData,
   WorkingDayListObjectOptimized,
 } from './hooks/pultosokData/usePultosokAppDisplayData';
-import './PushNotificationsConfig';
-import PushNotification, { Importance } from 'react-native-push-notification';
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import './notifications/PushNotificationsConfig';
+import { SettingsCircularButton } from './components/settings/SettingsCircularButton';
 
 export default function App() {
   const { colorPalette } = useGlobalColorPalette();
@@ -34,50 +33,6 @@ export default function App() {
   const { workingDaysWithDividers, stickyHeaderIndices } =
     usePultosokAppDisplayData(workingDays);
 
-  useEffect(() => {
-    const requestNotificationPermission = async () => {
-      const result = await check(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
-      console.log('notification perm: ', result);
-      if (result !== RESULTS.GRANTED) {
-        const requestResult = await request(
-          PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
-        );
-        console.log('notification request result: ', requestResult);
-      }
-    };
-
-    requestNotificationPermission()
-      .then(() => console.log('notification request success'))
-      .catch((err) => console.log('notification request error: ', err));
-
-    PushNotification.createChannel(
-      {
-        channelId: 'default', // (required)
-        channelName: 'Default channel', // (required)
-        channelDescription: 'A default channel', // (optional) default: undefined.
-        importance: Importance.HIGH, // (optional) default: 4. Int value of the Android notification importance
-        vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
-      },
-      (created) => console.log(`createChannel 'default' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
-    );
-
-    setTimeout(() => {
-      return;
-      console.log('show notification');
-      PushNotification.localNotification({
-        ticker: '',
-        userInfo: undefined,
-        channelId: 'default',
-        title: 'My Notification Title',
-        message: 'My Notification Message',
-      });
-    }, 2000);
-
-    PushNotification.getChannels(function (channels) {
-      console.log(channels);
-    });
-  }, []);
-
   return (
     <View style={styles.container}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -85,10 +40,25 @@ export default function App() {
           colors={colorPalette.gradient}
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 1 }}
-          style={{ width: '100%', height: '100%' }}
+          style={styles.maxSize}
         >
           {/* Download & Update Button */}
           <UpdateButton />
+
+          <View style={styles.settingsView}>
+            <LinearGradient
+              colors={['#00000080', 'transparent']}
+              start={{ x: 0, y: 1 }}
+              end={{ x: 0, y: 0 }}
+              style={[styles.maxSize, styles.settingsButtonPositionContainer]}
+            >
+              <View style={styles.settingsButtonWrapper}>
+                <SettingsCircularButton
+                  onPress={() => console.log('settings press')}
+                />
+              </View>
+            </LinearGradient>
+          </View>
 
           <View style={styles.tasksWrapper}>
             <SafeAreaView>
@@ -140,40 +110,34 @@ export default function App() {
 }
 
 const styles = StyleSheet.create({
-  workingDayContainer: {
-    gap: 2,
-    marginBottom: 30,
+  maxSize: {
+    width: '100%',
+    height: '100%',
   },
   container: {
     flex: 1,
     backgroundColor: '#EBEAED',
+    position: 'relative',
   },
   tasksWrapper: {
     paddingTop: 30,
     paddingHorizontal: 0,
   },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    paddingHorizontal: 20,
-    marginBottom: 10,
-  },
-  loadingContainer: {
+  settingsView: {
+    position: 'absolute',
     width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
+    height: 100,
+    bottom: 0,
+    zIndex: 1,
   },
-  loadingContainerInner: {
-    width: '90%',
+  settingsButtonWrapper: {
     height: 60,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-
-    backgroundColor: 'white',
-    borderRadius: 10,
+    width: 60,
   },
-  loadingText: {
-    fontSize: 24,
+  settingsButtonPositionContainer: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+    padding: 20,
   },
 });

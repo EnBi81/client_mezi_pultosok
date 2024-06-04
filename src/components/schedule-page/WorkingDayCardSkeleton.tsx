@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
-    elevation: 8,
+    elevation: 4,
   },
   newTag: {
     borderRadius: 20,

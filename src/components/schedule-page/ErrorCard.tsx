@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
 import React from 'react';
-import { useLocale } from '../hooks/useLocale';
+import { useLocale } from '../../hooks/useLocale';
 
 export const ErrorCard = ({ errorText }: { errorText: string }) => {
   const { l } = useLocale();

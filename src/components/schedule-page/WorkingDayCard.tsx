@@ -1,11 +1,11 @@
 import { StyleSheet } from 'react-native';
 import React, { useState } from 'react';
-import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
+import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { ColorPalette } from '../interfaces/ColorPalette';
-import { toast } from '../utils';
-import { useLocale } from '../hooks/useLocale';
+import { ColorPalette } from '../../interfaces/ColorPalette';
+import { toast } from '../../utils';
+import { useLocale } from '../../hooks/useLocale';
 
 export const WorkingDayCard = ({
   schedule,
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
-    elevation: 8,
+    elevation: 4,
     overflow: 'hidden',
   },
   newTag: {

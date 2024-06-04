@@ -1,4 +1,4 @@
 export interface ColorPalette {
-    gradient: string[],
-    textColor: string,
+  gradient: string[];
+  textColor: string;
 }
