@@ -4,8 +4,8 @@ import {
   WorkingDayScheduleWeekDivider,
 } from '../../interfaces/WorkingDayScheduleWeekDivider';
 import { formatString, getWeekNumber } from '../../utils';
-import { WorkingDayCard } from '../../components/schedule-page/WorkingDayCard';
-import { WorkingDayScheduleWeekDividerCard } from '../../components/schedule-page/WorkingDayScheduleWeekDividerCard';
+import { WorkingDayCard } from '../../components/schedule/WorkingDayCard';
+import { WorkingDayScheduleWeekDividerCard } from '../../components/schedule/WorkingDayScheduleWeekDividerCard';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { StyleSheet, View, Text } from 'react-native';
 import { useGlobalColorPalette } from '../useGlobalColorPalette';
