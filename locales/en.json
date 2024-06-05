@@ -28,7 +28,7 @@
     }
   },
   "update": {
-    "updateTo": "Update to {0} (current: {1}),",
+    "updateTo": "Update to {0} (current: {1})",
     "downloading": "Downloading update... ({0}%)",
     "installing": "Installing {0}..."
   },
