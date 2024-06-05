@@ -1,10 +1,11 @@
 {
   "name": "client_mezi_pultosok",
-  "version": "1.2.5",
+  "version": "1.2.6",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
     "release-build-android": "cd android && gradlew assembleRelease",
+    "sync-version": "./.scripts/version-sync.cmd",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",

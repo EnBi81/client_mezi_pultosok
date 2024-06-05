@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import { API_ENDPOINT, CURRENT_APK_VERSION } from '../../constants';
-import RNFS from 'react-native-fs';
-import { Platform, Linking } from 'react-native';
 
 export const useApkUpdateChecker = () => {
   const [latestApkVersion, setLatestApkVersion] = useState<string>();

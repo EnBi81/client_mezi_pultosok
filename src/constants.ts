@@ -1,5 +1,4 @@
-import packageJson from '../package.json';
+import Config from 'react-native-config';
 
-export const API_ENDPOINT =
-  'https://kisvesszosi-munka-beosztas.mypremiumhost.tech';
-export const CURRENT_APK_VERSION = packageJson.version;
+export const API_ENDPOINT = Config.API_ENDPOINT;
+export const CURRENT_APK_VERSION = Config.APK_VERSION;
