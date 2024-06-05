@@ -40,7 +40,8 @@
         "collapseTitle": "Languages",
         "systemDefault": "System Default"
       },
-      "markAllAsRead": "Mark all as read"
+      "markAllAsRead": "Mark all as read",
+      "markedAllAsRead": "Marked all of them!"
     }
   }
 }

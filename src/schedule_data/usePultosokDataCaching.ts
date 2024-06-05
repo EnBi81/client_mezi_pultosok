@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
+import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
 import { useEffect, useState } from 'react';
 
 interface CacheDataObject {

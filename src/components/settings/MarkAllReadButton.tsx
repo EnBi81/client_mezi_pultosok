@@ -1,25 +1,30 @@
 import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useUIEffects } from '../../hooks/useUIEffects';
-import { toast } from '../../utils';
 import { useLocale } from '../../hooks/useLocale';
+import { usePultosokDataContext } from '../../hooks/pultosokData/usePultosokDataContext';
+import { toast } from '../../utils';
 
 export const MarkAllReadButton = () => {
   const { ripple } = useUIEffects();
   const { l } = useLocale();
+  const { markAllAsRead } = usePultosokDataContext();
 
   return (
     <View>
       <TouchableNativeFeedback
         background={ripple}
-        onPress={() => toast('This button is under development')}
+        onPress={() => {
+          markAllAsRead();
+          toast(l.settings.general.markedAllAsRead);
+        }}
       >
         <View style={styles.button}>
           <View>
             <Icon style={styles.icon} name={'read'} size={20} color={'black'} />
           </View>
           <View>
-            <Text style={styles.title}>{l.settings.markAllAsRead}</Text>
+            <Text style={styles.title}>{l.settings.general.markAllAsRead}</Text>
           </View>
         </View>
       </TouchableNativeFeedback>

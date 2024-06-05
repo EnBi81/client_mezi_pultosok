@@ -1,5 +1,4 @@
 import { useGlobalColorPalette } from '../hooks/useGlobalColorPalette';
-import { usePultosokData } from '../hooks/pultosokData/usePultosokData';
 import {
   usePultosokAppDisplayData,
   WorkingDayListObjectOptimized,
@@ -17,6 +16,7 @@ import {
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
+import { usePultosokDataContext } from '../hooks/pultosokData/usePultosokDataContext';
 
 export const SchedulePage = () => {
   const { colorPalette } = useGlobalColorPalette();
@@ -26,7 +26,7 @@ export const SchedulePage = () => {
     refresh: refreshPultosok,
     isRefreshing,
     error: pultosokDataError,
-  } = usePultosokData();
+  } = usePultosokDataContext();
 
   const { workingDaysWithDividers, stickyHeaderIndices } =
     usePultosokAppDisplayData(workingDays);
