@@ -1,8 +1,8 @@
 name: Update Package Version
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
+    branches: [dev]
 
 permissions:
   contents: write
@@ -14,10 +14,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        with:
-          ref: ${{ github.ref_name }}
-          token: ${{ secrets.GITHUB_TOKEN }}
-          fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
 
       - name: Set up Git user
         run: |
@@ -65,11 +61,6 @@ jobs:
           APK_VERSION=$(echo "${{ env.APK_VERSION }}")
           sed -i "s/versionName \".*\"/versionName \"$APK_VERSION\"/" android/app/build.gradle
 
-      - name: Commit & Push changes
-        uses: actions-js/push@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Commit changes
         if: env.MATCH == 'false'
         run: |
@@ -78,6 +69,6 @@ jobs:
           git commit -m "Synchronize version to ${{ env.APK_VERSION }} and increment versionCode to $newVersionCode"
 
       - name: Push changes
-        run: git push origin HEAD:${{ github.head_ref }}
+        run: git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
