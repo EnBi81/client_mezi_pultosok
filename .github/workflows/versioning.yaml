@@ -1,0 +1,37 @@
+name: Update Package Version
+
+on:
+  push:
+    branches:
+      - versioning-automatization
+
+jobs:
+  update-version:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Read APK_VERSION from .env
+        id: read_version
+        run: |
+          echo "APK_VERSION=$(grep 'APK_VERSION=' .env | cut -d '=' -f 2)" >> $GITHUB_ENV
+
+      #- name: Install jq
+      #  run: sudo apt-get install jq -y
+
+      - name: Update package.json version
+        run: |
+          APK_VERSION=$(echo "${{ env.APK_VERSION }}")
+          jq --arg ver "$APK_VERSION" '.version = $ver' package.json > tmp.$$.json && mv tmp.$$.json package.json
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add package.json
+          git commit -m "Update version to ${{ env.APK_VERSION }}"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
