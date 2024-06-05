@@ -40,7 +40,8 @@
         "collapseTitle": "Nyelvbeállítások",
         "systemDefault": "Rendszer alapértelmezett"
       },
-      "markAllAsRead": "Mindet olvasottnak jelölni"
+      "markAllAsRead": "Mindet olvasottnak jelölni",
+      "markedAllAsRead": "Nahh ez is megvolt"
     }
   }
 }

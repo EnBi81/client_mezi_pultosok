@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
+import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
 import PultosokSharedPreferences from 'react-native-shared-preferences';
 import { usePultosokDataNetworking } from './usePultosokDataNetworking';
 import { usePultosokDataCaching } from './usePultosokDataCaching';
-import { toast } from '../../utils';
-import { useLocale } from '../useLocale';
+import { toast } from '../utils';
+import { useLocale } from '../hooks/useLocale';
 
 export const usePultosokData = () => {
   const {
@@ -13,11 +13,13 @@ export const usePultosokData = () => {
     isRefreshing,
     error: networkingError,
   } = usePultosokDataNetworking();
+
   const { cachedData, cacheData, isInitialCacheLoaded } =
     usePultosokDataCaching();
+
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
 
-  const { l, currentLocale } = useLocale();
+  const { l } = useLocale();
 
   // handling cache x network data
   useEffect(() => {
@@ -42,7 +44,6 @@ export const usePultosokData = () => {
         isNewDateRegistered: now,
       }));
 
-      cacheData(data);
       setWorkingDays(data);
       return;
     }
@@ -88,7 +89,6 @@ export const usePultosokData = () => {
     });
 
     setWorkingDays(days);
-    cacheData(days);
   }, [isInitialCacheLoaded, networkingData]);
 
   // sending data to the widget
@@ -101,6 +101,7 @@ export const usePultosokData = () => {
     PultosokSharedPreferences.setItem('apiData', JSON.stringify(workingDays));
   }, [workingDays]);
 
+  // displaying error toasts
   useEffect(() => {
     if (networkingError.isError) {
       if (networkingError.isNetworkError)
@@ -110,6 +111,7 @@ export const usePultosokData = () => {
     }
   }, [networkingData, networkingError]);
 
+  // auto refresh data
   useEffect(() => {
     const interval = setInterval(
       () => {
@@ -121,10 +123,27 @@ export const usePultosokData = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // cache data
+  useEffect(() => {
+    if (workingDays) cacheData(workingDays);
+  }, [workingDays]);
+
+  const markAllAsRead = () => {
+    if (!workingDays) return;
+
+    const markedRead: WorkingDaySchedule[] = workingDays.map((day) => ({
+      ...day,
+      isNew: false,
+    }));
+
+    setWorkingDays(markedRead);
+  };
+
   return {
     workingDays,
     refresh: refresh,
     isRefreshing,
     error: networkingError,
+    markAllAsRead: () => markAllAsRead(),
   };
 };
