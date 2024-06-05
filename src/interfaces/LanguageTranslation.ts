@@ -1,4 +1,12 @@
 export interface LanguageTranslation {
+  navigation: {
+    schedulePage: {
+      name: string;
+    };
+    settingsPage: {
+      name: string;
+    };
+  };
   schedule: {
     errorOccurred: string;
     new: string;

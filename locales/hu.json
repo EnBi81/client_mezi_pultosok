@@ -1,4 +1,12 @@
 {
+  "navigation": {
+    "schedulePage": {
+      "name": "Beosztás"
+    },
+    "settingsPage": {
+      "name": "Beállítások"
+    }
+  },
   "schedule": {
     "errorOccurred": "Hiba történt:",
     "new": "Új",

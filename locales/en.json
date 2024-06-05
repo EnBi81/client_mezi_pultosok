@@ -1,4 +1,12 @@
 {
+  "navigation": {
+    "schedulePage": {
+      "name": "Schedule"
+    },
+    "settingsPage": {
+      "name": "Settings"
+    }
+  },
   "schedule": {
     "errorOccurred": "An error occurred:",
     "new": "New",
