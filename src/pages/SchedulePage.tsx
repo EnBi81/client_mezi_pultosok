@@ -18,8 +18,9 @@ import {
   View,
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { useNavigation } from '../hooks/useNavigation';
 
-export const SchedulePage = ({ navigation }) => {
+export const SchedulePage = () => {
   const { colorPalette } = useGlobalColorPalette();
 
   const {
@@ -31,6 +32,8 @@ export const SchedulePage = ({ navigation }) => {
 
   const { workingDaysWithDividers, stickyHeaderIndices } =
     usePultosokAppDisplayData(workingDays);
+
+  const { navigate } = useNavigation();
 
   return (
     <View style={styles.container}>
@@ -53,7 +56,7 @@ export const SchedulePage = ({ navigation }) => {
             >
               <View style={styles.settingsButtonWrapper}>
                 <SettingsCircularButton
-                  onPress={() => navigation.navigate('Settings')}
+                  onPress={() => navigate.to.settings()}
                 />
               </View>
             </LinearGradient>
