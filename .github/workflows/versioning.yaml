@@ -16,6 +16,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: ${{ github.ref_name }}
+          fetch-depth: 0             # otherwise, you will fail to push refs to dest repo
 
       - name: Set up Git user
         run: |
@@ -63,12 +64,17 @@ jobs:
           APK_VERSION=$(echo "${{ env.APK_VERSION }}")
           sed -i "s/versionName \".*\"/versionName \"$APK_VERSION\"/" android/app/build.gradle
 
-      - name: Commit changes
-        if: env.MATCH == 'false'
-        run: |
-          git add package.json 
-          git add android/app/build.gradle
-          git commit -m "Synchronize version to ${{ env.APK_VERSION }} and increment versionCode to $newVersionCode"
-          git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+      #- name: Commit changes
+      #  if: env.MATCH == 'false'
+      #  run: |
+      #    git add package.json
+      #    git add android/app/build.gradle
+      #    git commit -m "Synchronize version to ${{ env.APK_VERSION }} and increment versionCode to $newVersionCode"
+      #    git push
+      #  env:
+      #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
