@@ -59,6 +59,7 @@ jobs:
       - name: Commit changes
         if: env.MATCH == 'false'
         run: |
+          git pull
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add package.json android/app/build.gradle
