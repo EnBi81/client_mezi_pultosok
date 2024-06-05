@@ -80,7 +80,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 11
-        versionName project.env.get("APK_VERSION")
+        versionName "1.2.2"
     }
     signingConfigs {
         debug {

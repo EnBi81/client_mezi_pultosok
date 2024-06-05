@@ -26,6 +26,19 @@ jobs:
           APK_VERSION=$(echo "${{ env.APK_VERSION }}")
           jq --arg ver "$APK_VERSION" '.version = $ver' package.json > tmp.$$.json && mv tmp.$$.json package.json
 
+      - name: Increment versionCode in build.gradle
+        run: |
+          # Read the current versionCode
+          versionCode=$(grep 'versionCode' android/app/build.gradle | awk '{print $2}')
+          # Increment the versionCode
+          newVersionCode=$((versionCode + 1))
+          # Update the build.gradle file
+          sed -i "s/versionCode $versionCode/versionCode $newVersionCode/" android/app/build.gradle
+          # Update the build.gradle file with the new versionName
+          APK_VERSION=$(echo "${{ env.APK_VERSION }}")
+          sed -i "s/versionName \".*\"/versionName \"$APK_VERSION\"/" android/app/build.gradle
+
+
       - name: Commit changes
         run: |
           git config --local user.email "action@github.com"
