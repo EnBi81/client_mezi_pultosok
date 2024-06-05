@@ -5,8 +5,6 @@ import {
   WorkingDayListObjectOptimized,
 } from '../hooks/pultosokData/usePultosokAppDisplayData';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { UpdateButton } from '../components/schedule/UpdateButton';
-import { SettingsCircularButton } from '../components/settings/SettingsCircularButton';
 import { ErrorCard } from '../components/schedule/ErrorCard';
 import { WorkingDayCardSkeleton } from '../components/schedule/WorkingDayCardSkeleton';
 import React from 'react';
@@ -18,7 +16,7 @@ import {
   View,
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useNavigation } from '../navigation/useNavigation';
+import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
 
 export const SchedulePage = () => {
   const { colorPalette } = useGlobalColorPalette();
@@ -33,8 +31,6 @@ export const SchedulePage = () => {
   const { workingDaysWithDividers, stickyHeaderIndices } =
     usePultosokAppDisplayData(workingDays);
 
-  const { navigate } = useNavigation();
-
   return (
     <View style={styles.container}>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -44,22 +40,27 @@ export const SchedulePage = () => {
           end={{ x: 1, y: 1 }}
           style={styles.maxSize}
         >
-          {/* Download & Update Button */}
-          <UpdateButton />
-
-          <View style={styles.settingsView}>
+          <View pointerEvents={'none'} style={styles.settingsView}>
             <LinearGradient
               colors={['#00000080', 'transparent']}
               start={{ x: 0, y: 1 }}
               end={{ x: 0, y: 0 }}
               style={[styles.maxSize, styles.settingsButtonPositionContainer]}
-            >
-              <View style={styles.settingsButtonWrapper}>
-                <SettingsCircularButton
-                  onPress={() => navigate.to.settings()}
-                />
-              </View>
-            </LinearGradient>
+            ></LinearGradient>
+          </View>
+          <View
+            pointerEvents={'box-none'}
+            style={{
+              position: 'absolute',
+              zIndex: 2,
+              width: '100%',
+              bottom: 0,
+              right: 0,
+              paddingHorizontal: 20,
+              paddingBottom: 20,
+            }}
+          >
+            <SettingsUpdateWrapper />
           </View>
 
           <View style={styles.tasksWrapper}>
@@ -131,10 +132,6 @@ const styles = StyleSheet.create({
     height: 100,
     bottom: 0,
     zIndex: 1,
-  },
-  settingsButtonWrapper: {
-    height: 60,
-    width: 60,
   },
   settingsButtonPositionContainer: {
     flexDirection: 'row',
