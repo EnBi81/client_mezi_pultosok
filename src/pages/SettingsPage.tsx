@@ -23,14 +23,14 @@ export const SettingsPage = () => {
 
       <View style={{ height: 40 }}></View>
 
-      <SettingsHeader
+      {/*<SettingsHeader
         title={'Notifications'}
         description={'Customize your notifications'}
       />
 
       <GradientBorder borderWidth={2} borderRadius={12}>
         <Switch onValueChange={(val) => console.log('change')} value={true} />
-      </GradientBorder>
+      </GradientBorder>*/}
     </View>
   );
 };

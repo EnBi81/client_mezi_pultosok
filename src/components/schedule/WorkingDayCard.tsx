@@ -115,11 +115,11 @@ const styles = StyleSheet.create({
   },
   newTag: {
     borderRadius: 20,
-    width: 50,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     marginLeft: 10,
+    paddingHorizontal: 13,
   },
   header: {
     flexDirection: 'row',

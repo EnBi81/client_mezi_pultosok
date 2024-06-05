@@ -12,12 +12,14 @@ import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 const languages = {
   en: {
     id: 'en',
+    locale: 'en-Us',
     name: 'English',
     flag: <Icon name={'united-kingdom'} />,
     translates: en,
   },
   hu: {
     id: 'hu',
+    locale: 'hu-HU',
     name: 'Magyar',
     flag: <Icon name={'hungary'} />,
     translates: hu,
@@ -47,6 +49,7 @@ export const useLocale = () => {
   const [translation, setTranslation] = useState<LanguageTranslation>(
     languages.en.translates,
   );
+  const [currentLocale, setCurrentLocale] = useState<string>();
 
   useEffect(() => {
     const savedLanguageId = settings.languageId;
@@ -55,35 +58,43 @@ export const useLocale = () => {
     if (savedLanguageId && savedLanguageId in languages) {
       localizedStrings.current.setLanguage(savedLanguageId);
       setTranslation({ ...localizedStrings.current });
+      setCurrentLocale(languages[savedLanguageId].locale);
       return;
     }
 
     // otherwise, get the device default
     const devicePrimaryLanguage = getDevicePrimaryLanguage();
     if (devicePrimaryLanguage in languages) {
-      localizedStrings.current.setLanguage(devicePrimaryLanguage);
+      localizedStrings.current.setLanguage(devicePrimaryLanguage.countryCode);
       setTranslation({ ...localizedStrings.current });
+      setCurrentLocale(devicePrimaryLanguage.locale);
     } else {
       // fallback language
       localizedStrings.current.setLanguage(languages.en.id);
       setTranslation({ ...localizedStrings.current });
+      setCurrentLocale(languages.en.locale);
     }
   }, [settings.languageId]);
 
   return {
     l: translation,
+    currentLocale: currentLocale,
     availableLanguages: availableLanguages,
   };
 };
 
-function getDevicePrimaryLanguage(): string {
+function getDevicePrimaryLanguage() {
   const locale = Platform.select({
     ios: () =>
       NativeModules.SettingsManager.settings.AppleLocale ||
       NativeModules.SettingsManager.settings.AppleLanguages[0],
     default: () => NativeModules.I18nManager.localeIdentifier,
   })();
-  return locale.replace('-', '_').split('_')[0];
+
+  return {
+    locale: locale,
+    countryCode: locale.replace('-', '_').split('_')[0],
+  };
 }
 
 type LanguageCollection = {

@@ -17,7 +17,7 @@ export const usePultosokData = () => {
     usePultosokDataCaching();
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
 
-  const { l } = useLocale();
+  const { l, currentLocale } = useLocale();
 
   // handling cache x network data
   useEffect(() => {

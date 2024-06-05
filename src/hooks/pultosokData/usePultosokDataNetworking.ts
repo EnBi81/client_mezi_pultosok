@@ -16,7 +16,7 @@ export const usePultosokDataNetworking = () => {
   });
   const [counter, setCounter] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { l } = useLocale();
+  const { l, currentLocale } = useLocale();
 
   const getDayOfWeek = (dayNum: number) => {
     if (dayNum === 0) return l.schedule.daysOfWeek.sunday;
@@ -72,7 +72,7 @@ export const usePultosokDataNetworking = () => {
             return {
               ...d,
               isNew: false,
-              dateStringShort: date.toLocaleDateString(undefined, {
+              dateStringShort: date.toLocaleDateString(currentLocale, {
                 dateStyle: 'short',
               }),
               dayOfWeekString: getDayOfWeek(date.getDay()),
@@ -96,7 +96,7 @@ export const usePultosokDataNetworking = () => {
           isNetworkError: false,
         });
       });
-  }, [counter]);
+  }, [counter, l, currentLocale]);
 
   function refresh() {
     setCounter((prev) => prev + 1);
