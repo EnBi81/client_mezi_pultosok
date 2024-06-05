@@ -15,16 +15,6 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Git user
-        run: |
-          git config --global user.email "action@github.com"
-          git config --global user.name "GitHub Action"
-
-      - name: Checkout the branch
-        run: |
-          git checkout -B ${{ github.event.pull_request.head.ref }}
-          git pull
-
       - name: Read APK_VERSION from .env
         id: read_version
         run: |
@@ -69,8 +59,11 @@ jobs:
       - name: Commit changes
         if: env.MATCH == 'false'
         run: |
-          git add package.json android/app/build.gradle
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add package.json 
+          git add android/app/build.gradle
           git commit -m "Synchronize version to ${{ env.APK_VERSION }} and increment versionCode to $newVersionCode"
-          git push origin HEAD:${{ github.event.pull_request.head.ref }}
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
