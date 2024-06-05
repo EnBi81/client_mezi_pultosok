@@ -28,9 +28,9 @@
     }
   },
   "update": {
-    "updateTo": "Frissítés erre: {0} (jelenlegi: {1})",
-    "downloading": "Frissítés letöltése... ({0}%)",
-    "installing": "{0} telepítése..."
+    "updateTo": "Frissítés erre: {0}",
+    "downloading": "Letöltés... {0}%",
+    "installing": "Telepítés {0}"
   },
   "settings": {
     "general": {

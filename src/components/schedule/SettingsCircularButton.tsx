@@ -9,7 +9,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRef } from 'react';
-import { useGlobalColorPalette } from '../../../hooks/useGlobalColorPalette';
+import { useGlobalColorPalette } from '../../hooks/useGlobalColorPalette';
 
 export const SettingsCircularButton = ({
   onPress,

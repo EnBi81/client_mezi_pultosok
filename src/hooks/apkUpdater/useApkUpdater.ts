@@ -36,6 +36,7 @@ export const useApkUpdater = () => {
     latestApkVersion,
     isUpdateAvailable,
     downloadAndInstall: () => downloadAndInstall(),
+    install: () => install(latestApkDownloadPath.fullPath),
     isDownloading: !isNaN(downloadPercent ?? NaN) && !isDownloadCompleted,
     isDownloadCompleted,
     downloadPercent,

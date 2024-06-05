@@ -1,11 +1,12 @@
 import { StyleSheet } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { ColorPalette } from '../../interfaces/ColorPalette';
 import { toast } from '../../utils';
 import { useLocale } from '../../hooks/useLocale';
+import { useUIEffects } from '../../hooks/useUIEffects';
 
 export const WorkingDayCard = ({
   schedule,
@@ -18,7 +19,7 @@ export const WorkingDayCard = ({
   const isDoborgazDown = schedule.doborgaz.length === 0;
   const isJanicsDown = isCikolaDown && isDoborgazDown;
 
-  const [ripple] = useState(TouchableNativeFeedback.Ripple('#ccc', false));
+  const { ripple } = useUIEffects();
 
   const { l } = useLocale();
 

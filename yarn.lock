@@ -3896,6 +3896,7 @@ __metadata:
     react: 18.2.0
     react-native: ^0.74.1
     react-native-collapsible: ^1.6.1
+    react-native-config: ^1.5.1
     react-native-fs: ^2.20.0
     react-native-gesture-handler: ^2.16.2
     react-native-ico-flags: ^5.1.2
@@ -8342,6 +8343,18 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: ec28769002dd29290f3a9e49ebb7d8ac93a7dfd759669a06f3c235983548e622269b267753b32c4f41224ca5ea6b71bc497fd8594bba0d1e28566f44318a06b7
+  languageName: node
+  linkType: hard
+
+"react-native-config@npm:^1.5.1":
+  version: 1.5.1
+  resolution: "react-native-config@npm:1.5.1"
+  peerDependencies:
+    react-native-windows: ">=0.61"
+  peerDependenciesMeta:
+    react-native-windows:
+      optional: true
+  checksum: ae17b750e445310573ce33798db67c9b8c50e55cb2ba136e9a9ef8372dd3f7669ce236bb18bf1fa8a426fd1aa9e6b516fb2f593767bd24688242f6847cd37712
   languageName: node
   linkType: hard
 
