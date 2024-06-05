@@ -55,6 +55,7 @@ jobs:
           versionCode=$(grep 'versionCode' android/app/build.gradle | awk '{print $2}')
           # Increment the versionCode
           newVersionCode=$((versionCode + 1))
+          echo "NEW_VERSION_CODE=$newVersionCode" >> $GITHUB_ENV
           # Update the build.gradle file with the new versionCode
           sed -i "s/versionCode $versionCode/versionCode $newVersionCode/" android/app/build.gradle
           # Update the build.gradle file with the new versionName
@@ -66,9 +67,10 @@ jobs:
         run: |
           git add package.json
           git add android/app/build.gradle
-          git commit -m "Synchronize version to ${{ env.APK_VERSION }} and increment versionCode to $newVersionCode"
+          git commit -m "Synchronize version to ${{ env.APK_VERSION }} and increment versionCode to ${{ env.NEW_VERSION_CODE }}"
 
       - name: Push changes
+        if: env.MATCH == 'false'
         run: git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
