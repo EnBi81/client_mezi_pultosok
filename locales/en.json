@@ -28,9 +28,9 @@
     }
   },
   "update": {
-    "updateTo": "Update to {0} (current: {1})",
-    "downloading": "Downloading update... ({0}%)",
-    "installing": "Installing {0}..."
+    "updateTo": "Update to {0}",
+    "downloading": "Downloading... {0}%",
+    "installing": "Install {0}"
   },
   "settings": {
     "general": {
