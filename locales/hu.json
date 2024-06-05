@@ -39,7 +39,8 @@
       "language": {
         "collapseTitle": "Nyelvbeállítások",
         "systemDefault": "Rendszer alapértelmezett"
-      }
+      },
+      "markAllAsRead": "Mindet olvasottnak jelölni"
     }
   }
 }

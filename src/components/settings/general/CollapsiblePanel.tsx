@@ -8,6 +8,7 @@ import {
   Animated,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useUIEffects } from '../../../hooks/useUIEffects';
 
 export const CollapsiblePanel = ({
   title,
@@ -20,6 +21,7 @@ export const CollapsiblePanel = ({
 }) => {
   const [isCollapsed, setCollapsed] = useState(true);
   const arrowAnimation = useRef(new Animated.Value(0)).current;
+  const { ripple } = useUIEffects();
 
   useEffect(() => {
     Animated.timing(arrowAnimation, {
@@ -40,14 +42,17 @@ export const CollapsiblePanel = ({
 
   return (
     <View style={styles.maxWidth}>
-      <TouchableNativeFeedback onPress={() => setCollapsed((prev) => !prev)}>
+      <TouchableNativeFeedback
+        background={ripple}
+        onPress={() => setCollapsed((prev) => !prev)}
+      >
         <View style={[styles.row, styles.button]}>
           {iconName && (
             <Icon style={styles.icon} name={iconName} size={20} color='#000' />
           )}
           <Text style={styles.title}>{title}</Text>
           <Animated.View style={[styles.arrow, arrowStyle]}>
-            <Icon name='keyboard-arrow-down' size={20} color='#000' />
+            <Icon name='keyboard-arrow-down' size={20} color='black' />
           </Animated.View>
         </View>
       </TouchableNativeFeedback>

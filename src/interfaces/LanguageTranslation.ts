@@ -30,5 +30,6 @@ export interface LanguageTranslation {
       description: string;
       language: { collapseTitle: string; systemDefault: string };
     };
+    markAllAsRead: string;
   };
 }
