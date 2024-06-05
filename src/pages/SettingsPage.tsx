@@ -1,7 +1,8 @@
-import { View, StyleSheet } from 'react-native';
-import { SettingsSection } from '../components/settings/general/SettingsSection';
+import { View, StyleSheet, Switch } from 'react-native';
+import { SettingsHeader } from '../components/settings/general/SettingsHeader';
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
 import { useLocale } from '../hooks/useLocale';
+import { GradientBorder } from '../components/settings/general/GradientBorder';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
@@ -11,44 +12,25 @@ export const SettingsPage = () => {
   return (
     <View style={styles.contentWrapper}>
       <View style={{ height: 30 }}></View>
-      <SettingsSection
+      <SettingsHeader
         title={l.settings.general.title}
         description={l.settings.general.description}
       />
 
-      <View>
-        <View
-          style={{
-            borderRadius: 12,
-            backgroundColor: '#f6f6f6',
-            width: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <View>
-            <LanguageRadioButtons />
-          </View>
-        </View>
-      </View>
+      <GradientBorder borderWidth={2} borderRadius={12}>
+        <LanguageRadioButtons />
+      </GradientBorder>
 
       <View style={{ height: 40 }}></View>
-      <SettingsSection
+
+      <SettingsHeader
         title={'Notifications'}
         description={'Customize your notifications'}
       />
 
-      <View>
-        <View
-          style={{
-            borderRadius: 12,
-            backgroundColor: '#f6f6f6',
-            width: '100%',
-            overflow: 'hidden',
-          }}
-        >
-          <View></View>
-        </View>
-      </View>
+      <GradientBorder borderWidth={2} borderRadius={12}>
+        <Switch onValueChange={(val) => console.log('change')} value={true} />
+      </GradientBorder>
     </View>
   );
 };
@@ -66,5 +48,19 @@ const styles = StyleSheet.create({
   },
   whiteBg: {
     backgroundColor: 'white',
+  },
+  gradientContainer: {
+    borderRadius: 12,
+    overflow: 'hidden',
+  },
+  gradientBorder: {
+    padding: 2, // Adjust this value to control the thickness of the border
+    borderRadius: 12,
+  },
+  gradientInnerContainer: {
+    borderRadius: 10, // Adjust this value if needed
+    backgroundColor: '#f6f6f6',
+    width: '100%',
+    overflow: 'hidden',
   },
 });

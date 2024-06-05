@@ -12,7 +12,7 @@ export const AppNavigation = () => {
 
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Schedule'>
+      <Stack.Navigator initialRouteName='Settings'>
         <Stack.Screen
           name='Schedule'
           component={SchedulePage}

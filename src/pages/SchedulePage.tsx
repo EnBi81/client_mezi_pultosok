@@ -18,7 +18,7 @@ import {
   View,
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { useNavigation } from '../hooks/useNavigation';
+import { useNavigation } from '../navigation/useNavigation';
 
 export const SchedulePage = () => {
   const { colorPalette } = useGlobalColorPalette();

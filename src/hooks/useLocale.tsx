@@ -48,8 +48,6 @@ export const useLocale = () => {
     languages.en.translates,
   );
 
-  console.log('language:' + settings.languageId);
-
   useEffect(() => {
     const savedLanguageId = settings.languageId;
 

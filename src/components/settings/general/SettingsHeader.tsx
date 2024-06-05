@@ -1,6 +1,6 @@
 import { StyleSheet, View, Text } from 'react-native';
 
-export const SettingsSection = ({
+export const SettingsHeader = ({
   title,
   description,
 }: {

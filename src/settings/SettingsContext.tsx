@@ -1,5 +1,6 @@
 import { Settings } from '../interfaces/Settings';
 import { createContext, useState } from 'react';
+import { useSettingsContextHook } from './useSettingsContextHook';
 
 export const DefaultSettings: Settings = {
   languageId: undefined,
@@ -20,13 +21,13 @@ export const SettingsContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const [settings, setSettings] = useState<Settings>(DefaultSettings);
+  const { settings, modifySettings } = useSettingsContextHook();
 
   return (
     <SettingsContext.Provider
       value={{
         settings,
-        modifySettings: (settings) => setSettings({ ...settings }),
+        modifySettings: (settings) => modifySettings({ ...settings }),
       }}
     >
       {children}
