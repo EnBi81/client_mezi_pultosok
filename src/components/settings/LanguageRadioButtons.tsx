@@ -2,12 +2,12 @@ import { RadioGroup, RadioItem } from './general/RadioGroup';
 import { CollapsiblePanel } from './general/CollapsiblePanel';
 import { useLocale } from '../../hooks/useLocale';
 import { useMemo } from 'react';
-import { useSettings } from '../../hooks/useSettings';
-import IconFA6 from 'react-native-vector-icons/FontAwesome6';
+import { useSettings } from '../../settings/useSettings';
+import IconFA6 from 'react-native-vector-icons/MaterialIcons';
 
 export const LanguageRadioButtons = () => {
-  const { settings, saveSettings } = useSettings();
-  const { availableLanguages } = useLocale();
+  const { settings, modifySettings } = useSettings();
+  const { availableLanguages, l } = useLocale();
 
   const idForSystemDefault = 'id_for_system_default';
 
@@ -21,22 +21,25 @@ export const LanguageRadioButtons = () => {
     return [
       {
         id: idForSystemDefault,
-        icon: <IconFA6 name={'user'} size={16} />,
-        title: 'System Default',
+        icon: <IconFA6 name={'person'} size={20} />,
+        title: l.settings.general.language.systemDefault,
       },
       ...convertedAvailableLanguages,
     ];
-  }, [availableLanguages]);
+  }, [availableLanguages, l]);
 
   const onSelectionChange = (languageId: string) => {
-    saveSettings({
+    modifySettings({
       ...settings,
       languageId: languageId === idForSystemDefault ? undefined : languageId,
     });
   };
 
   return (
-    <CollapsiblePanel title={'Language'} iconName={'language'}>
+    <CollapsiblePanel
+      title={l.settings.general.language.collapseTitle}
+      iconName={'translate'}
+    >
       <RadioGroup
         items={radioItems}
         selectedId={

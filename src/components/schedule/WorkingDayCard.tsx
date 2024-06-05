@@ -47,7 +47,7 @@ export const WorkingDayCard = ({
               <Text
                 style={{ fontWeight: 'bold', color: colorPalette.textColor }}
               >
-                {l.new}
+                {l.schedule.new}
               </Text>
             </LinearGradient>
           )}

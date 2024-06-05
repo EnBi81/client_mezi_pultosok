@@ -1,15 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Settings } from '../interfaces/Settings';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect } from 'react';
+import { DefaultSettings } from './SettingsContext';
+import { SettingsContext } from './SettingsContext';
 
 export const useSettings = () => {
   const settingsKey = 'settings-key';
 
-  const defaultSettings: Settings = {
-    languageId: undefined,
-  };
+  const { settings, modifySettings } = useContext(SettingsContext);
 
-  const [settings, setSettings] = useState<Settings>(defaultSettings);
+  console.log('Current settings: ' + settings.languageId);
 
   const getData = async () => {
     const jsonValue = await AsyncStorage.getItem(settingsKey);
@@ -26,26 +26,33 @@ export const useSettings = () => {
     getData().then((data) => {
       if (data == null) return;
 
-      const tempSettings: Settings = { ...defaultSettings };
+      const tempSettings: Settings = { ...DefaultSettings };
 
       if ('languageId' in data) {
         tempSettings.languageId = data.languageId;
       }
 
+      console.log('load settings to  ' + tempSettings.languageId);
+
       if (JSON.stringify(settings) !== JSON.stringify(tempSettings)) {
-        setSettings(tempSettings);
+        modifySettings(tempSettings);
       }
     });
   }, []);
 
-  const saveSettings = (settings: Settings) => {
-    storeData(settings)
-      .then(() => setSettings(settings))
+  const modifySettingsCache = (settings: Settings) => {
+    const newSettings = { ...settings };
+
+    storeData(newSettings)
+      .then(() => {
+        console.log('set settings to ' + newSettings.languageId);
+        modifySettings(newSettings);
+      })
       .catch((err) => console.error('Failed to save settings: ', err));
   };
 
   return {
     settings: settings,
-    saveSettings: saveSettings,
+    modifySettings: modifySettingsCache,
   };
 };

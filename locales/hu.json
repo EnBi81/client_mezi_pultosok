@@ -1,23 +1,37 @@
 {
-  "errorOccurred": "Hiba történt:",
+  "schedule": {
+    "errorOccurred": "Hiba történt:",
+    "new": "Új",
+    "weekNumber": "{0}. Hét",
+    "thisShouldNotBeSeen": "Ennek nem kéne látszania",
+    "daysOfWeek": {
+      "monday": "Hétfő",
+      "tuesday": "Kedd",
+      "wednesday": "Szerda",
+      "thursday": "Csütörtök",
+      "friday": "Péntek",
+      "saturday": "Szombat",
+      "sunday": "Vasárnap"
+    },
+    "networking": {
+      "dataLoaded": "Pultosok Betöltve",
+      "dataError": "Hiba történt az adatok feldolgozása közben",
+      "networkError": "Hiba történt a szerver elérése során"
+    }
+  },
   "update": {
     "updateTo": "Frissítés erre: {0} (jelenlegi: {1})",
     "downloading": "Frissítés letöltése... ({0}%)",
     "installing": "{0} telepítése..."
   },
-  "new": "Új",
-  "weekNumber": "{0}. Hét",
-  "thisShouldNotBeSeen": "Ennek nem kéne látszania",
-  "daysOfWeek": {
-    "monday": "Hétfő",
-    "tuesday": "Kedd",
-    "wednesday": "Szerda",
-    "thursday": "Csütörtök",
-    "friday": "Péntek",
-    "saturday": "Szombat",
-    "sunday": "Vasárnap"
-  },
-  "networking": {
-    "dataLoaded": "Pultosok Betöltve"
+  "settings": {
+    "general": {
+      "title": "Általános beállítások",
+      "description": "Általános működés és megjelenés",
+      "language": {
+        "collapseTitle": "Nyelvbeállítások",
+        "systemDefault": "Rendszer alapértelmezett"
+      }
+    }
   }
 }

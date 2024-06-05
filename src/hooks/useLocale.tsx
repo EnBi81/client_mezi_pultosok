@@ -6,18 +6,10 @@ import Icon from 'react-native-ico-flags';
 
 import en from '../../locales/en.json';
 import hu from '../../locales/hu.json';
-import { useSettings } from './useSettings';
+import { useSettings } from '../settings/useSettings';
+import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 
-type LanguageCollection = {
-  [key: string]: {
-    id: string;
-    name: string;
-    flag: React.ReactNode;
-    translates: any;
-  };
-};
-
-const languages: LanguageCollection = {
+const languages = {
   en: {
     id: 'en',
     name: 'English',
@@ -32,12 +24,17 @@ const languages: LanguageCollection = {
   },
 };
 
-const locales = Object.keys(languages).reduce((acc, key) => {
-  const { id, translates } = languages[key];
-  acc[id] = translates;
-  return acc;
-}, {});
+// store the translations
+const locales: LanguageCollection = Object.keys(languages).reduce(
+  (acc, key) => {
+    const { id, translates } = languages[key];
+    acc[id] = translates;
+    return acc;
+  },
+  {},
+);
 
+// store the available languages to display them for the user
 const availableLanguages: AppLanguage[] = Object.keys(languages).map((k) => ({
   id: languages[k].id,
   name: languages[k].name,
@@ -47,6 +44,11 @@ const availableLanguages: AppLanguage[] = Object.keys(languages).map((k) => ({
 export const useLocale = () => {
   const localizedStrings = useRef(new LocalizedString(locales));
   const { settings } = useSettings();
+  const [translation, setTranslation] = useState<LanguageTranslation>(
+    languages.en.translates,
+  );
+
+  console.log('language:' + settings.languageId);
 
   useEffect(() => {
     const savedLanguageId = settings.languageId;
@@ -54,6 +56,7 @@ export const useLocale = () => {
     // if we have a valid saved language then choose that
     if (savedLanguageId && savedLanguageId in languages) {
       localizedStrings.current.setLanguage(savedLanguageId);
+      setTranslation({ ...localizedStrings.current });
       return;
     }
 
@@ -61,14 +64,16 @@ export const useLocale = () => {
     const devicePrimaryLanguage = getDevicePrimaryLanguage();
     if (devicePrimaryLanguage in languages) {
       localizedStrings.current.setLanguage(devicePrimaryLanguage);
+      setTranslation({ ...localizedStrings.current });
     } else {
       // fallback language
       localizedStrings.current.setLanguage(languages.en.id);
+      setTranslation({ ...localizedStrings.current });
     }
   }, [settings.languageId]);
 
   return {
-    l: localizedStrings.current,
+    l: translation,
     availableLanguages: availableLanguages,
   };
 };
@@ -82,3 +87,7 @@ function getDevicePrimaryLanguage(): string {
   })();
   return locale.replace('-', '_').split('_')[0];
 }
+
+type LanguageCollection = {
+  [key: string]: LanguageTranslation;
+};

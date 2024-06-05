@@ -8,7 +8,7 @@ export const ErrorCard = ({ errorText }: { errorText: string }) => {
   return (
     <View style={styles.card}>
       <View style={styles.header}>
-        <Text style={styles.errorHeaderText}>{l.errorOccurred}</Text>
+        <Text style={styles.errorHeaderText}>{l.schedule.errorOccurred}</Text>
         <View>
           <Text style={styles.errorText}>{errorText}</Text>
         </View>

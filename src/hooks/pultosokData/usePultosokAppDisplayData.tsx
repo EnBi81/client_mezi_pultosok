@@ -104,7 +104,7 @@ export const WorkingDayListObject = ({
       <View style={{ marginHorizontal: 10 }}>
         <View style={styles.weekDivider}>
           <WorkingDayScheduleWeekDividerCard
-            text={`${formatString(l.weekNumber, item.numberOfWeek)} - ${item.displayDate}`}
+            text={`${formatString(l.schedule.weekNumber, item.numberOfWeek)} - ${item.displayDate}`}
           />
         </View>
       </View>
@@ -113,7 +113,7 @@ export const WorkingDayListObject = ({
 
   return (
     <View>
-      <Text>{l.thisShouldNotBeSeen}</Text>
+      <Text>{l.schedule.thisShouldNotBeSeen}</Text>
     </View>
   );
 };
