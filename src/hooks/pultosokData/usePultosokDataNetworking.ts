@@ -16,16 +16,16 @@ export const usePultosokDataNetworking = () => {
   });
   const [counter, setCounter] = useState(0);
   const [isRefreshing, setIsRefreshing] = useState(false);
-  const { l } = useLocale();
+  const { l, currentLocale } = useLocale();
 
   const getDayOfWeek = (dayNum: number) => {
-    if (dayNum === 0) return l.daysOfWeek.sunday;
-    else if (dayNum === 1) return l.daysOfWeek.monday;
-    else if (dayNum === 2) return l.daysOfWeek.tuesday;
-    else if (dayNum === 3) return l.daysOfWeek.wednesday;
-    else if (dayNum === 4) return l.daysOfWeek.thursday;
-    else if (dayNum === 5) return l.daysOfWeek.friday;
-    else if (dayNum === 6) return l.daysOfWeek.saturday;
+    if (dayNum === 0) return l.schedule.daysOfWeek.sunday;
+    else if (dayNum === 1) return l.schedule.daysOfWeek.monday;
+    else if (dayNum === 2) return l.schedule.daysOfWeek.tuesday;
+    else if (dayNum === 3) return l.schedule.daysOfWeek.wednesday;
+    else if (dayNum === 4) return l.schedule.daysOfWeek.thursday;
+    else if (dayNum === 5) return l.schedule.daysOfWeek.friday;
+    else if (dayNum === 6) return l.schedule.daysOfWeek.saturday;
     return 'Invalid day number';
   };
 
@@ -72,7 +72,7 @@ export const usePultosokDataNetworking = () => {
             return {
               ...d,
               isNew: false,
-              dateStringShort: date.toLocaleDateString(undefined, {
+              dateStringShort: date.toLocaleDateString(currentLocale, {
                 dateStyle: 'short',
               }),
               dayOfWeekString: getDayOfWeek(date.getDay()),
@@ -96,7 +96,7 @@ export const usePultosokDataNetworking = () => {
           isNetworkError: false,
         });
       });
-  }, [counter]);
+  }, [counter, l, currentLocale]);
 
   function refresh() {
     setCounter((prev) => prev + 1);

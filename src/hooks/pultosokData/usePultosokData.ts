@@ -17,7 +17,7 @@ export const usePultosokData = () => {
     usePultosokDataCaching();
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
 
-  const { l } = useLocale();
+  const { l, currentLocale } = useLocale();
 
   // handling cache x network data
   useEffect(() => {
@@ -103,11 +103,11 @@ export const usePultosokData = () => {
 
   useEffect(() => {
     if (networkingError.isError) {
-      console.error(networkingError.errorMessage);
+      if (networkingError.isNetworkError)
+        toast(l.schedule.networking.networkError);
+      else toast(l.schedule.networking.dataError);
       return;
     }
-
-    toast(l.networking.dataLoaded);
   }, [networkingData, networkingError]);
 
   useEffect(() => {

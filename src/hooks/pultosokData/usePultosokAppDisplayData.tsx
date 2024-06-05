@@ -1,11 +1,11 @@
-import React, { useMemo } from 'react';
+import React, { memo, useMemo } from 'react';
 import {
   isWorkingDayScheduleWeekDivider,
   WorkingDayScheduleWeekDivider,
 } from '../../interfaces/WorkingDayScheduleWeekDivider';
 import { formatString, getWeekNumber } from '../../utils';
-import { WorkingDayCard } from '../../components/WorkingDayCard';
-import { WorkingDayScheduleWeekDividerCard } from '../../components/WorkingDayScheduleWeekDividerCard';
+import { WorkingDayCard } from '../../components/schedule/WorkingDayCard';
+import { WorkingDayScheduleWeekDividerCard } from '../../components/schedule/WorkingDayScheduleWeekDividerCard';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { StyleSheet, View, Text } from 'react-native';
 import { useGlobalColorPalette } from '../useGlobalColorPalette';
@@ -19,9 +19,6 @@ type WorkingDayListObject =
 export const usePultosokAppDisplayData = (
   workingDays: WorkingDaySchedule[] | undefined,
 ) => {
-  const { l } = useLocale();
-  const { colorPalette } = useGlobalColorPalette();
-
   // create a new array based on the working days,
   // but add the week dividers and spaces
   const workingDaysWithDividers: WorkingDayListObject[] | undefined =
@@ -65,47 +62,9 @@ export const usePultosokAppDisplayData = (
       .map((item) => item.index);
   }, [workingDaysWithDividers]);
 
-  // render a working day list item
-  const renderWorkingDayListObject = ({
-    item,
-  }: {
-    item: WorkingDayListObject;
-  }) => {
-    if (item === 'space') {
-      return <View style={styles.weekDividerSpace}></View>;
-    }
-
-    if ('cikola' in item) {
-      return (
-        <View style={{ marginHorizontal: 20 }}>
-          <WorkingDayCard schedule={item} colorPalette={colorPalette} />
-        </View>
-      );
-    }
-
-    if ('numberOfWeek' in item) {
-      return (
-        <View style={{ marginHorizontal: 10 }}>
-          <View style={styles.weekDivider}>
-            <WorkingDayScheduleWeekDividerCard
-              text={`${formatString(l.weekNumber, item.numberOfWeek)} - ${item.displayDate}`}
-            />
-          </View>
-        </View>
-      );
-    }
-
-    return (
-      <View>
-        <Text>{l.thisShouldNotBeSeen}</Text>
-      </View>
-    );
-  };
-
   return {
     workingDaysWithDividers,
     stickyHeaderIndices,
-    renderWorkingDayListObject,
   };
 };
 
@@ -118,3 +77,45 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
 });
+
+// render a working day list item
+export const WorkingDayListObject = ({
+  item,
+}: {
+  item: WorkingDayListObject;
+}) => {
+  const { l } = useLocale();
+  const { colorPalette } = useGlobalColorPalette();
+
+  if (item === 'space') {
+    return <View style={styles.weekDividerSpace}></View>;
+  }
+
+  if ('cikola' in item) {
+    return (
+      <View style={{ marginHorizontal: 20 }}>
+        <WorkingDayCard schedule={item} colorPalette={colorPalette} />
+      </View>
+    );
+  }
+
+  if ('numberOfWeek' in item) {
+    return (
+      <View style={{ marginHorizontal: 10 }}>
+        <View style={styles.weekDivider}>
+          <WorkingDayScheduleWeekDividerCard
+            text={`${formatString(l.schedule.weekNumber, item.numberOfWeek)} - ${item.displayDate}`}
+          />
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <View>
+      <Text>{l.schedule.thisShouldNotBeSeen}</Text>
+    </View>
+  );
+};
+
+export const WorkingDayListObjectOptimized = memo(WorkingDayListObject);

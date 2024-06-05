@@ -1,23 +1,45 @@
 {
-  "errorOccurred": "An error occurred:",
+  "navigation": {
+    "schedulePage": {
+      "name": "Schedule"
+    },
+    "settingsPage": {
+      "name": "Settings"
+    }
+  },
+  "schedule": {
+    "errorOccurred": "An error occurred:",
+    "new": "New",
+    "weekNumber": "Week {0}",
+    "thisShouldNotBeSeen": "This should not be seen",
+    "daysOfWeek": {
+      "monday": "Monday",
+      "tuesday": "Tuesday",
+      "wednesday": "Wednesday",
+      "thursday": "Thursday",
+      "friday": "Friday",
+      "saturday": "Saturday",
+      "sunday": "Sunday"
+    },
+    "networking": {
+      "dataLoaded": "Schedule Loaded",
+      "dataError": "Error occurred while processing the data",
+      "networkError": "Error occurred while reaching the server"
+    }
+  },
   "update": {
     "updateTo": "Update to {0} (current: {1}),",
     "downloading": "Downloading update... ({0}%)",
     "installing": "Installing {0}..."
   },
-  "new": "New",
-  "weekNumber": "Week {0}",
-  "thisShouldNotBeSeen": "This should not be seen",
-  "daysOfWeek": {
-    "monday": "Monday",
-    "tuesday": "Tuesday",
-    "wednesday": "Wednesday",
-    "thursday": "Thursday",
-    "friday": "Friday",
-    "saturday": "Saturday",
-    "sunday": "Sunday"
-  },
-  "networking": {
-    "dataLoaded": "Schedule Loaded"
+  "settings": {
+    "general": {
+      "title": "General",
+      "description": "General behaviour and appearance",
+      "language": {
+        "collapseTitle": "Languages",
+        "systemDefault": "System Default"
+      }
+    }
   }
 }

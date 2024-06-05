@@ -1,6 +1,8 @@
 import { ColorPalette } from './interfaces/ColorPalette';
 
-export const ColorPalettes: ColorPalette[] = [
+// https://colorffy.com/gradients
+
+export const LightColorPalettes: ColorPalette[] = [
   {
     gradient: [
       '#B429F9',
@@ -25,6 +27,54 @@ export const ColorPalettes: ColorPalette[] = [
     ],
     textColor: '#000',
   },
+  {
+    gradient: [
+      '#EEB86D',
+      '#E0A579',
+      '#D29284',
+      '#C47F90',
+      '#B56C9B',
+      '#A759A7',
+      '#9946B2',
+    ],
+    textColor: '#fff',
+  },
+  {
+    gradient: ['#48226C', '#8200E7', '#BF3EFF'],
+    textColor: '#fff',
+  },
+  {
+    gradient: ['#ff3864', '#fc7995', '#ff99ad'],
+    textColor: '#000',
+  },
+  {
+    gradient: ['#ff3e00', '#ffc72c'],
+    textColor: '#000',
+  },
+  {
+    gradient: ['#e05a8b', '#e06c5a', '#e0af5a'],
+    textColor: '#fff',
+  },
+  {
+    gradient: ['#08d11d', '#1b9616', '#077a05', '#044501'],
+    textColor: '#fff',
+  },
+];
+
+const DarkColorPalettes: ColorPalette[] = [
+  {
+    gradient: ['#001217', '#002027', '#002E36', '#003C45', '#004954'],
+    textColor: '#ffffff',
+  },
+  {
+    gradient: ['#341336', '#5e2a55', '#85406a', '#ad5778'],
+    textColor: '#fff',
+  },
+];
+
+// just leaving them here, because they are nice, though they dont make that
+// good of a contrast
+const deprecatedColorPalettes: ColorPalette[] = [
   {
     gradient: [
       '#E9B7CE',
