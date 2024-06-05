@@ -32,5 +32,6 @@ export interface LanguageTranslation {
       markAllAsRead: string;
       markedAllAsRead: string;
     };
+    markAllAsRead: string;
   };
 }
