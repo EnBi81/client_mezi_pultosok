@@ -35,6 +35,7 @@ jobs:
           else
             echo "Versions do not match"
             echo "MATCH=false" >> $GITHUB_ENV
+          fi
 
       - name: Update package.json version
         if: env.MATCH == 'false'
