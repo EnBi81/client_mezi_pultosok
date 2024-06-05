@@ -23,6 +23,7 @@ jobs:
       - name: Checkout the branch
         run: |
           git checkout -B ${{ github.event.pull_request.head.ref }}
+          git pull
 
       - name: Read APK_VERSION from .env
         id: read_version
