@@ -39,7 +39,8 @@
       "language": {
         "collapseTitle": "Languages",
         "systemDefault": "System Default"
-      }
+      },
+      "markAllAsRead": "Mark all as read"
     }
   }
 }

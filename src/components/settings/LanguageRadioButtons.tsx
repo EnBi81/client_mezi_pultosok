@@ -3,7 +3,7 @@ import { CollapsiblePanel } from './general/CollapsiblePanel';
 import { useLocale } from '../../hooks/useLocale';
 import { useMemo } from 'react';
 import { useSettings } from '../../settings/useSettings';
-import IconFA6 from 'react-native-vector-icons/MaterialIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export const LanguageRadioButtons = () => {
   const { settings, modifySettings } = useSettings();
@@ -21,7 +21,7 @@ export const LanguageRadioButtons = () => {
     return [
       {
         id: idForSystemDefault,
-        icon: <IconFA6 name={'person'} size={20} />,
+        icon: <Icon name={'person'} size={20} color={'black'} />,
         title: l.settings.general.language.systemDefault,
       },
       ...convertedAvailableLanguages,
