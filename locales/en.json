@@ -40,6 +40,10 @@
         "collapseTitle": "Languages",
         "systemDefault": "System Default"
       },
+      "colorTheme": {
+        "collapseTitle": "Color theme",
+        "systemDefault": "System Default"
+      },
       "markAllAsRead": "Mark all as read",
       "markedAllAsRead": "Marked all of them!"
     }

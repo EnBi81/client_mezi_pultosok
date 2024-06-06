@@ -1,9 +1,10 @@
-import { Settings } from '../interfaces/Settings';
-import { createContext, useState } from 'react';
+import { Settings } from '../../interfaces/Settings';
+import { createContext } from 'react';
 import { useSettingsContextHook } from './useSettingsContextHook';
 
 export const DefaultSettings: Settings = {
   languageId: undefined,
+  colorTheme: 'user-preference',
 };
 
 const DefaultSettingsContext = {

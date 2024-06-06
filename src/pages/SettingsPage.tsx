@@ -4,6 +4,7 @@ import { LanguageRadioButtons } from '../components/settings/LanguageRadioButton
 import { useLocale } from '../hooks/useLocale';
 import { GradientBorder } from '../components/settings/general/GradientBorder';
 import { MarkAllReadButton } from '../components/settings/MarkAllReadButton';
+import { ColorThemeRadioButtons } from '../components/settings/ColorThemeRadioButtons';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
@@ -20,9 +21,9 @@ export const SettingsPage = () => {
 
       <GradientBorder borderWidth={2} borderRadius={12}>
         <LanguageRadioButtons />
-        <View
-          style={{ width: '100%', height: 1, backgroundColor: '#00000030' }}
-        ></View>
+        <SettingsDivider />
+        <ColorThemeRadioButtons />
+        <SettingsDivider />
         <MarkAllReadButton />
       </GradientBorder>
 
@@ -37,6 +38,14 @@ export const SettingsPage = () => {
         <Switch onValueChange={(val) => console.log('change')} value={true} />
       </GradientBorder>*/}
     </View>
+  );
+};
+
+const SettingsDivider = () => {
+  return (
+    <View
+      style={{ width: '100%', height: 1, backgroundColor: '#00000030' }}
+    ></View>
   );
 };
 

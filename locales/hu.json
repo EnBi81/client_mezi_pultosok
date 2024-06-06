@@ -40,6 +40,10 @@
         "collapseTitle": "Nyelvbeállítások",
         "systemDefault": "Rendszer alapértelmezett"
       },
+      "colorTheme": {
+        "collapseTitle": "Színösszeállítás",
+        "systemDefault": "Rendszer alapértelmezett"
+      },
       "markAllAsRead": "Mindet olvasottnak jelölni",
       "markedAllAsRead": "Nahh ez is megvolt"
     }

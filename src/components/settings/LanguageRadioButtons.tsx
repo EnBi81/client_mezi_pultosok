@@ -2,7 +2,7 @@ import { RadioGroup, RadioItem } from './general/RadioGroup';
 import { CollapsiblePanel } from './general/CollapsiblePanel';
 import { useLocale } from '../../hooks/useLocale';
 import { useMemo } from 'react';
-import { useSettings } from '../../settings/useSettings';
+import { useSettings } from '../../settings/hooks/useSettings';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export const LanguageRadioButtons = () => {
@@ -38,7 +38,7 @@ export const LanguageRadioButtons = () => {
   return (
     <CollapsiblePanel
       title={l.settings.general.language.collapseTitle}
-      iconName={'translate'}
+      icon={'translate'}
     >
       <RadioGroup
         items={radioItems}

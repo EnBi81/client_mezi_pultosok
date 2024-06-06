@@ -3,9 +3,8 @@ import LocalizedString from 'react-native-localization';
 import { useEffect, useRef, useState } from 'react';
 import { AppLanguage } from '../interfaces/AppLanguage';
 import Icon from 'react-native-ico-flags';
-import { useSettings } from '../settings/useSettings';
+import { useSettings } from '../settings/hooks/useSettings';
 import { LanguageTranslation } from '../interfaces/LanguageTranslation';
-import { toast } from '../utils';
 
 import en from '../../locales/en.json';
 import hu from '../../locales/hu.json';
@@ -76,9 +75,11 @@ export const useLocale = () => {
       setTranslation({ ...localizedStrings.current });
       setCurrentLocale(fallbackLanguage.locale);
 
+      /*
+      issue: this should be in a context
       toast(
-        `Language '${devicePrimaryLanguage}' is not supported. Fallback to '${fallbackLanguage.name}'.`,
-      );
+        `Language '${devicePrimaryLanguage.countryCode}' is not supported. Fallback to '${fallbackLanguage.name}'.`,
+      );*/
     }
   }, [settings.languageId]);
 

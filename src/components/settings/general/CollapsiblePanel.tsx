@@ -13,11 +13,11 @@ import { useUIEffects } from '../../../hooks/useUIEffects';
 export const CollapsiblePanel = ({
   title,
   children,
-  iconName, // Optional icon name with a default value
+  icon,
 }: {
   title: string;
   children: React.ReactNode;
-  iconName?: string;
+  icon?: string | React.ReactNode;
 }) => {
   const [isCollapsed, setCollapsed] = useState(true);
   const arrowAnimation = useRef(new Animated.Value(0)).current;
@@ -47,9 +47,12 @@ export const CollapsiblePanel = ({
         onPress={() => setCollapsed((prev) => !prev)}
       >
         <View style={[styles.row, styles.button]}>
-          {iconName && (
-            <Icon style={styles.icon} name={iconName} size={20} color='#000' />
-          )}
+          <View style={styles.icon}>
+            {icon && typeof icon === 'string' && (
+              <Icon name={icon} size={20} color='#000' />
+            )}
+            {icon && typeof icon === 'object' && icon}
+          </View>
           <Text style={styles.title}>{title}</Text>
           <Animated.View style={[styles.arrow, arrowStyle]}>
             <Icon name='keyboard-arrow-down' size={20} color='black' />
