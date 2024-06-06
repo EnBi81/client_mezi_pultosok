@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   tasksWrapper: {
-    paddingTop: 30,
+    paddingTop: 20,
     paddingHorizontal: 0,
   },
   settingsView: {

@@ -6,7 +6,8 @@ export const SettingsContextProvider = ({
 }: {
   children: React.ReactNode;
 }) => {
-  const { settings, modifySettings } = useSettingsContextHook();
+  const { settings, modifySettings, isSettingsLoaded } =
+    useSettingsContextHook();
 
   return (
     <SettingsContext.Provider
@@ -15,7 +16,7 @@ export const SettingsContextProvider = ({
         modifySettings: (settings) => modifySettings({ ...settings }),
       }}
     >
-      {children}
+      {isSettingsLoaded && children}
     </SettingsContext.Provider>
   );
 };

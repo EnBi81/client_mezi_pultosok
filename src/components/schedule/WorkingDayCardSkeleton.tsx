@@ -1,16 +1,27 @@
 import React from 'react';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { StyleSheet, View } from 'react-native';
+import { useColorTheme } from '../../hooks/useColorTheme';
 
 export const WorkingDayCardSkeleton = () => {
-  const backgroundColor = '#f5f5f5';
-  const highlightColor = '#cbcbcb';
+  const { colors } = useColorTheme();
+
+  const backgroundColor = colors.effect.skeleton.dark;
+  const highlightColor = colors.effect.skeleton.light;
 
   const speed = 2000;
 
   return (
-    <View style={styles.card}>
-      <View style={styles.header}>
+    <View
+      style={[
+        styles.card,
+        {
+          backgroundColor: colors.card.bg,
+          shadowColor: colors.card.shadow,
+        },
+      ]}
+    >
+      <View style={[styles.header, { borderColor: colors.card.separatorLine }]}>
         <SkeletonPlaceholder
           backgroundColor={backgroundColor}
           highlightColor={highlightColor}
@@ -49,7 +60,12 @@ export const WorkingDayCardSkeleton = () => {
           </View>
         </View>
 
-        <View style={styles.middleLine} />
+        <View
+          style={[
+            styles.middleLine,
+            { borderLeftColor: colors.card.separatorLine },
+          ]}
+        />
 
         <View style={styles.rightSideOuter}>
           <View style={styles.rightSideInner}>
@@ -77,10 +93,8 @@ export const WorkingDayCardSkeleton = () => {
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
     borderRadius: 12,
     marginVertical: 8,
-    shadowColor: '#000',
     shadowRadius: 6,
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
@@ -137,6 +151,5 @@ const styles = StyleSheet.create({
   middleLine: {
     height: '100%',
     borderLeftWidth: 1,
-    borderLeftColor: '#00000020',
   },
 });

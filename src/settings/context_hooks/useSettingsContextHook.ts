@@ -7,6 +7,7 @@ import { Appearance } from 'react-native';
 export const useSettingsContextHook = () => {
   const settingsKey = 'settings-key';
   const [settings, setSettings] = useState<Settings>(DefaultSettings);
+  const [isSettingsLoaded, setIsSettingsLoaded] = useState(false);
 
   const getData = async () => {
     const jsonValue = await AsyncStorage.getItem(settingsKey);
@@ -20,23 +21,26 @@ export const useSettingsContextHook = () => {
 
   // read settings initially
   useEffect(() => {
-    getData().then((data) => {
-      if (data == null) return;
+    getData()
+      .then((data) => {
+        if (data == null) return;
 
-      const tempSettings: Settings = { ...DefaultSettings };
+        const tempSettings: Settings = { ...DefaultSettings };
 
-      if ('languageId' in data) {
-        tempSettings.languageId = data.languageId;
-      }
+        if ('languageId' in data) {
+          tempSettings.languageId = data.languageId;
+        }
 
-      if ('colorTheme' in data) {
-        tempSettings.colorTheme = data['colorTheme'];
-      }
+        if ('colorTheme' in data) {
+          tempSettings.colorTheme = data['colorTheme'];
+        }
 
-      if (JSON.stringify(settings) !== JSON.stringify(tempSettings)) {
-        setSettings(tempSettings);
-      }
-    });
+        if (JSON.stringify(settings) !== JSON.stringify(tempSettings)) {
+          setSettings(tempSettings);
+        }
+      })
+      .then(() => setIsSettingsLoaded(true))
+      .catch(() => setIsSettingsLoaded(true));
   }, []);
 
   const modifySettingsCache = (settings: Settings) => {
@@ -64,6 +68,7 @@ export const useSettingsContextHook = () => {
 
   return {
     settings: settings,
+    isSettingsLoaded: isSettingsLoaded,
     modifySettings: modifySettingsCache,
   };
 };

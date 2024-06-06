@@ -1,15 +1,23 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
+import { useColorTheme } from '../../hooks/useColorTheme';
 
 export const WorkingDayScheduleWeekDividerCard = ({
   text,
 }: {
   text: string;
 }) => {
+  const { colors } = useColorTheme();
+
   return (
-    <View style={styles.card}>
+    <View
+      style={[
+        styles.card,
+        { backgroundColor: colors.card.bg, shadowColor: colors.card.shadow },
+      ]}
+    >
       <View style={styles.header}>
-        <Text style={styles.text}>{text}</Text>
+        <Text style={[styles.text, { color: colors.text.main }]}>{text}</Text>
       </View>
     </View>
   );
@@ -17,7 +25,6 @@ export const WorkingDayScheduleWeekDividerCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
     borderRadius: 12,
     marginVertical: 8,
     shadowColor: '#000',
@@ -30,7 +37,6 @@ const styles = StyleSheet.create({
     padding: 16,
   },
   text: {
-    color: 'black',
     fontSize: 24,
     fontWeight: 'bold',
   },

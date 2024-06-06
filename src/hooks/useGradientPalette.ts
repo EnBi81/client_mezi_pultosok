@@ -1,5 +1,6 @@
-import { DarkColorPalettes, LightColorPalettes } from '../colorPalettes';
+import { DarkColorPalettes, LightColorPalettes } from '../gradientColors';
 import { useColorTheme } from './useColorTheme';
+import tinycolor from 'tinycolor2';
 
 export const useGradientPalette = () => {
   const { isLightTheme } = useColorTheme();
@@ -13,12 +14,25 @@ export const useGradientPalette = () => {
   let colorPaletteNumber = (todayCode * prime) % colorPalettes.length;
 
   if (__DEV__) {
-    //colorPaletteNumber = 8 % colorPalettes.length;
+    //colorPaletteNumber = 14 % colorPalettes.length;
   }
 
   const colorPalette = colorPalettes[colorPaletteNumber];
 
   return {
     colorPalette: colorPalette,
+    gradientEffects: {
+      brighten: (by: number) =>
+        applyEffectToArrayColors(colorPalette.gradient, (hex) =>
+          tinycolor(hex).brighten(by).toString(),
+        ),
+    },
   };
+};
+
+const applyEffectToArrayColors = (
+  colors: string[],
+  effect: (string) => string,
+) => {
+  return colors.map((c) => effect(c));
 };

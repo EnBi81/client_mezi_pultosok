@@ -1,8 +1,16 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
+import { useColorTheme } from './useColorTheme';
 
 export const useUIEffects = () => {
-  const [ripple] = useState(TouchableNativeFeedback.Ripple('#ccc', false));
+  const { colors } = useColorTheme();
+  const [ripple, setRipple] = useState(
+    TouchableNativeFeedback.Ripple(colors.effect.ripple, false),
+  );
+
+  useEffect(() => {
+    setRipple(TouchableNativeFeedback.Ripple(colors.effect.ripple, false));
+  }, [colors]);
 
   return {
     ripple,
