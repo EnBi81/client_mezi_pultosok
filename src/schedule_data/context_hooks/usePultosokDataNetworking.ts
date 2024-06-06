@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { API_ENDPOINT } from '../../constants';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 import { PultosokDataError } from '../../interfaces/PultosokDataError';
 
 export const usePultosokDataNetworking = () => {
@@ -66,12 +66,22 @@ export const usePultosokDataNetworking = () => {
           (d): WorkingDaySchedule => {
             const date = new Date(d.date);
 
+            let shortDate;
+
+            try {
+              shortDate = date.toLocaleDateString(currentLocale, {
+                dateStyle: 'short',
+              });
+            } catch (e) {
+              shortDate = date.toLocaleDateString(undefined, {
+                dateStyle: 'short',
+              });
+            }
+
             return {
               ...d,
               isNew: false,
-              dateStringShort: date.toLocaleDateString(currentLocale, {
-                dateStyle: 'short',
-              }),
+              dateStringShort: shortDate,
               dayOfWeekString: getDayOfWeek(date.getDay()),
             };
           },

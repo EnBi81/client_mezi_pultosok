@@ -5,7 +5,7 @@ import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { ColorPalette } from '../../interfaces/ColorPalette';
 import { toast } from '../../utils';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 import { useUIEffects } from '../../hooks/useUIEffects';
 
 export const WorkingDayCard = ({

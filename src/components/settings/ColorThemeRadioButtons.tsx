@@ -4,14 +4,12 @@ import { CollapsiblePanel } from './general/CollapsiblePanel';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import IconCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useColorTheme } from '../../hooks/useColorTheme';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 
 export const ColorThemeRadioButtons = () => {
   const { settings, modifySettings } = useSettings();
   const { colorThemeSettings } = useColorTheme();
   const { l } = useLocale();
-
-  console.log('color theme: ' + colorThemeSettings);
 
   const radioItems: RadioItem[] = [
     {

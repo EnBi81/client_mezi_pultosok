@@ -1,7 +1,7 @@
 import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useUIEffects } from '../../hooks/useUIEffects';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 import { usePultosokDataContext } from '../../schedule_data/hooks/usePultosokDataContext';
 import { toast } from '../../utils';
 

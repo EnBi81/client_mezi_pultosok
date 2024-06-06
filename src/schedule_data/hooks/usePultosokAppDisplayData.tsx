@@ -9,7 +9,7 @@ import { WorkingDayScheduleWeekDividerCard } from '../../components/schedule/Wor
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { StyleSheet, View, Text } from 'react-native';
 import { useGlobalColorPalette } from '../../hooks/useGlobalColorPalette';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 
 type WorkingDayListObject =
   | WorkingDaySchedule

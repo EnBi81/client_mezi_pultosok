@@ -3,7 +3,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SchedulePage } from '../pages/SchedulePage';
 import { SettingsPage } from '../pages/SettingsPage';
-import { useLocale } from '../hooks/useLocale';
+import { useLocale } from '../locale/hooks/useLocale';
 
 const Stack = createStackNavigator();
 

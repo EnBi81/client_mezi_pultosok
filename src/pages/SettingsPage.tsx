@@ -1,7 +1,7 @@
 import { View, StyleSheet } from 'react-native';
 import { SettingsHeader } from '../components/settings/general/SettingsHeader';
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
-import { useLocale } from '../hooks/useLocale';
+import { useLocale } from '../locale/hooks/useLocale';
 import { GradientBorder } from '../components/settings/general/GradientBorder';
 import { MarkAllReadButton } from '../components/settings/MarkAllReadButton';
 import { ColorThemeRadioButtons } from '../components/settings/ColorThemeRadioButtons';

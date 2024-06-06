@@ -8,7 +8,7 @@ import {
   Easing,
 } from 'react-native';
 import { useApkUpdater } from '../../hooks/apkUpdater/useApkUpdater';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 import { SettingsCircularButton } from './SettingsCircularButton';
 import { useNavigation } from '../../navigation/useNavigation';
 import { formatString } from '../../utils';

@@ -2,7 +2,7 @@ import { CURRENT_APK_VERSION } from '../../constants';
 import React from 'react';
 import { TouchableOpacity, View, Text, StyleSheet } from 'react-native';
 import { useApkUpdater } from '../../hooks/apkUpdater/useApkUpdater';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 import { formatString } from '../../utils';
 
 export const UpdateButton = () => {
