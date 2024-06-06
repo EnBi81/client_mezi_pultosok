@@ -1,7 +1,7 @@
 import { createContext } from 'react';
 import { usePultosokData } from './usePultosokData';
-import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
-import { PultosokDataError } from '../interfaces/PultosokDataError';
+import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
+import { PultosokDataError } from '../../interfaces/PultosokDataError';
 
 interface PultosokDataContextData {
   refresh: () => void;

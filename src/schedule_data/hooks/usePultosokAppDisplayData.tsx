@@ -8,8 +8,8 @@ import { WorkingDayCard } from '../../components/schedule/WorkingDayCard';
 import { WorkingDayScheduleWeekDividerCard } from '../../components/schedule/WorkingDayScheduleWeekDividerCard';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { StyleSheet, View, Text } from 'react-native';
-import { useGlobalColorPalette } from '../useGlobalColorPalette';
-import { useLocale } from '../useLocale';
+import { useGlobalColorPalette } from '../../hooks/useGlobalColorPalette';
+import { useLocale } from '../../hooks/useLocale';
 
 type WorkingDayListObject =
   | WorkingDaySchedule

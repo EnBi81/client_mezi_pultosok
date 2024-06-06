@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
-import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
-import { API_ENDPOINT } from '../constants';
-import { useLocale } from '../hooks/useLocale';
-import { PultosokDataError } from '../interfaces/PultosokDataError';
+import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
+import { API_ENDPOINT } from '../../constants';
+import { useLocale } from '../../hooks/useLocale';
+import { PultosokDataError } from '../../interfaces/PultosokDataError';
 
 export const usePultosokDataNetworking = () => {
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();

@@ -1,5 +1,5 @@
 import { useContext } from 'react';
-import { PultosokDataContext } from '../../schedule_data/PultosokDataContext';
+import { PultosokDataContext } from '../context_hooks/PultosokDataContext';
 
 export const usePultosokDataContext = () => {
   const context = useContext(PultosokDataContext);
