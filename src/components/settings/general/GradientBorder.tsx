@@ -1,6 +1,6 @@
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { useGlobalColorPalette } from '../../../hooks/useGlobalColorPalette';
+import { useGradientPalette } from '../../../hooks/useGradientPalette';
 
 export const GradientBorder = ({
   children,
@@ -13,7 +13,7 @@ export const GradientBorder = ({
 }) => {
   if (borderWidth < 0) throw new Error('borderWidth cannot be smaller than 0.');
 
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette } = useGradientPalette();
 
   return (
     <View style={[styles.gradientContainer, { borderRadius: borderRadius }]}>

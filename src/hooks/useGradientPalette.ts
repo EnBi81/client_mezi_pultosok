@@ -1,7 +1,7 @@
 import { DarkColorPalettes, LightColorPalettes } from '../colorPalettes';
 import { useColorTheme } from './useColorTheme';
 
-export const useGlobalColorPalette = () => {
+export const useGradientPalette = () => {
   const { isLightTheme } = useColorTheme();
 
   const colorPalettes = isLightTheme ? LightColorPalettes : DarkColorPalettes;

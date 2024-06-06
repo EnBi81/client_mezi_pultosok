@@ -1,4 +1,4 @@
-import { useGlobalColorPalette } from '../hooks/useGlobalColorPalette';
+import { useGradientPalette } from '../hooks/useGradientPalette';
 import {
   usePultosokAppDisplayData,
   WorkingDayListObjectOptimized,
@@ -19,7 +19,7 @@ import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrap
 import { usePultosokDataContext } from '../schedule_data/hooks/usePultosokDataContext';
 
 export const SchedulePage = () => {
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette } = useGradientPalette();
 
   const {
     workingDays,

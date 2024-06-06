@@ -9,14 +9,14 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRef } from 'react';
-import { useGlobalColorPalette } from '../../hooks/useGlobalColorPalette';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
 
 export const SettingsCircularButton = ({
   onPress,
 }: {
   onPress: () => void;
 }) => {
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette } = useGradientPalette();
 
   const scaleValue = useRef(new Animated.Value(1)).current;
   const rotateValue = useRef(new Animated.Value(0)).current;

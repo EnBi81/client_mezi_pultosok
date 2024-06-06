@@ -15,7 +15,7 @@ import { formatString } from '../../utils';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import React, { useEffect, useRef } from 'react';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { useGlobalColorPalette } from '../../hooks/useGlobalColorPalette';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
 
 export const SettingsUpdateWrapper = () => {
   const {
@@ -33,7 +33,7 @@ export const SettingsUpdateWrapper = () => {
   const { l } = useLocale();
   const { navigate } = useNavigation();
   const { ripple } = useUIEffects();
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette } = useGradientPalette();
 
   const componentWidth = Dimensions.get('window').width - 40; // 40: padding from both sides
 
