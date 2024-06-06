@@ -1,11 +1,13 @@
 import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { usePultosokDataContext } from '../../schedule_data/hooks/usePultosokDataContext';
 import { toast } from '../../utils';
+import { useColorTheme } from '../../hooks/useColorTheme';
+import { Icon } from '../icons/Icon';
 
 export const MarkAllReadButton = () => {
+  const { colors } = useColorTheme();
   const { ripple } = useUIEffects();
   const { l } = useLocale();
   const { markAllAsRead } = usePultosokDataContext();
@@ -20,11 +22,13 @@ export const MarkAllReadButton = () => {
         }}
       >
         <View style={styles.button}>
-          <View>
-            <Icon style={styles.icon} name={'read'} size={20} color={'black'} />
+          <View style={{ marginRight: 10 }}>
+            <Icon name={'read'} provider={'material-community'} />
           </View>
           <View>
-            <Text style={styles.title}>{l.settings.general.markAllAsRead}</Text>
+            <Text style={[styles.title, { color: colors.text.main }]}>
+              {l.settings.general.markAllAsRead}
+            </Text>
           </View>
         </View>
       </TouchableNativeFeedback>
@@ -37,13 +41,9 @@ const styles = StyleSheet.create({
     padding: 15,
     flexDirection: 'row',
   },
-  icon: {
-    marginRight: 10,
-  },
   title: {
     flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black',
   },
 });

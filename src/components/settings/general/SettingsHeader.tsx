@@ -1,4 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native';
+import { useColorTheme } from '../../../hooks/useColorTheme';
 
 export const SettingsHeader = ({
   title,
@@ -7,10 +8,14 @@ export const SettingsHeader = ({
   title: string;
   description: string;
 }) => {
+  const { colors } = useColorTheme();
+
   return (
     <View style={styles.wrapper}>
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description}>{description}</Text>
+      <Text style={[styles.title, { color: colors.text.main }]}>{title}</Text>
+      <Text style={[styles.description, { color: colors.text.secondary }]}>
+        {description}
+      </Text>
     </View>
   );
 };
@@ -20,10 +25,8 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 28,
     fontWeight: '900',
-    color: 'black',
   },
   description: {
     fontSize: 16,
-    color: '#3d3d3d',
   },
 });

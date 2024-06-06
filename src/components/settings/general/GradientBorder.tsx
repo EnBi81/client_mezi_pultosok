@@ -1,6 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { useGradientPalette } from '../../../hooks/useGradientPalette';
+import { useColorTheme } from '../../../hooks/useColorTheme';
 
 export const GradientBorder = ({
   children,
@@ -14,6 +15,7 @@ export const GradientBorder = ({
   if (borderWidth < 0) throw new Error('borderWidth cannot be smaller than 0.');
 
   const { colorPalette } = useGradientPalette();
+  const { colors } = useColorTheme();
 
   return (
     <View style={[styles.gradientContainer, { borderRadius: borderRadius }]}>
@@ -26,7 +28,10 @@ export const GradientBorder = ({
         <View
           style={[
             styles.gradientInnerContainer,
-            { borderRadius: borderRadius - borderWidth },
+            {
+              borderRadius: borderRadius - borderWidth,
+              backgroundColor: colors.background.component,
+            },
           ]}
         >
           {children}
@@ -43,7 +48,6 @@ const styles = StyleSheet.create({
   },
   gradientInnerContainer: {
     borderRadius: 10,
-    backgroundColor: '#f6f6f6',
     width: '100%',
     overflow: 'hidden',
   },

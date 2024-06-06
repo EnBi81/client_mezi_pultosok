@@ -103,11 +103,10 @@ export const SettingsCircularButton = ({
           >
             <LinearGradient
               style={styles.maxSize}
-              //colors={colorPalette.gradient}
               colors={
                 isLightTheme
                   ? colorPalette.gradient
-                  : gradientEffects.brighten(15)
+                  : gradientEffects.brighten(25)
               }
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}

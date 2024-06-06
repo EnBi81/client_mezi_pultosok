@@ -69,8 +69,8 @@ const darkTheme: ColorTheme = {
     secondary: '#ddd',
   },
   background: {
-    page: '#000000',
-    component: '#1e1e1e',
+    page: '#131313',
+    component: '#2d2d2d',
     fullContrast: '#000',
   },
   card: {

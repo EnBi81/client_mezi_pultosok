@@ -4,11 +4,13 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SchedulePage } from '../pages/SchedulePage';
 import { SettingsPage } from '../pages/SettingsPage';
 import { useLocale } from '../locale/hooks/useLocale';
+import { useColorTheme } from '../hooks/useColorTheme';
 
 const Stack = createStackNavigator();
 
 export const AppNavigation = () => {
   const { l } = useLocale();
+  const { colors } = useColorTheme();
 
   return (
     <NavigationContainer>
@@ -26,6 +28,10 @@ export const AppNavigation = () => {
           component={SettingsPage}
           options={{
             title: l.navigation.settingsPage.name,
+            headerStyle: {
+              backgroundColor: colors.background.component, // Set the background color here
+            },
+            headerTintColor: colors.text.main, // Set the title color here
           }}
         />
       </Stack.Navigator>
