@@ -3,11 +3,12 @@ import LocalizedString from 'react-native-localization';
 import { useEffect, useRef, useState } from 'react';
 import { AppLanguage } from '../interfaces/AppLanguage';
 import Icon from 'react-native-ico-flags';
+import { useSettings } from '../settings/useSettings';
+import { LanguageTranslation } from '../interfaces/LanguageTranslation';
+import { toast } from '../utils';
 
 import en from '../../locales/en.json';
 import hu from '../../locales/hu.json';
-import { useSettings } from '../settings/useSettings';
-import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 
 const languages = {
   en: {
@@ -69,10 +70,15 @@ export const useLocale = () => {
       setTranslation({ ...localizedStrings.current });
       setCurrentLocale(devicePrimaryLanguage.locale);
     } else {
-      // fallback language
-      localizedStrings.current.setLanguage(languages.en.id);
+      const fallbackLanguage = languages.en;
+
+      localizedStrings.current.setLanguage(fallbackLanguage.id);
       setTranslation({ ...localizedStrings.current });
-      setCurrentLocale(languages.en.locale);
+      setCurrentLocale(fallbackLanguage.locale);
+
+      toast(
+        `Language '${devicePrimaryLanguage}' is not supported. Fallback to '${fallbackLanguage.name}'.`,
+      );
     }
   }, [settings.languageId]);
 
