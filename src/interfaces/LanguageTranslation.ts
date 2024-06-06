@@ -29,7 +29,12 @@ export interface LanguageTranslation {
       title: string;
       description: string;
       language: { collapseTitle: string; systemDefault: string };
-      colorTheme: { collapseTitle: string; systemDefault: string };
+      colorTheme: {
+        collapseTitle: string;
+        systemDefault: string;
+        lightMode: string;
+        darkMode: string;
+      };
       markAllAsRead: string;
       markedAllAsRead: string;
     };

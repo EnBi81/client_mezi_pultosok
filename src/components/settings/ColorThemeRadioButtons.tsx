@@ -13,17 +13,17 @@ export const ColorThemeRadioButtons = () => {
   const radioItems: RadioItem[] = [
     {
       id: 'user-preference',
-      title: 'System Default',
+      title: l.settings.general.colorTheme.systemDefault,
       icon: <Icon name={'person'} />,
     },
     {
       id: 'light',
-      title: 'Light',
+      title: l.settings.general.colorTheme.lightMode,
       icon: <Icon name={'light-mode'} />,
     },
     {
       id: 'dark',
-      title: 'Dark',
+      title: l.settings.general.colorTheme.darkMode,
       icon: <Icon name={'dark-mode'} />,
     },
   ];

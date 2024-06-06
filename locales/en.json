@@ -41,8 +41,10 @@
         "systemDefault": "System Default"
       },
       "colorTheme": {
-        "collapseTitle": "Color theme",
-        "systemDefault": "System Default"
+        "collapseTitle": "Light / Dark mode",
+        "systemDefault": "System Default",
+        "lightMode": "Light Mode",
+        "darkMode": "Dark Mode"
       },
       "markAllAsRead": "Mark all as read",
       "markedAllAsRead": "Marked all of them!"
