@@ -76,8 +76,10 @@ export const SettingsCircularButton = ({
             styles.circle,
             styles.shadowContainer,
             {
-              backgroundColor: colors.background.fullContrast,
+              backgroundColor: colors.background.settings,
               shadowColor: colors.card.shadow,
+              borderColor: '#ffffff30',
+              borderWidth: 1,
             },
             { transform: [{ scale: scaleValue }] },
           ]}

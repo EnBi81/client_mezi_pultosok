@@ -3,18 +3,16 @@ import React from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { ColorPalette } from '../../interfaces/ColorPalette';
 import { toast } from '../../utils';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import { useColorTheme } from '../../hooks/useColorTheme';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
 
 export const WorkingDayCard = ({
   schedule,
-  colorPalette,
 }: {
   schedule: WorkingDaySchedule;
-  colorPalette: ColorPalette;
 }) => {
   const isCikolaDown = schedule.cikola.length === 0;
   const isDoborgazDown = schedule.doborgaz.length === 0;
@@ -22,7 +20,8 @@ export const WorkingDayCard = ({
 
   const { ripple } = useUIEffects();
   const { l } = useLocale();
-  const { colors } = useColorTheme();
+  const { colors, isLightTheme } = useColorTheme();
+  const { colorPalette, gradientEffects } = useGradientPalette();
 
   return (
     <View
@@ -31,7 +30,9 @@ export const WorkingDayCard = ({
         {
           backgroundColor: colors.card.bg,
           shadowColor: colors.card.shadow,
-          opacity: isJanicsDown ? 0.6 : 1,
+          opacity: isJanicsDown ? 0.7 : 1,
+          borderColor: 'rgba(255,255,255,0.38)',
+          borderWidth: 1,
         },
       ]}
     >
@@ -48,7 +49,11 @@ export const WorkingDayCard = ({
           </Text>
           {!isJanicsDown && schedule.isNew && (
             <LinearGradient
-              colors={colorPalette.gradient}
+              colors={
+                isLightTheme
+                  ? colorPalette.gradient
+                  : gradientEffects.brighten(15)
+              }
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.newTag}
