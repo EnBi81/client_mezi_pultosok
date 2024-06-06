@@ -1,11 +1,16 @@
-import { LightColorPalettes } from '../colorPalettes';
+import { DarkColorPalettes, LightColorPalettes } from '../colorPalettes';
+import { useColorTheme } from './useColorTheme';
 
 export const useGlobalColorPalette = () => {
-  const today = new Date();
-  const colorPalettes = LightColorPalettes;
-  const prime = 7919;
+  const { isLightTheme } = useColorTheme();
 
-  let colorPaletteNumber = (today.getDate() * prime) % colorPalettes.length;
+  const colorPalettes = isLightTheme ? LightColorPalettes : DarkColorPalettes;
+
+  const prime = 7919;
+  const today = new Date();
+  const todayCode = (today.getMonth() + 1) * today.getDate();
+
+  let colorPaletteNumber = (todayCode * prime) % colorPalettes.length;
 
   if (__DEV__) {
     //colorPaletteNumber = 8 % colorPalettes.length;

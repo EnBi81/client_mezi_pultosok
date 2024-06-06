@@ -61,7 +61,7 @@ export const LightColorPalettes: ColorPalette[] = [
   },
 ];
 
-const DarkColorPalettes: ColorPalette[] = [
+export const DarkColorPalettes: ColorPalette[] = [
   {
     gradient: ['#001217', '#002027', '#002E36', '#003C45', '#004954'],
     textColor: '#ffffff',
@@ -74,7 +74,7 @@ const DarkColorPalettes: ColorPalette[] = [
 
 // just leaving them here, because they are nice, though they dont make that
 // good of a contrast
-const deprecatedColorPalettes: ColorPalette[] = [
+/*const deprecatedColorPalettes: ColorPalette[] = [
   {
     gradient: [
       '#E9B7CE',
@@ -89,18 +89,6 @@ const deprecatedColorPalettes: ColorPalette[] = [
   },
   {
     gradient: [
-      '#EEB86D',
-      '#E0A579',
-      '#D29284',
-      '#C47F90',
-      '#B56C9B',
-      '#A759A7',
-      '#9946B2',
-    ],
-    textColor: '#ffffff',
-  },
-  {
-    gradient: [
       '#AED1EF',
       '#B9D3E7',
       '#C5D6E0',
@@ -111,4 +99,4 @@ const deprecatedColorPalettes: ColorPalette[] = [
     ],
     textColor: '#000',
   },
-];
+];*/
