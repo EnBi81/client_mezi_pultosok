@@ -13,7 +13,12 @@ export const WorkingDayScheduleWeekDividerCard = ({
     <View
       style={[
         styles.card,
-        { backgroundColor: colors.card.bg, shadowColor: colors.card.shadow },
+        {
+          backgroundColor: colors.card.bg,
+          shadowColor: colors.card.shadow,
+          borderColor: 'rgba(255,255,255,0.38)',
+          borderWidth: 1,
+        },
       ]}
     >
       <View style={styles.header}>

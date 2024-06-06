@@ -24,6 +24,7 @@ interface ColorTheme {
     page: string;
     component: string;
     fullContrast: string;
+    settings: string;
   };
   card: {
     bg: string;
@@ -48,6 +49,7 @@ const lightTheme: ColorTheme = {
     page: '#fff',
     component: '#fff',
     fullContrast: '#fff',
+    settings: '#fff',
   },
   card: {
     bg: '#fff',
@@ -72,9 +74,10 @@ const darkTheme: ColorTheme = {
     page: '#131313',
     component: '#2d2d2d',
     fullContrast: '#000',
+    settings: '#111',
   },
   card: {
-    bg: '#171717',
+    bg: '#3b3b3b',
     shadow: '#aaa',
     separatorLine: '#696969',
   },

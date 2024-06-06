@@ -8,7 +8,6 @@ import { WorkingDayCard } from '../../components/schedule/WorkingDayCard';
 import { WorkingDayScheduleWeekDividerCard } from '../../components/schedule/WorkingDayScheduleWeekDividerCard';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { StyleSheet, View, Text } from 'react-native';
-import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useLocale } from '../../locale/hooks/useLocale';
 
 type WorkingDayListObject =
@@ -85,7 +84,6 @@ export const WorkingDayListObject = ({
   item: WorkingDayListObject;
 }) => {
   const { l } = useLocale();
-  const { colorPalette } = useGradientPalette();
 
   if (item === 'space') {
     return <View style={styles.weekDividerSpace}></View>;
@@ -94,7 +92,7 @@ export const WorkingDayListObject = ({
   if ('cikola' in item) {
     return (
       <View style={{ marginHorizontal: 20 }}>
-        <WorkingDayCard schedule={item} colorPalette={colorPalette} />
+        <WorkingDayCard schedule={item} />
       </View>
     );
   }

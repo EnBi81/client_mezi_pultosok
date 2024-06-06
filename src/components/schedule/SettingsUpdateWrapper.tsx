@@ -86,6 +86,8 @@ export const SettingsUpdateWrapper = () => {
               flexDirection: 'row',
               justifyContent: 'space-between',
               overflow: 'hidden',
+              borderColor: '#ffffff20',
+              borderWidth: 1,
             }}
           >
             <TouchableNativeFeedback
