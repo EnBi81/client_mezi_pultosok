@@ -41,8 +41,10 @@
         "systemDefault": "Rendszer alapértelmezett"
       },
       "colorTheme": {
-        "collapseTitle": "Színösszeállítás",
-        "systemDefault": "Rendszer alapértelmezett"
+        "collapseTitle": "Világos / Sötét mód",
+        "systemDefault": "Rendszer alapértelmezett",
+        "lightMode": "Világos mód",
+        "darkMode": "Sötét mód"
       },
       "markAllAsRead": "Mindet olvasottnak jelölni",
       "markedAllAsRead": "Nahh ez is megvolt"
