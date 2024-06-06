@@ -29,6 +29,7 @@ export interface LanguageTranslation {
       title: string;
       description: string;
       language: { collapseTitle: string; systemDefault: string };
+      colorTheme: { collapseTitle: string; systemDefault: string };
       markAllAsRead: string;
       markedAllAsRead: string;
     };

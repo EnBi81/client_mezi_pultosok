@@ -8,14 +8,15 @@ import {
   Easing,
 } from 'react-native';
 import { useApkUpdater } from '../../hooks/apkUpdater/useApkUpdater';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 import { SettingsCircularButton } from './SettingsCircularButton';
 import { useNavigation } from '../../navigation/useNavigation';
 import { formatString } from '../../utils';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import React, { useEffect, useRef } from 'react';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { useGlobalColorPalette } from '../../hooks/useGlobalColorPalette';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
+import { useColorTheme } from '../../hooks/useColorTheme';
 
 export const SettingsUpdateWrapper = () => {
   const {
@@ -33,7 +34,8 @@ export const SettingsUpdateWrapper = () => {
   const { l } = useLocale();
   const { navigate } = useNavigation();
   const { ripple } = useUIEffects();
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette } = useGradientPalette();
+  const { colors } = useColorTheme();
 
   const componentWidth = Dimensions.get('window').width - 40; // 40: padding from both sides
 
@@ -58,16 +60,7 @@ export const SettingsUpdateWrapper = () => {
   return (
     <View>
       {!isUpdateAvailable && (
-        <View
-          pointerEvents={'box-none'}
-          style={{
-            width: 60,
-            height: 60,
-            position: 'absolute',
-            right: 0,
-            bottom: 0,
-          }}
-        >
+        <View pointerEvents={'box-none'} style={styles.circularButtonContainer}>
           <SettingsCircularButton onPress={() => navigate.to.settings()} />
         </View>
       )}
@@ -77,14 +70,18 @@ export const SettingsUpdateWrapper = () => {
           style={[
             styles.maxSize,
             styles.shadowContainer,
-            { flexDirection: 'row', justifyContent: 'flex-end' },
+            {
+              shadowColor: colors.card.shadow,
+              flexDirection: 'row',
+              justifyContent: 'flex-end',
+            },
           ]}
         >
           <Animated.View
             style={{
               width: animatedWidth,
               height: 60,
-              backgroundColor: 'white',
+              backgroundColor: colors.background.component,
               borderRadius: 9999,
               flexDirection: 'row',
               justifyContent: 'space-between',
@@ -107,7 +104,7 @@ export const SettingsUpdateWrapper = () => {
               >
                 <Text
                   style={{
-                    color: 'black',
+                    color: colors.text.main,
                     fontSize: 24,
                     fontWeight: 'bold',
                     zIndex: 1,
@@ -123,12 +120,12 @@ export const SettingsUpdateWrapper = () => {
                 <View style={{ width: 60 }}></View>
                 {isDownloading && (
                   <LinearGradient
-                    style={{
-                      position: 'absolute',
-                      width: '100%',
-                      height: '100%',
-                      backgroundColor: 'red',
-                    }}
+                    style={[
+                      styles.maxSize,
+                      {
+                        position: 'absolute',
+                      },
+                    ]}
                     colors={colorPalette.gradient}
                     start={{ x: 0, y: 0 }}
                     end={{ x: 1, y: 1 }}
@@ -138,19 +135,13 @@ export const SettingsUpdateWrapper = () => {
                 <View
                   style={{
                     ...styles.updateButtonProgressBar,
+                    backgroundColor: colors.background.component,
                     width: `${100 - downloadPercent ?? 0}%`,
                   }}
                 ></View>
               </View>
             </TouchableNativeFeedback>
-            <View
-              style={{
-                width: 60,
-                height: 60,
-                position: 'absolute',
-                right: 0,
-              }}
-            >
+            <View style={styles.circularButtonContainer}>
               <SettingsCircularButton onPress={() => navigate.to.settings()} />
             </View>
           </Animated.View>
@@ -165,10 +156,16 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%',
   },
+  circularButtonContainer: {
+    width: 60,
+    height: 60,
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+  },
   shadowContainer: {
-    shadowColor: '#000',
     shadowRadius: 10,
-    shadowOffset: { width: 0, height: 4 },
+    shadowOffset: { width: 2, height: 4 },
     shadowOpacity: 0.85,
     elevation: 8,
   },

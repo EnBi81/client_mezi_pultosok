@@ -7,21 +7,23 @@ import {
   TouchableNativeFeedback,
   Animated,
 } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import { useUIEffects } from '../../../hooks/useUIEffects';
+import { useColorTheme } from '../../../hooks/useColorTheme';
+import { Icon } from '../../icons/Icon';
 
 export const CollapsiblePanel = ({
   title,
   children,
-  iconName, // Optional icon name with a default value
+  icon,
 }: {
   title: string;
   children: React.ReactNode;
-  iconName?: string;
+  icon?: React.ReactNode;
 }) => {
   const [isCollapsed, setCollapsed] = useState(true);
   const arrowAnimation = useRef(new Animated.Value(0)).current;
   const { ripple } = useUIEffects();
+  const { colors } = useColorTheme();
 
   useEffect(() => {
     Animated.timing(arrowAnimation, {
@@ -47,12 +49,12 @@ export const CollapsiblePanel = ({
         onPress={() => setCollapsed((prev) => !prev)}
       >
         <View style={[styles.row, styles.button]}>
-          {iconName && (
-            <Icon style={styles.icon} name={iconName} size={20} color='#000' />
-          )}
-          <Text style={styles.title}>{title}</Text>
+          <View style={styles.icon}>{icon && icon}</View>
+          <Text style={[styles.title, { color: colors.text.main }]}>
+            {title}
+          </Text>
           <Animated.View style={[styles.arrow, arrowStyle]}>
-            <Icon name='keyboard-arrow-down' size={20} color='black' />
+            <Icon name='keyboard-arrow-down' />
           </Animated.View>
         </View>
       </TouchableNativeFeedback>
@@ -83,7 +85,6 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: 16,
     fontWeight: 'bold',
-    color: 'black',
   },
   arrow: {
     marginLeft: 10,

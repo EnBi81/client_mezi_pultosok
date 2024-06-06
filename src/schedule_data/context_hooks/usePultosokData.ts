@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
-import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
+import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import PultosokSharedPreferences from 'react-native-shared-preferences';
 import { usePultosokDataNetworking } from './usePultosokDataNetworking';
 import { usePultosokDataCaching } from './usePultosokDataCaching';
-import { toast } from '../utils';
-import { useLocale } from '../hooks/useLocale';
+import { toast } from '../../utils';
+import { useLocale } from '../../locale/hooks/useLocale';
 
 export const usePultosokData = () => {
   const {

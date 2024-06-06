@@ -9,14 +9,16 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRef } from 'react';
-import { useGlobalColorPalette } from '../../hooks/useGlobalColorPalette';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
+import { useColorTheme } from '../../hooks/useColorTheme';
 
 export const SettingsCircularButton = ({
   onPress,
 }: {
   onPress: () => void;
 }) => {
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette, gradientEffects } = useGradientPalette();
+  const { isLightTheme, colors } = useColorTheme();
 
   const scaleValue = useRef(new Animated.Value(1)).current;
   const rotateValue = useRef(new Animated.Value(0)).current;
@@ -73,12 +75,15 @@ export const SettingsCircularButton = ({
             styles.maxSize,
             styles.circle,
             styles.shadowContainer,
-            { backgroundColor: 'white' },
+            {
+              backgroundColor: colors.background.fullContrast,
+              shadowColor: colors.card.shadow,
+            },
             { transform: [{ scale: scaleValue }] },
           ]}
         >
           <MaskedView
-            style={[styles.maxSize, { filter: 'brightness(0.5);' }]}
+            style={[styles.maxSize]}
             maskElement={
               <Animated.View
                 style={[
@@ -98,7 +103,11 @@ export const SettingsCircularButton = ({
           >
             <LinearGradient
               style={styles.maxSize}
-              colors={colorPalette.gradient}
+              colors={
+                isLightTheme
+                  ? colorPalette.gradient
+                  : gradientEffects.brighten(25)
+              }
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
             ></LinearGradient>

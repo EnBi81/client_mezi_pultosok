@@ -8,8 +8,8 @@ import { WorkingDayCard } from '../../components/schedule/WorkingDayCard';
 import { WorkingDayScheduleWeekDividerCard } from '../../components/schedule/WorkingDayScheduleWeekDividerCard';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { StyleSheet, View, Text } from 'react-native';
-import { useGlobalColorPalette } from '../useGlobalColorPalette';
-import { useLocale } from '../useLocale';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
+import { useLocale } from '../../locale/hooks/useLocale';
 
 type WorkingDayListObject =
   | WorkingDaySchedule
@@ -85,7 +85,7 @@ export const WorkingDayListObject = ({
   item: WorkingDayListObject;
 }) => {
   const { l } = useLocale();
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette } = useGradientPalette();
 
   if (item === 'space') {
     return <View style={styles.weekDividerSpace}></View>;

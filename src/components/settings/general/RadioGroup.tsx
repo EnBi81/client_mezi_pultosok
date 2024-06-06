@@ -1,5 +1,6 @@
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
+import { useColorTheme } from '../../../hooks/useColorTheme';
+import { Icon } from '../../icons/Icon';
 
 export interface RadioItem {
   id: string;
@@ -42,6 +43,8 @@ const RadioButton = ({
   icon?: React.ReactNode;
   onPress: () => void;
 }) => {
+  const { colors } = useColorTheme();
+
   return (
     <View style={buttonStyles.wrapper}>
       <TouchableNativeFeedback onPress={onPress}>
@@ -49,11 +52,11 @@ const RadioButton = ({
           <View style={{ flexDirection: 'row' }}>
             <View style={buttonStyles.iconWrapper}>{icon && icon}</View>
             <View>
-              <Text style={buttonStyles.title}>{title}</Text>
+              <Text style={{ color: colors.text.secondary }}>{title}</Text>
             </View>
           </View>
           <View style={{ opacity: ticked ? 1 : 0 }}>
-            <Icon name='done' size={20} color='#000' />
+            <Icon name='done' />
           </View>
         </View>
       </TouchableNativeFeedback>
@@ -68,9 +71,6 @@ const buttonStyles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     width: '100%',
-  },
-  title: {
-    color: 'black',
   },
   iconWrapper: {
     marginRight: 5,

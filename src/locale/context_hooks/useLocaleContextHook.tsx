@@ -1,18 +1,19 @@
 import { Platform, NativeModules } from 'react-native';
 import LocalizedString from 'react-native-localization';
 import { useEffect, useRef, useState } from 'react';
-import { AppLanguage } from '../interfaces/AppLanguage';
+import { AppLanguage } from '../../interfaces/AppLanguage';
 import Icon from 'react-native-ico-flags';
+import { useSettings } from '../../settings/hooks/useSettings';
+import { LanguageTranslation } from '../../interfaces/LanguageTranslation';
 
-import en from '../../locales/en.json';
-import hu from '../../locales/hu.json';
-import { useSettings } from '../settings/useSettings';
-import { LanguageTranslation } from '../interfaces/LanguageTranslation';
+import en from '../../../locales/en.json';
+import hu from '../../../locales/hu.json';
+import { toast } from '../../utils';
 
 const languages = {
   en: {
     id: 'en',
-    locale: 'en-Us',
+    locale: 'en-US',
     name: 'English',
     flag: <Icon name={'united-kingdom'} />,
     translates: en,
@@ -43,7 +44,7 @@ const availableLanguages: AppLanguage[] = Object.keys(languages).map((k) => ({
   icon: languages[k].flag,
 }));
 
-export const useLocale = () => {
+export const useLocaleContextHook = () => {
   const localizedStrings = useRef(new LocalizedString(locales));
   const { settings } = useSettings();
   const [translation, setTranslation] = useState<LanguageTranslation>(
@@ -64,15 +65,21 @@ export const useLocale = () => {
 
     // otherwise, get the device default
     const devicePrimaryLanguage = getDevicePrimaryLanguage();
-    if (devicePrimaryLanguage in languages) {
+
+    if (devicePrimaryLanguage.countryCode in languages) {
       localizedStrings.current.setLanguage(devicePrimaryLanguage.countryCode);
       setTranslation({ ...localizedStrings.current });
       setCurrentLocale(devicePrimaryLanguage.locale);
     } else {
-      // fallback language
-      localizedStrings.current.setLanguage(languages.en.id);
+      const fallbackLanguage = languages.en;
+
+      localizedStrings.current.setLanguage(fallbackLanguage.id);
       setTranslation({ ...localizedStrings.current });
-      setCurrentLocale(languages.en.locale);
+      setCurrentLocale(fallbackLanguage.locale);
+
+      toast(
+        `Language '${devicePrimaryLanguage.countryCode}' is not supported. Fallback to '${fallbackLanguage.name}'.`,
+      );
     }
   }, [settings.languageId]);
 
@@ -92,7 +99,7 @@ function getDevicePrimaryLanguage() {
   })();
 
   return {
-    locale: locale,
+    locale: locale.replace('_', '-'),
     countryCode: locale.replace('-', '_').split('_')[0],
   };
 }

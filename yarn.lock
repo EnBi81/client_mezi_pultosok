@@ -3913,6 +3913,7 @@ __metadata:
     react-native-svg: ^15.3.0
     react-native-vector-icons: ^10.1.0
     react-test-renderer: 18.2.0
+    tinycolor2: ^1.6.0
     typescript: 5.0.4
   languageName: unknown
   linkType: soft
@@ -9651,6 +9652,13 @@ __metadata:
     readable-stream: ~2.3.6
     xtend: ~4.0.1
   checksum: beb0f338aa2931e5660ec7bf3ad949e6d2e068c31f4737b9525e5201b824ac40cac6a337224856b56bd1ddd866334bbfb92a9f57cd6f66bc3f18d3d86fc0fe50
+  languageName: node
+  linkType: hard
+
+"tinycolor2@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "tinycolor2@npm:1.6.0"
+  checksum: 6df4d07fceeedc0a878d7bac47e2cd47c1ceeb1078340a9eb8a295bc0651e17c750f73d47b3028d829f30b85c15e0572c0fd4142083e4c21a30a597e47f47230
   languageName: node
   linkType: hard
 

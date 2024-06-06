@@ -5,8 +5,9 @@ import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { ColorPalette } from '../../interfaces/ColorPalette';
 import { toast } from '../../utils';
-import { useLocale } from '../../hooks/useLocale';
+import { useLocale } from '../../locale/hooks/useLocale';
 import { useUIEffects } from '../../hooks/useUIEffects';
+import { useColorTheme } from '../../hooks/useColorTheme';
 
 export const WorkingDayCard = ({
   schedule,
@@ -20,24 +21,31 @@ export const WorkingDayCard = ({
   const isJanicsDown = isCikolaDown && isDoborgazDown;
 
   const { ripple } = useUIEffects();
-
   const { l } = useLocale();
+  const { colors } = useColorTheme();
 
   return (
     <View
-      style={{
-        ...styles.card,
-        opacity: isJanicsDown ? 0.6 : 1,
-      }}
+      style={[
+        styles.card,
+        {
+          backgroundColor: colors.card.bg,
+          shadowColor: colors.card.shadow,
+          opacity: isJanicsDown ? 0.6 : 1,
+        },
+      ]}
     >
       <View
         style={{
           ...styles.header,
           borderBottomWidth: isJanicsDown ? 0 : 1,
+          borderColor: colors.card.separatorLine,
         }}
       >
         <View style={{ flexDirection: 'row' }}>
-          <Text style={styles.day}>{schedule.dayOfWeekString}</Text>
+          <Text style={[styles.day, { color: colors.text.main }]}>
+            {schedule.dayOfWeekString}
+          </Text>
           {!isJanicsDown && schedule.isNew && (
             <LinearGradient
               colors={colorPalette.gradient}
@@ -54,7 +62,9 @@ export const WorkingDayCard = ({
           )}
         </View>
 
-        <Text style={styles.date}>{schedule.dateStringShort}</Text>
+        <Text style={[styles.date, { color: colors.text.main }]}>
+          {schedule.dateStringShort}
+        </Text>
       </View>
 
       {!isJanicsDown && (
@@ -66,10 +76,17 @@ export const WorkingDayCard = ({
           >
             <View style={styles.leftSideOuter}>
               <View style={styles.leftSideInner}>
-                {isCikolaDown && <Text style={styles.worker}>-</Text>}
+                {isCikolaDown && (
+                  <Text style={[styles.worker, { color: colors.text.main }]}>
+                    -
+                  </Text>
+                )}
                 {!isCikolaDown &&
                   schedule.cikola.map((p, i) => (
-                    <Text key={i} style={styles.worker}>
+                    <Text
+                      key={i}
+                      style={[styles.worker, { color: colors.text.main }]}
+                    >
                       {p}
                     </Text>
                   ))}
@@ -77,7 +94,12 @@ export const WorkingDayCard = ({
             </View>
           </TouchableNativeFeedback>
 
-          <View style={styles.middleLine} />
+          <View
+            style={[
+              styles.middleLine,
+              { borderLeftColor: colors.card.separatorLine },
+            ]}
+          />
 
           <TouchableNativeFeedback
             style={styles.touchableFeedback}
@@ -86,10 +108,17 @@ export const WorkingDayCard = ({
           >
             <View style={styles.rightSideOuter}>
               <View style={styles.rightSideInner}>
-                {isDoborgazDown && <Text style={styles.worker}>-</Text>}
+                {isDoborgazDown && (
+                  <Text style={[styles.worker, { color: colors.text.main }]}>
+                    -
+                  </Text>
+                )}
                 {!isDoborgazDown &&
                   schedule.doborgaz.map((p, i) => (
-                    <Text key={i} style={styles.worker}>
+                    <Text
+                      key={i}
+                      style={[styles.worker, { color: colors.text.main }]}
+                    >
                       {p}
                     </Text>
                   ))}
@@ -104,7 +133,6 @@ export const WorkingDayCard = ({
 
 const styles = StyleSheet.create({
   card: {
-    backgroundColor: '#fff',
     borderRadius: 12,
     marginVertical: 8,
     shadowColor: '#000',
@@ -127,7 +155,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     padding: 16,
     borderBottomWidth: 1,
-    borderColor: '#ccc',
   },
   day: {
     fontSize: 20,
@@ -164,7 +191,6 @@ const styles = StyleSheet.create({
   middleLine: {
     height: '100%',
     borderLeftWidth: 1,
-    borderLeftColor: '#00000020',
   },
   worker: {
     fontSize: 20,

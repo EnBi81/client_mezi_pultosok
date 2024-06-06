@@ -1,8 +1,8 @@
-import { useGlobalColorPalette } from '../hooks/useGlobalColorPalette';
+import { useGradientPalette } from '../hooks/useGradientPalette';
 import {
   usePultosokAppDisplayData,
   WorkingDayListObjectOptimized,
-} from '../hooks/pultosokData/usePultosokAppDisplayData';
+} from '../schedule_data/hooks/usePultosokAppDisplayData';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { ErrorCard } from '../components/schedule/ErrorCard';
 import { WorkingDayCardSkeleton } from '../components/schedule/WorkingDayCardSkeleton';
@@ -16,10 +16,10 @@ import {
 } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
-import { usePultosokDataContext } from '../hooks/pultosokData/usePultosokDataContext';
+import { usePultosokDataContext } from '../schedule_data/hooks/usePultosokDataContext';
 
 export const SchedulePage = () => {
-  const { colorPalette } = useGlobalColorPalette();
+  const { colorPalette } = useGradientPalette();
 
   const {
     workingDays,
@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
     position: 'relative',
   },
   tasksWrapper: {
-    paddingTop: 30,
+    paddingTop: 20,
     paddingHorizontal: 0,
   },
   settingsView: {
