@@ -174,6 +174,13 @@ export const GolderPalettes: ColorPalette[] = [
   },
 ];
 
+export const SpecialPalettes: { hungarianFlag: ColorPalette } = {
+  hungarianFlag: {
+    gradient: ['#cf2436', '#fff', '#45714f'],
+    textColor: '#000',
+  },
+};
+
 // just leaving them here, because they are nice, though they dont make that
 // good of a contrast
 /*const deprecatedColorPalettes: ColorPalette[] = [

@@ -1,4 +1,4 @@
-import { DarkColorPalettes, GolderPalettes, LightColorPalettes } from '../gradientColors';
+import { DarkColorPalettes, GolderPalettes, LightColorPalettes, SpecialPalettes } from '../gradientColors';
 import { useColorTheme } from './useColorTheme';
 import tinycolor from 'tinycolor2';
 
@@ -10,17 +10,22 @@ export const useGradientPalette = () => {
   else if (isGoldenTheme) colorPalettes = GolderPalettes;
   else colorPalettes = DarkColorPalettes;
 
-  const prime = 7919;
   const today = new Date();
-  const todayCode = (today.getMonth() + 1) * today.getDate();
+  let colorPalette;
 
-  let colorPaletteNumber = (todayCode * prime) % colorPalettes.length;
+  if (is(today).on(8, 20)) {
+    colorPalette = SpecialPalettes.hungarianFlag;
+  } else {
+    const prime = 7919;
+    const todayCode = (today.getMonth() + 1) * today.getDate();
+    let colorPaletteNumber = (todayCode * prime) % colorPalettes.length;
 
-  if (__DEV__) {
-    //colorPaletteNumber = 14 % colorPalettes.length;
+    if (__DEV__) {
+      //colorPaletteNumber = 14 % colorPalettes.length;
+    }
+
+    colorPalette = colorPalettes[colorPaletteNumber];
   }
-
-  const colorPalette = colorPalettes[colorPaletteNumber];
 
   return {
     colorPalette: colorPalette,
@@ -34,3 +39,11 @@ export const useGradientPalette = () => {
 const applyEffectToArrayColors = (colors: string[], effect: (string) => string) => {
   return colors.map((c) => effect(c));
 };
+
+function is(date: Date) {
+  return {
+    on: (month: number, day: number) => {
+      return date.getMonth() + 1 === month && date.getDate() === day;
+    },
+  };
+}
