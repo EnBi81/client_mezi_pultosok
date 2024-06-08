@@ -1,12 +1,4 @@
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableNativeFeedback,
-  Animated,
-  Dimensions,
-  Easing,
-} from 'react-native';
+import { StyleSheet, View, Text, TouchableNativeFeedback, Animated, Dimensions, Easing } from 'react-native';
 import { useApkUpdater } from '../../hooks/apkUpdater/useApkUpdater';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { SettingsCircularButton } from './SettingsCircularButton';
@@ -15,8 +7,8 @@ import { formatString } from '../../utils';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import React, { useEffect, useRef } from 'react';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { useGradientPalette } from '../../hooks/useGradientPalette';
-import { useColorTheme } from '../../hooks/useColorTheme';
+import { useGradientPalette } from '../../colors_themes/useGradientPalette';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
 
 export const SettingsUpdateWrapper = () => {
   const {
@@ -90,10 +82,7 @@ export const SettingsUpdateWrapper = () => {
               borderWidth: 1,
             }}
           >
-            <TouchableNativeFeedback
-              background={ripple}
-              onPress={() => handleUpdate()}
-            >
+            <TouchableNativeFeedback background={ripple} onPress={() => handleUpdate()}>
               <View
                 style={[
                   {
@@ -112,12 +101,9 @@ export const SettingsUpdateWrapper = () => {
                     zIndex: 1,
                   }}
                 >
-                  {isDownloading &&
-                    formatString(l.update.downloading, downloadPercent)}
-                  {canDownloadBePressed &&
-                    formatString(l.update.updateTo, latestApkVersion)}
-                  {isDownloadCompleted &&
-                    formatString(l.update.installing, latestApkVersion)}
+                  {isDownloading && formatString(l.update.downloading, downloadPercent)}
+                  {canDownloadBePressed && formatString(l.update.updateTo, latestApkVersion)}
+                  {isDownloadCompleted && formatString(l.update.installing, latestApkVersion)}
                 </Text>
                 <View style={{ width: 60 }}></View>
                 {isDownloading && (

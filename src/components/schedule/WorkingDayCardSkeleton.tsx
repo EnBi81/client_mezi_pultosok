@@ -1,7 +1,7 @@
 import React from 'react';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { StyleSheet, View } from 'react-native';
-import { useColorTheme } from '../../hooks/useColorTheme';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
 
 export const WorkingDayCardSkeleton = () => {
   const { colors } = useColorTheme();
@@ -24,19 +24,11 @@ export const WorkingDayCardSkeleton = () => {
       ]}
     >
       <View style={[styles.header, { borderColor: colors.card.separatorLine }]}>
-        <SkeletonPlaceholder
-          backgroundColor={backgroundColor}
-          highlightColor={highlightColor}
-          speed={speed}
-        >
+        <SkeletonPlaceholder backgroundColor={backgroundColor} highlightColor={highlightColor} speed={speed}>
           <View style={{ width: 120, height: 30 }}></View>
         </SkeletonPlaceholder>
 
-        <SkeletonPlaceholder
-          backgroundColor={backgroundColor}
-          highlightColor={highlightColor}
-          speed={speed}
-        >
+        <SkeletonPlaceholder backgroundColor={backgroundColor} highlightColor={highlightColor} speed={speed}>
           <View style={{ width: 100, height: 30 }}></View>
         </SkeletonPlaceholder>
       </View>
@@ -44,46 +36,25 @@ export const WorkingDayCardSkeleton = () => {
       <View style={styles.content}>
         <View style={styles.leftSideOuter}>
           <View style={styles.leftSideInner}>
-            <SkeletonPlaceholder
-              backgroundColor={backgroundColor}
-              highlightColor={highlightColor}
-              speed={speed}
-            >
+            <SkeletonPlaceholder backgroundColor={backgroundColor} highlightColor={highlightColor} speed={speed}>
               <View style={{ width: 70, height: 30 }}></View>
             </SkeletonPlaceholder>
             <View style={{ height: 5 }}></View>
-            <SkeletonPlaceholder
-              backgroundColor={backgroundColor}
-              highlightColor={highlightColor}
-              speed={speed}
-            >
+            <SkeletonPlaceholder backgroundColor={backgroundColor} highlightColor={highlightColor} speed={speed}>
               <View style={{ width: 70, height: 30 }}></View>
             </SkeletonPlaceholder>
           </View>
         </View>
 
-        <View
-          style={[
-            styles.middleLine,
-            { borderLeftColor: colors.card.separatorLine },
-          ]}
-        />
+        <View style={[styles.middleLine, { borderLeftColor: colors.card.separatorLine }]} />
 
         <View style={styles.rightSideOuter}>
           <View style={styles.rightSideInner}>
-            <SkeletonPlaceholder
-              backgroundColor={backgroundColor}
-              highlightColor={highlightColor}
-              speed={speed}
-            >
+            <SkeletonPlaceholder backgroundColor={backgroundColor} highlightColor={highlightColor} speed={speed}>
               <View style={{ width: 70, height: 30 }}></View>
             </SkeletonPlaceholder>
             <View style={{ height: 5 }}></View>
-            <SkeletonPlaceholder
-              backgroundColor={backgroundColor}
-              highlightColor={highlightColor}
-              speed={speed}
-            >
+            <SkeletonPlaceholder backgroundColor={backgroundColor} highlightColor={highlightColor} speed={speed}>
               <View style={{ width: 70, height: 30 }}></View>
             </SkeletonPlaceholder>
           </View>

@@ -1,6 +1,6 @@
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useColorTheme } from '../../hooks/useColorTheme';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
 
 export const Icon = ({
   name,
@@ -19,7 +19,6 @@ export const Icon = ({
     color = colors.text.main;
   }
 
-  if (provider === 'material')
-    return <IconMaterial name={name} size={size} color={color} />;
+  if (provider === 'material') return <IconMaterial name={name} size={size} color={color} />;
   return <IconMaterialCommunity name={name} size={size} color={color} />;
 };

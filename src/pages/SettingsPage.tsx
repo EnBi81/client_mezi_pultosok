@@ -5,7 +5,7 @@ import { useLocale } from '../locale/hooks/useLocale';
 import { GradientBorder } from '../components/settings/general/GradientBorder';
 import { MarkAllReadButton } from '../components/settings/MarkAllReadButton';
 import { ColorThemeRadioButtons } from '../components/settings/ColorThemeRadioButtons';
-import { useColorTheme } from '../hooks/useColorTheme';
+import { useColorTheme } from '../colors_themes/useColorTheme';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
@@ -14,17 +14,9 @@ export const SettingsPage = () => {
   const { colors } = useColorTheme();
 
   return (
-    <View
-      style={[
-        styles.contentWrapper,
-        { backgroundColor: colors.background.page },
-      ]}
-    >
+    <View style={[styles.contentWrapper, { backgroundColor: colors.background.page }]}>
       <View style={{ height: 30 }}></View>
-      <SettingsHeader
-        title={l.settings.general.title}
-        description={l.settings.general.description}
-      />
+      <SettingsHeader title={l.settings.general.title} description={l.settings.general.description} />
 
       <GradientBorder borderWidth={2} borderRadius={12}>
         <LanguageRadioButtons />
@@ -49,9 +41,15 @@ export const SettingsPage = () => {
 };
 
 const SettingsDivider = () => {
+  const { colors } = useColorTheme();
+
   return (
     <View
-      style={{ width: '100%', height: 1, backgroundColor: '#00000030' }}
+      style={{
+        width: '100%',
+        height: 1,
+        backgroundColor: colors.card.separatorLine,
+      }}
     ></View>
   );
 };

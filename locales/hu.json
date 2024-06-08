@@ -44,10 +44,29 @@
         "collapseTitle": "Világos / Sötét mód",
         "systemDefault": "Rendszer alapértelmezett",
         "lightMode": "Világos mód",
-        "darkMode": "Sötét mód"
+        "darkMode": "Sötét mód",
+        "sunSync": "Nap-szinkronizált mód",
+        "sunSyncModeTurnedOffBecauseLocationDenied": "Nap-szinkronizált mód kikapcsolva: Helymeghatározás megtagadva",
+        "sunSyncModeEnableLocationToTurnOnSunSyncMode": "Engedélyezze a helymeghatározást a Nap-szinkronizált mód használatához",
+        "sunriseInHours": "Napkelte {0} óra múlva",
+        "sunriseInHour": "Napkelte 1 óra múlva",
+        "sunriseInMinutes": "Napkelte {0} perc múlva",
+        "sunriseInMinute": "Napkelte 1 perc múlva",
+        "sunsetInHours": "Napnyugta {0} óra múlva",
+        "sunsetInHour": "Napnyugta 1 óra múlva",
+        "sunsetInMinutes": "Napnyugta {0} perc múlva",
+        "sunsetInMinute": "Napnyugta 1 perc múlva"
       },
       "markAllAsRead": "Mindet olvasottnak jelölni",
       "markedAllAsRead": "Nahh ez is megvolt"
     }
+  },
+  "location": {
+    "permissionDenied": "Helymeghatározási engedély megtagadva",
+    "providerNotAvailable": "Helymeghatározó szolgáltató nem elérhető",
+    "requestTimedOut": "Helymeghatározási kérés időtúllépés",
+    "googlePlayNotAvailable": "A Google Play szolgáltatás nincs telepítve vagy régi verzió van telepítve",
+    "serviceNotAvailable": "A helymeghatározási szolgáltatás nincs engedélyezve",
+    "error": "Hiba a helymeghatározási kérés során"
   }
 }

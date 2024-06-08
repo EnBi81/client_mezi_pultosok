@@ -1,22 +1,12 @@
-import {
-  Animated,
-  Easing,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from 'react-native';
+import { Animated, Easing, StyleSheet, TouchableOpacity, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRef } from 'react';
-import { useGradientPalette } from '../../hooks/useGradientPalette';
-import { useColorTheme } from '../../hooks/useColorTheme';
+import { useGradientPalette } from '../../colors_themes/useGradientPalette';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
 
-export const SettingsCircularButton = ({
-  onPress,
-}: {
-  onPress: () => void;
-}) => {
+export const SettingsCircularButton = ({ onPress }: { onPress: () => void }) => {
   const { colorPalette, gradientEffects } = useGradientPalette();
   const { isLightTheme, colors } = useColorTheme();
 
@@ -64,12 +54,7 @@ export const SettingsCircularButton = ({
 
   return (
     <View style={styles.maxSize}>
-      <TouchableOpacity
-        activeOpacity={1}
-        onPressIn={handlePressIn}
-        onPressOut={handlePressOut}
-        onPress={onPress}
-      >
+      <TouchableOpacity activeOpacity={1} onPressIn={handlePressIn} onPressOut={handlePressOut} onPress={onPress}>
         <Animated.View
           style={[
             styles.maxSize,
@@ -87,29 +72,14 @@ export const SettingsCircularButton = ({
           <MaskedView
             style={[styles.maxSize]}
             maskElement={
-              <Animated.View
-                style={[
-                  styles.maxSize,
-                  styles.center,
-                  { transform: [{ rotate }] },
-                ]}
-              >
-                <Icon
-                  style={styles.icon}
-                  name='settings'
-                  size={45}
-                  color='#000'
-                />
+              <Animated.View style={[styles.maxSize, styles.center, { transform: [{ rotate }] }]}>
+                <Icon style={styles.icon} name='settings' size={45} color='#000' />
               </Animated.View>
             }
           >
             <LinearGradient
               style={styles.maxSize}
-              colors={
-                isLightTheme
-                  ? colorPalette.gradient
-                  : gradientEffects.brighten(25)
-              }
+              colors={isLightTheme ? colorPalette.gradient : gradientEffects.brighten(25)}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
             ></LinearGradient>

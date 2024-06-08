@@ -1,12 +1,8 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
-import { useColorTheme } from '../../hooks/useColorTheme';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
 
-export const WorkingDayScheduleWeekDividerCard = ({
-  text,
-}: {
-  text: string;
-}) => {
+export const WorkingDayScheduleWeekDividerCard = ({ text }: { text: string }) => {
   const { colors } = useColorTheme();
 
   return (

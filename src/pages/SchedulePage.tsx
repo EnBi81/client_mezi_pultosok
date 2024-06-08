@@ -1,4 +1,4 @@
-import { useGradientPalette } from '../hooks/useGradientPalette';
+import { useGradientPalette } from '../colors_themes/useGradientPalette';
 import {
   usePultosokAppDisplayData,
   WorkingDayListObjectOptimized,
@@ -7,13 +7,7 @@ import { LinearGradient } from 'react-native-linear-gradient';
 import { ErrorCard } from '../components/schedule/ErrorCard';
 import { WorkingDayCardSkeleton } from '../components/schedule/WorkingDayCardSkeleton';
 import React from 'react';
-import {
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  StyleSheet,
-  View,
-} from 'react-native';
+import { FlatList, RefreshControl, SafeAreaView, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
 import { usePultosokDataContext } from '../schedule_data/hooks/usePultosokDataContext';
@@ -21,15 +15,9 @@ import { usePultosokDataContext } from '../schedule_data/hooks/usePultosokDataCo
 export const SchedulePage = () => {
   const { colorPalette } = useGradientPalette();
 
-  const {
-    workingDays,
-    refresh: refreshPultosok,
-    isRefreshing,
-    error: pultosokDataError,
-  } = usePultosokDataContext();
+  const { workingDays, refresh: refreshPultosok, isRefreshing, error: pultosokDataError } = usePultosokDataContext();
 
-  const { workingDaysWithDividers, stickyHeaderIndices } =
-    usePultosokAppDisplayData(workingDays);
+  const { workingDaysWithDividers, stickyHeaderIndices } = usePultosokAppDisplayData(workingDays);
 
   return (
     <View style={styles.container}>
@@ -67,12 +55,7 @@ export const SchedulePage = () => {
             <SafeAreaView>
               {!workingDays && pultosokDataError.isError && (
                 <View style={{ marginHorizontal: 20 }}>
-                  <ErrorCard
-                    errorText={
-                      pultosokDataError.errorMessage ??
-                      'Unexpected error occured.'
-                    }
-                  />
+                  <ErrorCard errorText={pultosokDataError.errorMessage ?? 'Unexpected error occured.'} />
                 </View>
               )}
 
@@ -89,19 +72,12 @@ export const SchedulePage = () => {
               {/* Data View */}
               {workingDays && (
                 <FlatList
-                  refreshControl={
-                    <RefreshControl
-                      refreshing={isRefreshing}
-                      onRefresh={refreshPultosok}
-                    />
-                  }
+                  refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refreshPultosok} />}
                   removeClippedSubviews={true}
                   initialNumToRender={25}
                   data={workingDaysWithDividers}
                   stickyHeaderIndices={stickyHeaderIndices}
-                  renderItem={(params) => (
-                    <WorkingDayListObjectOptimized item={params.item} />
-                  )}
+                  renderItem={(params) => <WorkingDayListObjectOptimized item={params.item} />}
                 />
               )}
             </SafeAreaView>

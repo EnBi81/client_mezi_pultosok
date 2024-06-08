@@ -29,22 +29,14 @@ export const LanguageRadioButtons = () => {
   }, [availableLanguages, l]);
 
   const onSelectionChange = (languageId: string) => {
-    modifySettings({
-      ...settings,
-      languageId: languageId === idForSystemDefault ? undefined : languageId,
-    });
+    modifySettings((settings) => (settings.languageId = languageId === idForSystemDefault ? undefined : languageId));
   };
 
   return (
-    <CollapsiblePanel
-      title={l.settings.general.language.collapseTitle}
-      icon={<Icon name={'translate'} />}
-    >
+    <CollapsiblePanel title={l.settings.general.language.collapseTitle} icon={<Icon name={'translate'} />}>
       <RadioGroup
         items={radioItems}
-        selectedId={
-          settings.languageId ? settings.languageId : idForSystemDefault
-        }
+        selectedId={settings.languageId ? settings.languageId : idForSystemDefault}
         onSelect={onSelectionChange}
       />
     </CollapsiblePanel>
