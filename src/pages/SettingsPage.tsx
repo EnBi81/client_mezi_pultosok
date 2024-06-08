@@ -49,9 +49,15 @@ export const SettingsPage = () => {
 };
 
 const SettingsDivider = () => {
+  const { colors } = useColorTheme();
+
   return (
     <View
-      style={{ width: '100%', height: 1, backgroundColor: '#00000030' }}
+      style={{
+        width: '100%',
+        height: 1,
+        backgroundColor: colors.card.separatorLine,
+      }}
     ></View>
   );
 };
