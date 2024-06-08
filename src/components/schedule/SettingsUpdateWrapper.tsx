@@ -7,8 +7,8 @@ import { formatString } from '../../utils';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import React, { useEffect, useRef } from 'react';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { useGradientPalette } from '../../colors_themes/useGradientPalette';
-import { useColorTheme } from '../../colors_themes/useColorTheme';
+import { useGradientPalette } from '../../colors_themes/hooks/useGradientPalette';
+import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
 
 export const SettingsUpdateWrapper = () => {
   const {

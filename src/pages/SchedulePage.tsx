@@ -1,4 +1,4 @@
-import { useGradientPalette } from '../colors_themes/useGradientPalette';
+import { useGradientPalette } from '../colors_themes/hooks/useGradientPalette';
 import {
   usePultosokAppDisplayData,
   WorkingDayListObjectOptimized,

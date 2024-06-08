@@ -161,6 +161,19 @@ export const DarkColorPalettes: ColorPalette[] = [
   },
 ];
 
+export const GolderPalettes: ColorPalette[] = [
+  {
+    // Gold
+    gradient: ['#eba73c', '#d69122', '#bf7600'],
+    textColor: '#fff',
+  },
+  {
+    // Golden
+    gradient: ['#9e4e31', '#ff9800', '#ffc107'],
+    textColor: '#fff',
+  },
+];
+
 // just leaving them here, because they are nice, though they dont make that
 // good of a contrast
 /*const deprecatedColorPalettes: ColorPalette[] = [

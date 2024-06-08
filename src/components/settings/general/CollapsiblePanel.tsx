@@ -2,7 +2,7 @@ import Collapsible from 'react-native-collapsible';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, Text, TouchableNativeFeedback, Animated } from 'react-native';
 import { useUIEffects } from '../../../hooks/useUIEffects';
-import { useColorTheme } from '../../../colors_themes/useColorTheme';
+import { useColorTheme } from '../../../colors_themes/hooks/useColorTheme';
 import { Icon } from '../../icons/Icon';
 
 export const CollapsiblePanel = ({

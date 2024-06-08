@@ -3,7 +3,7 @@ import { useUIEffects } from '../../hooks/useUIEffects';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { usePultosokDataContext } from '../../schedule_data/hooks/usePultosokDataContext';
 import { toast } from '../../utils';
-import { useColorTheme } from '../../colors_themes/useColorTheme';
+import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
 import { Icon } from '../icons/Icon';
 
 export const MarkAllReadButton = () => {

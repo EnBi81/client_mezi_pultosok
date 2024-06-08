@@ -1,15 +1,24 @@
 import { useColorScheme } from 'react-native';
-import { useSettings } from '../settings/hooks/useSettings';
+import { useSettings } from '../../settings/hooks/useSettings';
+import { useSunPosition } from './useSunPosition';
 
 export const useColorTheme = () => {
   const { settings } = useSettings();
+  const { nextSunEvent } = useSunPosition();
   const theme = useColorScheme();
 
-  const isLightTheme = theme !== 'dark';
+  let isLightTheme = theme !== 'dark';
+  let isGoldenTheme = nextSunEvent?.type === 'golden-hour-end-morning' || nextSunEvent?.type === 'sunset';
+
+  if (__DEV__) {
+    //isLightTheme = false;
+    //isGoldenTheme = true;
+  }
 
   return {
     // use light theme when theme == 'light' or null
     isLightTheme: isLightTheme,
+    isGoldenTheme: isGoldenTheme,
     colorThemeSettings: settings.colorThemeProps.type,
     colors: isLightTheme ? lightTheme : darkTheme,
   };

@@ -1,11 +1,14 @@
-import { DarkColorPalettes, LightColorPalettes } from './gradientColors';
+import { DarkColorPalettes, GolderPalettes, LightColorPalettes } from '../gradientColors';
 import { useColorTheme } from './useColorTheme';
 import tinycolor from 'tinycolor2';
 
 export const useGradientPalette = () => {
-  const { isLightTheme } = useColorTheme();
+  const { isLightTheme, isGoldenTheme } = useColorTheme();
 
-  const colorPalettes = isLightTheme ? LightColorPalettes : DarkColorPalettes;
+  let colorPalettes;
+  if (isLightTheme) colorPalettes = LightColorPalettes;
+  else if (isGoldenTheme) colorPalettes = GolderPalettes;
+  else colorPalettes = DarkColorPalettes;
 
   const prime = 7919;
   const today = new Date();

@@ -5,7 +5,7 @@ import { useLocale } from '../locale/hooks/useLocale';
 import { GradientBorder } from '../components/settings/general/GradientBorder';
 import { MarkAllReadButton } from '../components/settings/MarkAllReadButton';
 import { ColorThemeRadioButtons } from '../components/settings/ColorThemeRadioButtons';
-import { useColorTheme } from '../colors_themes/useColorTheme';
+import { useColorTheme } from '../colors_themes/hooks/useColorTheme';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg

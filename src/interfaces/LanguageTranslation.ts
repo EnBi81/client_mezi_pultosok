@@ -37,14 +37,9 @@ export interface LanguageTranslation {
         sunSync: string;
         sunSyncModeTurnedOffBecauseLocationDenied: string;
         sunSyncModeEnableLocationToTurnOnSunSyncMode: string;
-        sunriseInHours: string;
-        sunriseInHour: string;
-        sunriseInMinutes: string;
-        sunriseInMinute: string;
-        sunsetInHours: string;
-        sunsetInHour: string;
-        sunsetInMinutes: string;
-        sunsetInMinute: string;
+        eventHappeningNow: string;
+        eventIn: string;
+        failedToGetSunEvent: string;
       };
       markAllAsRead: string;
       markedAllAsRead: string;
@@ -58,5 +53,19 @@ export interface LanguageTranslation {
     googlePlayNotAvailable: string;
     serviceNotAvailable: string;
     error: string;
+  };
+  sunEvents: {
+    sunrise: string;
+    sunset: string;
+    golderHourEvening: string;
+    goldenHourEndMorning: string;
+  };
+  time: {
+    hours: string;
+    hour: string;
+    minutes: string;
+    minute: string;
+    seconds: string;
+    second: string;
   };
 }
