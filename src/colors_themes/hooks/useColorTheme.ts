@@ -8,7 +8,9 @@ export const useColorTheme = () => {
   const theme = useColorScheme();
 
   let isLightTheme = theme !== 'dark';
-  let isGoldenTheme = nextSunEvent?.type === 'golden-hour-end-morning' || nextSunEvent?.type === 'sunset';
+  let isGoldenTheme =
+    settings.colorThemeProps.type === 'custom-sunsync' &&
+    (nextSunEvent?.type === 'golden-hour-end-morning' || nextSunEvent?.type === 'sunset');
 
   if (__DEV__) {
     //isLightTheme = false;
