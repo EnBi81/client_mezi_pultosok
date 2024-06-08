@@ -13,7 +13,13 @@ export const AppNavigation = () => {
   const { colors } = useColorTheme();
 
   return (
-    <NavigationContainer>
+    <NavigationContainer
+      theme={{
+        colors: {
+          background: colors.background.fullContrast,
+        },
+      }}
+    >
       <Stack.Navigator initialRouteName='Schedule'>
         <Stack.Screen
           name='Schedule'
