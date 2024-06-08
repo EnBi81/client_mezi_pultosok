@@ -37,10 +37,14 @@ export const ThemeManager = ({ children }: { children: React.ReactNode }) => {
 
     if (!nextSunEvent) return;
 
-    if (nextSunEvent.type === 'sunrise' || nextSunEvent.type === 'golden-hour-end-morning') {
+    if (
+      nextSunEvent.type === 'sunrise' ||
+      nextSunEvent.type === 'golden-hour-end-morning' ||
+      nextSunEvent.type === 'sunset'
+    ) {
       Appearance.setColorScheme('dark');
     }
-    if (nextSunEvent.type === 'sunset' || nextSunEvent.type === 'golden-hour-evening') {
+    if (nextSunEvent.type === 'golden-hour-evening') {
       Appearance.setColorScheme('light');
     }
   }, [settings.colorThemeProps.type, settings.locationCache.locationAccess, nextSunEvent]);

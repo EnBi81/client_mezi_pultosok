@@ -8,6 +8,7 @@ import { SunEvent } from '../../interfaces/SunEvent';
 export const useSunPositionContextHook = () => {
   const { location } = useDeviceLocation();
   const [nextEvent, setNextEvent] = useState<SunEvent>();
+  const [nextEventCounter, setNextEventCounter] = useState(0);
   const { l } = useLocale();
 
   function getSunTimes(date: Date) {
@@ -18,6 +19,10 @@ export const useSunPositionContextHook = () => {
     // now
     const now = new Date();
     const nowTime = now.getTime();
+
+    function newDate() {
+      return new Date();
+    }
 
     const todaySunTimes = getSunTimes(now);
     /*
@@ -44,7 +49,10 @@ export const useSunPositionContextHook = () => {
         type: 'sunrise',
         startAt: todaySunTimes.sunrise,
         getDisplayTextUntil: () =>
-          timeUntilString({ secondsUntil: secondsUntil(now, todaySunTimes.sunrise), eventName: l.sunEvents.sunrise }),
+          timeUntilString({
+            secondsUntil: secondsUntil(newDate(), todaySunTimes.sunrise),
+            eventName: l.sunEvents.sunrise,
+          }),
       };
     }
 
@@ -55,7 +63,7 @@ export const useSunPositionContextHook = () => {
         startAt: todaySunTimes.goldenHourEnd,
         getDisplayTextUntil: () =>
           timeUntilString({
-            secondsUntil: secondsUntil(now, todaySunTimes.goldenHourEnd),
+            secondsUntil: secondsUntil(newDate(), todaySunTimes.goldenHourEnd),
             eventName: l.sunEvents.goldenHourEndMorning,
           }),
       };
@@ -68,7 +76,7 @@ export const useSunPositionContextHook = () => {
         startAt: todaySunTimes.goldenHour,
         getDisplayTextUntil: () =>
           timeUntilString({
-            secondsUntil: secondsUntil(now, todaySunTimes.goldenHour),
+            secondsUntil: secondsUntil(newDate(), todaySunTimes.goldenHour),
             eventName: l.sunEvents.golderHourEvening,
           }),
       };
@@ -80,7 +88,10 @@ export const useSunPositionContextHook = () => {
         type: 'sunset',
         startAt: todaySunTimes.sunset,
         getDisplayTextUntil: () =>
-          timeUntilString({ secondsUntil: secondsUntil(now, todaySunTimes.sunset), eventName: l.sunEvents.sunset }),
+          timeUntilString({
+            secondsUntil: secondsUntil(newDate(), todaySunTimes.sunset),
+            eventName: l.sunEvents.sunset,
+          }),
       };
     }
 
@@ -93,7 +104,10 @@ export const useSunPositionContextHook = () => {
       type: 'sunrise',
       startAt: tomorrowSunTimes.sunrise,
       getDisplayTextUntil: () =>
-        timeUntilString({ secondsUntil: secondsUntil(now, tomorrowSunTimes.sunrise), eventName: l.sunEvents.sunrise }),
+        timeUntilString({
+          secondsUntil: secondsUntil(newDate(), tomorrowSunTimes.sunrise),
+          eventName: l.sunEvents.sunrise,
+        }),
     };
   }
 
@@ -129,7 +143,7 @@ export const useSunPositionContextHook = () => {
     if (location.latitude === undefined || location.longitude === undefined) return;
 
     setNextEvent(getNextEvent());
-  }, [location.longitude, location.latitude, l]);
+  }, [location.longitude, location.latitude, l, nextEventCounter]);
 
   // update next event
   useEffect(() => {
@@ -143,7 +157,7 @@ export const useSunPositionContextHook = () => {
     const timeoutMS = nextEventTime.getTime() - now.getTime() + 5 * second;
 
     const timeout = setTimeout(() => {
-      setNextEvent(getNextEvent());
+      setNextEventCounter((prev) => prev + 1);
     }, timeoutMS);
 
     return () => clearTimeout(timeout);
