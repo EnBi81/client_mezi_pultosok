@@ -44,10 +44,29 @@
         "collapseTitle": "Light / Dark mode",
         "systemDefault": "System Default",
         "lightMode": "Light Mode",
-        "darkMode": "Dark Mode"
+        "darkMode": "Dark Mode",
+        "sunSync": "Sun-Synced Mode",
+        "sunSyncModeTurnedOffBecauseLocationDenied": "SunSync mode turned off: Location denied",
+        "sunSyncModeEnableLocationToTurnOnSunSyncMode": "Enable location access to use Sun-Synced Mode",
+        "sunriseInHours": "Sunrise in {0} hours",
+        "sunriseInHour": "Sunrise in 1 hour",
+        "sunriseInMinutes": "Sunrise in {0} minutes",
+        "sunriseInMinute": "Sunrise in 1 minute",
+        "sunsetInHours": "Sunset in {0} hours",
+        "sunsetInHour": "Sunset in 1 hour",
+        "sunsetInMinutes": "Sunset in {0} minutes",
+        "sunsetInMinute": "Sunset in 1 minute"
       },
       "markAllAsRead": "Mark all as read",
       "markedAllAsRead": "Marked all of them!"
     }
+  },
+  "location": {
+    "permissionDenied": "Location permission denied",
+    "providerNotAvailable": "Location provider not available",
+    "requestTimedOut": "Location request timed out",
+    "googlePlayNotAvailable": "Google play service is not installed or has an older version",
+    "serviceNotAvailable": "Location service is not enabled",
+    "error": "Error requesting location"
   }
 }

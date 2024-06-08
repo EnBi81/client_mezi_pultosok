@@ -10,7 +10,7 @@ export const useColorTheme = () => {
   return {
     // use light theme when theme == 'light' or null
     isLightTheme: isLightTheme,
-    colorThemeSettings: settings.colorTheme,
+    colorThemeSettings: settings.colorThemeProps.type,
     colors: isLightTheme ? lightTheme : darkTheme,
   };
 };

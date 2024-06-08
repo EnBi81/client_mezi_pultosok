@@ -3,7 +3,16 @@ import { createContext } from 'react';
 
 export const DefaultSettings: Settings = {
   languageId: undefined,
-  colorTheme: 'user-preference',
+  colorThemeProps: {
+    type: 'user-preference',
+    darkTimeFrom: undefined,
+    darkTimeTo: undefined,
+  },
+  locationCache: {
+    latitude: undefined,
+    longitude: undefined,
+    locationAccess: undefined,
+  },
 };
 
 const DefaultSettingsContext = {
@@ -13,5 +22,5 @@ const DefaultSettingsContext = {
 
 export const SettingsContext = createContext<{
   settings: Settings;
-  modifySettings: (settings: Settings) => void;
+  modifySettings: (settingsFunc: (oldSettings: Settings) => void) => void;
 }>(DefaultSettingsContext);

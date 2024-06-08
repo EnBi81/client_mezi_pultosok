@@ -3,7 +3,7 @@ import { useUIEffects } from '../../hooks/useUIEffects';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { usePultosokDataContext } from '../../schedule_data/hooks/usePultosokDataContext';
 import { toast } from '../../utils';
-import { useColorTheme } from '../../hooks/useColorTheme';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
 import { Icon } from '../icons/Icon';
 
 export const MarkAllReadButton = () => {
@@ -26,9 +26,7 @@ export const MarkAllReadButton = () => {
             <Icon name={'read'} provider={'material-community'} />
           </View>
           <View>
-            <Text style={[styles.title, { color: colors.text.main }]}>
-              {l.settings.general.markAllAsRead}
-            </Text>
+            <Text style={[styles.title, { color: colors.text.main }]}>{l.settings.general.markAllAsRead}</Text>
           </View>
         </View>
       </TouchableNativeFeedback>

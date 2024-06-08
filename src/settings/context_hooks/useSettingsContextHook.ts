@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { DefaultSettings } from './SettingsContext';
 import { Settings } from '../../interfaces/Settings';
-import { Appearance } from 'react-native';
 
 export const useSettingsContextHook = () => {
   const settingsKey = 'settings-key';
@@ -31,8 +30,19 @@ export const useSettingsContextHook = () => {
           tempSettings.languageId = data.languageId;
         }
 
+        // this was an old settings, if it exists, then assign its value to the new settings
         if ('colorTheme' in data) {
-          tempSettings.colorTheme = data['colorTheme'];
+          tempSettings.colorThemeProps.type = data['colorTheme'];
+        }
+
+        if ('colorThemeProps' in data) {
+          tempSettings.colorThemeProps = data['colorThemeProps'];
+        }
+
+        if ('locationCache' in data) {
+          tempSettings.locationCache = data['locationCache'];
+          // on each restart, set the locationAccess to false
+          tempSettings.locationCache.locationAccess = undefined;
         }
 
         if (JSON.stringify(settings) !== JSON.stringify(tempSettings)) {
@@ -52,19 +62,6 @@ export const useSettingsContextHook = () => {
       })
       .catch((err) => console.error('Failed to save settings: ', err));
   };
-
-  // set color theme
-  useEffect(() => {
-    if (settings.colorTheme === 'light') {
-      Appearance.setColorScheme('light');
-    }
-    if (settings.colorTheme === 'dark') {
-      Appearance.setColorScheme('dark');
-    }
-    if (settings.colorTheme === 'user-preference') {
-      Appearance.setColorScheme(null);
-    }
-  }, [settings.colorTheme]);
 
   return {
     settings: settings,

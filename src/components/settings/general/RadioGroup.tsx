@@ -1,11 +1,12 @@
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { useColorTheme } from '../../../hooks/useColorTheme';
+import { useColorTheme } from '../../../colors_themes/useColorTheme';
 import { Icon } from '../../icons/Icon';
 
 export interface RadioItem {
   id: string;
   title: string;
   icon?: React.ReactNode;
+  onLongPress?: () => void;
 }
 
 export const RadioGroup = ({
@@ -17,6 +18,8 @@ export const RadioGroup = ({
   selectedId: string | undefined;
   onSelect: (string) => void;
 }) => {
+  const emptyFunction = () => {};
+
   return (
     <View>
       {items.map((item) => (
@@ -26,6 +29,7 @@ export const RadioGroup = ({
           icon={item.icon}
           title={item.title}
           onPress={() => onSelect(item.id)}
+          onLongPress={item.onLongPress ?? emptyFunction}
         />
       ))}
     </View>
@@ -37,17 +41,19 @@ const RadioButton = ({
   title,
   icon,
   onPress,
+  onLongPress,
 }: {
   ticked: boolean;
   title: string;
   icon?: React.ReactNode;
   onPress: () => void;
+  onLongPress: () => void;
 }) => {
   const { colors } = useColorTheme();
 
   return (
     <View style={buttonStyles.wrapper}>
-      <TouchableNativeFeedback onPress={onPress}>
+      <TouchableNativeFeedback onPress={onPress} onLongPress={onLongPress}>
         <View style={buttonStyles.contentWrapper}>
           <View style={{ flexDirection: 'row' }}>
             <View style={buttonStyles.iconWrapper}>{icon && icon}</View>

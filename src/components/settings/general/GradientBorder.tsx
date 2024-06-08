@@ -1,7 +1,7 @@
 import { StyleSheet, View } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { useGradientPalette } from '../../../hooks/useGradientPalette';
-import { useColorTheme } from '../../../hooks/useColorTheme';
+import { useGradientPalette } from '../../../colors_themes/useGradientPalette';
+import { useColorTheme } from '../../../colors_themes/useColorTheme';
 
 export const GradientBorder = ({
   children,

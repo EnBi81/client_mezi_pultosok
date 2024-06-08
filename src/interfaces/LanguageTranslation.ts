@@ -34,10 +34,29 @@ export interface LanguageTranslation {
         systemDefault: string;
         lightMode: string;
         darkMode: string;
+        sunSync: string;
+        sunSyncModeTurnedOffBecauseLocationDenied: string;
+        sunSyncModeEnableLocationToTurnOnSunSyncMode: string;
+        sunriseInHours: string;
+        sunriseInHour: string;
+        sunriseInMinutes: string;
+        sunriseInMinute: string;
+        sunsetInHours: string;
+        sunsetInHour: string;
+        sunsetInMinutes: string;
+        sunsetInMinute: string;
       };
       markAllAsRead: string;
       markedAllAsRead: string;
     };
     markAllAsRead: string;
+  };
+  location: {
+    permissionDenied: string;
+    providerNotAvailable: string;
+    requestTimedOut: string;
+    googlePlayNotAvailable: string;
+    serviceNotAvailable: string;
+    error: string;
   };
 }

@@ -3898,6 +3898,7 @@ __metadata:
     react-native-collapsible: ^1.6.1
     react-native-config: ^1.5.1
     react-native-fs: ^2.20.0
+    react-native-geolocation-service: ^5.3.1
     react-native-gesture-handler: ^2.16.2
     react-native-ico-flags: ^5.1.2
     react-native-linear-gradient: ^2.8.3
@@ -3913,6 +3914,7 @@ __metadata:
     react-native-svg: ^15.3.0
     react-native-vector-icons: ^10.1.0
     react-test-renderer: 18.2.0
+    suncalc: ^1.9.0
     tinycolor2: ^1.6.0
     typescript: 5.0.4
   languageName: unknown
@@ -8375,6 +8377,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-geolocation-service@npm:^5.3.1":
+  version: 5.3.1
+  resolution: "react-native-geolocation-service@npm:5.3.1"
+  checksum: 9a625c9f87811933491055fd8cbd1ef46f97fbbe0262714ad1d9aa969a8900dcb4abc47e58fe162400a81bcdee79324dfcc8e631862df9a22d59ac84af9acfde
+  languageName: node
+  linkType: hard
+
 "react-native-gesture-handler@npm:^2.16.2":
   version: 2.16.2
   resolution: "react-native-gesture-handler@npm:2.16.2"
@@ -9539,6 +9548,13 @@ __metadata:
   version: 9.2.1
   resolution: "sudo-prompt@npm:9.2.1"
   checksum: 50a29eec2f264f2b78d891452a64112d839a30bffbff4ec065dba4af691a35b23cdb8f9107d413e25c1a9f1925644a19994c00602495cab033d53f585fdfd665
+  languageName: node
+  linkType: hard
+
+"suncalc@npm:^1.9.0":
+  version: 1.9.0
+  resolution: "suncalc@npm:1.9.0"
+  checksum: 2062651663e47aa612f7195793146f924ced2d3cba0730ece1c4c77dbe8ac83c40fef8cee1c24a6f86b202c515c7c92dd549e0ed27e5df50bde5bb8b0d9ef40c
   languageName: node
   linkType: hard
 

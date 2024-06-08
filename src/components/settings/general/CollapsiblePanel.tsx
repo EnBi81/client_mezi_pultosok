@@ -1,14 +1,8 @@
 import Collapsible from 'react-native-collapsible';
 import { useEffect, useRef, useState } from 'react';
-import {
-  StyleSheet,
-  View,
-  Text,
-  TouchableNativeFeedback,
-  Animated,
-} from 'react-native';
+import { StyleSheet, View, Text, TouchableNativeFeedback, Animated } from 'react-native';
 import { useUIEffects } from '../../../hooks/useUIEffects';
-import { useColorTheme } from '../../../hooks/useColorTheme';
+import { useColorTheme } from '../../../colors_themes/useColorTheme';
 import { Icon } from '../../icons/Icon';
 
 export const CollapsiblePanel = ({
@@ -44,15 +38,10 @@ export const CollapsiblePanel = ({
 
   return (
     <View style={styles.maxWidth}>
-      <TouchableNativeFeedback
-        background={ripple}
-        onPress={() => setCollapsed((prev) => !prev)}
-      >
+      <TouchableNativeFeedback background={ripple} onPress={() => setCollapsed((prev) => !prev)}>
         <View style={[styles.row, styles.button]}>
           <View style={styles.icon}>{icon && icon}</View>
-          <Text style={[styles.title, { color: colors.text.main }]}>
-            {title}
-          </Text>
+          <Text style={[styles.title, { color: colors.text.main }]}>{title}</Text>
           <Animated.View style={[styles.arrow, arrowStyle]}>
             <Icon name='keyboard-arrow-down' />
           </Animated.View>

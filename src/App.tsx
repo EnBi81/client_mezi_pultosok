@@ -5,6 +5,8 @@ import { SettingsContextProvider } from './settings/context_hooks/SettingsContex
 import { PultosokDataContextProvider } from './schedule_data/context_hooks/PultosokDataContext';
 import { LocaleContextProvider } from './locale/context_hooks/LocaleContextProvider';
 import { AppBackground } from './components/AppBackground';
+import { DeviceLocationManager } from './location/context_hooks/DeviceLocationManager';
+import { ThemeManager } from './colors_themes/ThemeManager';
 
 export default function App() {
   return (
@@ -12,7 +14,11 @@ export default function App() {
       <LocaleContextProvider>
         <PultosokDataContextProvider>
           <AppBackground>
-            <AppNavigation />
+            <DeviceLocationManager>
+              <ThemeManager>
+                <AppNavigation />
+              </ThemeManager>
+            </DeviceLocationManager>
           </AppBackground>
         </PultosokDataContextProvider>
       </LocaleContextProvider>

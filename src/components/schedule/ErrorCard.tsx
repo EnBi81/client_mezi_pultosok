@@ -1,25 +1,18 @@
 import { StyleSheet, View, Text } from 'react-native';
 import React from 'react';
 import { useLocale } from '../../locale/hooks/useLocale';
-import { useColorTheme } from '../../hooks/useColorTheme';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
 
 export const ErrorCard = ({ errorText }: { errorText: string }) => {
   const { l } = useLocale();
   const { colors } = useColorTheme();
 
   return (
-    <View
-      style={[
-        styles.card,
-        { backgroundColor: colors.card.bg, shadowColor: colors.card.shadow },
-      ]}
-    >
+    <View style={[styles.card, { backgroundColor: colors.card.bg, shadowColor: colors.card.shadow }]}>
       <View style={styles.header}>
         <Text style={styles.errorHeaderText}>{l.schedule.errorOccurred}</Text>
         <View>
-          <Text style={[styles.errorText, { color: colors.text.secondary }]}>
-            {errorText}
-          </Text>
+          <Text style={[styles.errorText, { color: colors.text.secondary }]}>{errorText}</Text>
         </View>
       </View>
     </View>

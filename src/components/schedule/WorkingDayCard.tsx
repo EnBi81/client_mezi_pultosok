@@ -6,14 +6,10 @@ import { LinearGradient } from 'react-native-linear-gradient';
 import { toast } from '../../utils';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { useUIEffects } from '../../hooks/useUIEffects';
-import { useColorTheme } from '../../hooks/useColorTheme';
-import { useGradientPalette } from '../../hooks/useGradientPalette';
+import { useColorTheme } from '../../colors_themes/useColorTheme';
+import { useGradientPalette } from '../../colors_themes/useGradientPalette';
 
-export const WorkingDayCard = ({
-  schedule,
-}: {
-  schedule: WorkingDaySchedule;
-}) => {
+export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) => {
   const isCikolaDown = schedule.cikola.length === 0;
   const isDoborgazDown = schedule.doborgaz.length === 0;
   const isJanicsDown = isCikolaDown && isDoborgazDown;
@@ -44,32 +40,20 @@ export const WorkingDayCard = ({
         }}
       >
         <View style={{ flexDirection: 'row' }}>
-          <Text style={[styles.day, { color: colors.text.main }]}>
-            {schedule.dayOfWeekString}
-          </Text>
+          <Text style={[styles.day, { color: colors.text.main }]}>{schedule.dayOfWeekString}</Text>
           {!isJanicsDown && schedule.isNew && (
             <LinearGradient
-              colors={
-                isLightTheme
-                  ? colorPalette.gradient
-                  : gradientEffects.brighten(15)
-              }
+              colors={isLightTheme ? colorPalette.gradient : gradientEffects.brighten(15)}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 1 }}
               style={styles.newTag}
             >
-              <Text
-                style={{ fontWeight: 'bold', color: colorPalette.textColor }}
-              >
-                {l.schedule.new}
-              </Text>
+              <Text style={{ fontWeight: 'bold', color: colorPalette.textColor }}>{l.schedule.new}</Text>
             </LinearGradient>
           )}
         </View>
 
-        <Text style={[styles.date, { color: colors.text.main }]}>
-          {schedule.dateStringShort}
-        </Text>
+        <Text style={[styles.date, { color: colors.text.main }]}>{schedule.dateStringShort}</Text>
       </View>
 
       {!isJanicsDown && (
@@ -81,17 +65,10 @@ export const WorkingDayCard = ({
           >
             <View style={styles.leftSideOuter}>
               <View style={styles.leftSideInner}>
-                {isCikolaDown && (
-                  <Text style={[styles.worker, { color: colors.text.main }]}>
-                    -
-                  </Text>
-                )}
+                {isCikolaDown && <Text style={[styles.worker, { color: colors.text.main }]}>-</Text>}
                 {!isCikolaDown &&
                   schedule.cikola.map((p, i) => (
-                    <Text
-                      key={i}
-                      style={[styles.worker, { color: colors.text.main }]}
-                    >
+                    <Text key={i} style={[styles.worker, { color: colors.text.main }]}>
                       {p}
                     </Text>
                   ))}
@@ -99,12 +76,7 @@ export const WorkingDayCard = ({
             </View>
           </TouchableNativeFeedback>
 
-          <View
-            style={[
-              styles.middleLine,
-              { borderLeftColor: colors.card.separatorLine },
-            ]}
-          />
+          <View style={[styles.middleLine, { borderLeftColor: colors.card.separatorLine }]} />
 
           <TouchableNativeFeedback
             style={styles.touchableFeedback}
@@ -113,17 +85,10 @@ export const WorkingDayCard = ({
           >
             <View style={styles.rightSideOuter}>
               <View style={styles.rightSideInner}>
-                {isDoborgazDown && (
-                  <Text style={[styles.worker, { color: colors.text.main }]}>
-                    -
-                  </Text>
-                )}
+                {isDoborgazDown && <Text style={[styles.worker, { color: colors.text.main }]}>-</Text>}
                 {!isDoborgazDown &&
                   schedule.doborgaz.map((p, i) => (
-                    <Text
-                      key={i}
-                      style={[styles.worker, { color: colors.text.main }]}
-                    >
+                    <Text key={i} style={[styles.worker, { color: colors.text.main }]}>
                       {p}
                     </Text>
                   ))}
