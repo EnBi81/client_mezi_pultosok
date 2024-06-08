@@ -1,18 +1,19 @@
 import { useSettings } from '../../settings/hooks/useSettings';
 import { RadioGroup, RadioItem } from './general/RadioGroup';
 import { CollapsiblePanel } from './general/CollapsiblePanel';
-import { useColorTheme } from '../../colors_themes/useColorTheme';
+import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { Icon } from '../icons/Icon';
 import { useDeviceLocation } from '../../location/hooks/useDeviceLocation';
-import { formatString, toast } from '../../utils';
-import SunCalc from 'suncalc';
+import { toast } from '../../utils';
+import { useSunPosition } from '../../colors_themes/hooks/useSunPosition';
 
 export const ColorThemeRadioButtons = () => {
   const { modifySettings } = useSettings();
   const { colorThemeSettings } = useColorTheme();
   const { l } = useLocale();
   const { location } = useDeviceLocation();
+  const { nextSunEvent } = useSunPosition();
 
   const radioItems: RadioItem[] = [
     {
@@ -35,56 +36,12 @@ export const ColorThemeRadioButtons = () => {
       title: l.settings.general.colorTheme.sunSync,
       icon: <Icon name={'weather-sunset'} provider={'material-community'} />,
       onLongPress: () => {
-        const now = new Date();
-        const sunCalculationResult = SunCalc.getTimes(now, location.latitude, location.longitude, 0);
+        if (!nextSunEvent) {
+          toast(l.settings.general.colorTheme.failedToGetSunEvent);
+          return;
+        }
 
-        const showToastUntilNextTime = (
-          timeFrom: Date,
-          timeTo: Date,
-          locales: { manyHours: string; oneHour: string; manyMinutes: string; oneMinute: string },
-        ): boolean => {
-          const isBeforeTime = timeFrom.getTime() < timeTo.getTime();
-
-          if (!isBeforeTime) return false;
-
-          const allMinutesUntil = (timeTo.getTime() - timeFrom.getTime()) / (1000 * 60);
-
-          // less than an hour
-          if (allMinutesUntil < 60) {
-            if (allMinutesUntil < 2) toast(locales.oneMinute);
-            else toast(formatString(locales.manyMinutes, allMinutesUntil));
-            return true;
-          }
-
-          const hoursUntil = Math.floor(allMinutesUntil / 60);
-
-          if (hoursUntil < 2) toast(locales.oneHour);
-          else toast(formatString(locales.manyHours, hoursUntil));
-          return true;
-        };
-
-        const sunriseLocales = {
-          manyHours: l.settings.general.colorTheme.sunriseInHours,
-          oneHour: l.settings.general.colorTheme.sunriseInHour,
-          manyMinutes: l.settings.general.colorTheme.sunriseInMinutes,
-          oneMinute: l.settings.general.colorTheme.sunriseInMinute,
-        };
-
-        const sunsetLocales = {
-          manyHours: l.settings.general.colorTheme.sunsetInHours,
-          oneHour: l.settings.general.colorTheme.sunsetInHour,
-          manyMinutes: l.settings.general.colorTheme.sunsetInMinutes,
-          oneMinute: l.settings.general.colorTheme.sunsetInMinute,
-        };
-
-        if (showToastUntilNextTime(now, sunCalculationResult.sunrise, sunriseLocales)) return;
-        if (showToastUntilNextTime(now, sunCalculationResult.sunset, sunsetLocales)) return;
-
-        const tomorrow = new Date(now.getTime());
-        tomorrow.setDate(tomorrow.getDate() + 1);
-
-        const sunCalculationTomorrowResult = SunCalc.getTimes(tomorrow, location.latitude, location.longitude, 0);
-        showToastUntilNextTime(tomorrow, sunCalculationTomorrowResult.sunrise, sunriseLocales);
+        toast(nextSunEvent.getDisplayTextUntil());
       },
     },
   ];

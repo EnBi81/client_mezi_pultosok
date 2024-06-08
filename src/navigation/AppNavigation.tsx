@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { SchedulePage } from '../pages/SchedulePage';
 import { SettingsPage } from '../pages/SettingsPage';
 import { useLocale } from '../locale/hooks/useLocale';
-import { useColorTheme } from '../colors_themes/useColorTheme';
+import { useColorTheme } from '../colors_themes/hooks/useColorTheme';
 
 const Stack = createStackNavigator();
 

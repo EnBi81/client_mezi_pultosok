@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text } from 'react-native';
-import { useColorTheme } from '../../../colors_themes/useColorTheme';
+import { useColorTheme } from '../../../colors_themes/hooks/useColorTheme';
 
 export const SettingsHeader = ({ title, description }: { title: string; description: string }) => {
   const { colors } = useColorTheme();

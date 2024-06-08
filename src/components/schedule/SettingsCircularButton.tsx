@@ -3,8 +3,8 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRef } from 'react';
-import { useGradientPalette } from '../../colors_themes/useGradientPalette';
-import { useColorTheme } from '../../colors_themes/useColorTheme';
+import { useGradientPalette } from '../../colors_themes/hooks/useGradientPalette';
+import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
 
 export const SettingsCircularButton = ({ onPress }: { onPress: () => void }) => {
   const { colorPalette, gradientEffects } = useGradientPalette();

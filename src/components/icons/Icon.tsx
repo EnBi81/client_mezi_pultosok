@@ -1,6 +1,6 @@
 import IconMaterial from 'react-native-vector-icons/MaterialIcons';
 import IconMaterialCommunity from 'react-native-vector-icons/MaterialCommunityIcons';
-import { useColorTheme } from '../../colors_themes/useColorTheme';
+import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
 
 export const Icon = ({
   name,

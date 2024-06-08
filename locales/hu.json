@@ -48,14 +48,9 @@
         "sunSync": "Nap-szinkronizált mód",
         "sunSyncModeTurnedOffBecauseLocationDenied": "Nap-szinkronizált mód kikapcsolva: Helymeghatározás megtagadva",
         "sunSyncModeEnableLocationToTurnOnSunSyncMode": "Engedélyezze a helymeghatározást a Nap-szinkronizált mód használatához",
-        "sunriseInHours": "Napkelte {0} óra múlva",
-        "sunriseInHour": "Napkelte 1 óra múlva",
-        "sunriseInMinutes": "Napkelte {0} perc múlva",
-        "sunriseInMinute": "Napkelte 1 perc múlva",
-        "sunsetInHours": "Napnyugta {0} óra múlva",
-        "sunsetInHour": "Napnyugta 1 óra múlva",
-        "sunsetInMinutes": "Napnyugta {0} perc múlva",
-        "sunsetInMinute": "Napnyugta 1 perc múlva"
+        "eventHappeningNow": "{0} is happening now",
+        "eventIn": "{0} {1} {2} múlva",
+        "failedToGetSunEvent": "Nem sikerült lekérni a következő nap eseményt"
       },
       "markAllAsRead": "Mindet olvasottnak jelölni",
       "markedAllAsRead": "Nahh ez is megvolt"
@@ -68,5 +63,19 @@
     "googlePlayNotAvailable": "A Google Play szolgáltatás nincs telepítve vagy régi verzió van telepítve",
     "serviceNotAvailable": "A helymeghatározási szolgáltatás nincs engedélyezve",
     "error": "Hiba a helymeghatározási kérés során"
+  },
+  "sunEvents": {
+    "sunrise": "Napkelte",
+    "sunset": "Napnyugta",
+    "golderHourEvening": "Arany Óra",
+    "goldenHourEndMorning": "Világosság"
+  },
+  "time": {
+    "hours": "óra",
+    "hour": "óra",
+    "minutes": "perc",
+    "minute": "perc",
+    "seconds": "másodperc",
+    "second": "másodperc"
   }
 }

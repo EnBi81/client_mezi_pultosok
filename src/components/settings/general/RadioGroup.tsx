@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { useColorTheme } from '../../../colors_themes/useColorTheme';
+import { useColorTheme } from '../../../colors_themes/hooks/useColorTheme';
 import { Icon } from '../../icons/Icon';
 
 export interface RadioItem {

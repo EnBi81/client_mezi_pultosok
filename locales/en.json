@@ -48,14 +48,9 @@
         "sunSync": "Sun-Synced Mode",
         "sunSyncModeTurnedOffBecauseLocationDenied": "SunSync mode turned off: Location denied",
         "sunSyncModeEnableLocationToTurnOnSunSyncMode": "Enable location access to use Sun-Synced Mode",
-        "sunriseInHours": "Sunrise in {0} hours",
-        "sunriseInHour": "Sunrise in 1 hour",
-        "sunriseInMinutes": "Sunrise in {0} minutes",
-        "sunriseInMinute": "Sunrise in 1 minute",
-        "sunsetInHours": "Sunset in {0} hours",
-        "sunsetInHour": "Sunset in 1 hour",
-        "sunsetInMinutes": "Sunset in {0} minutes",
-        "sunsetInMinute": "Sunset in 1 minute"
+        "eventHappeningNow": "{0} is happening now",
+        "eventIn": "{0} in {1} {2}",
+        "failedToGetSunEvent": "Failed to calculate next sun event"
       },
       "markAllAsRead": "Mark all as read",
       "markedAllAsRead": "Marked all of them!"
@@ -68,5 +63,19 @@
     "googlePlayNotAvailable": "Google play service is not installed or has an older version",
     "serviceNotAvailable": "Location service is not enabled",
     "error": "Error requesting location"
+  },
+  "sunEvents": {
+    "sunrise": "Sunrise",
+    "sunset": "Sunset",
+    "golderHourEvening": "Golder Hour",
+    "goldenHourEndMorning": "Golden Hour ends"
+  },
+  "time": {
+    "hours": "hours",
+    "hour": "hour",
+    "minutes": "minutes",
+    "minute": "minute",
+    "seconds": "seconds",
+    "second": "second"
   }
 }
