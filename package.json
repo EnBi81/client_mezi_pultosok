@@ -5,7 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "sync-version": ".scripts/version-sync.cmd",
-    "postinstall": ".scripts/custom-post-install.cmd",
+    "post-install": ".scripts/custom-post-install.cmd",
     "ios": "react-native run-ios",
     "lint": "eslint .",
     "start": "react-native start",
