@@ -37,13 +37,13 @@ jobs:
       - name: Install dependencies
         run: |
           yarn install > yarn-install.log 2>&1 || {
-            log_file=$(grep "exit code 128, logs can be found here:" yarn-install.log | sed -n 's/.*logs can be found here: \(.*\))/\1/p')
+            log_file=$(grep -o "/tmp/[\w-]*/build.log" yarn-install.log)
             if [ -n "$log_file" ]; then
-            echo "Yarn install failed. Printing log file at $log_file"
-            cat "$log_file"
+              echo "Yarn install failed. Printing log file at $log_file"
+              cat "$log_file"
             else
-            echo "Yarn install failed. No specific log file found."
-            cat yarn-install.log
+              echo "Yarn install failed. No specific log file found."
+              cat yarn-install.log
             fi
             exit 1
           }
