@@ -1,12 +1,12 @@
-import { useSettings } from '../../settings/hooks/useSettings';
-import { RadioGroup, RadioItem } from './general/RadioGroup';
-import { CollapsiblePanel } from './general/CollapsiblePanel';
-import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
-import { useLocale } from '../../locale/hooks/useLocale';
+import { useSettings } from '../../hooks/useSettings';
+import { RadioGroup, RadioItem } from '../RadioGroup';
+import { CollapsiblePanel } from '../CollapsiblePanel';
+import { useColorTheme } from '../../hooks/useColorTheme';
+import { useLocale } from '../../hooks/useLocale';
 import { Icon } from '../icons/Icon';
-import { useDeviceLocation } from '../../location/hooks/useDeviceLocation';
-import { toast } from '../../utils';
-import { useSunPosition } from '../../colors_themes/hooks/useSunPosition';
+import { useDeviceLocation } from '../../hooks/useDeviceLocation';
+import { toast } from '../../utils/utils';
+import { useSunPosition } from '../../hooks/useSunPosition';
 
 export const ColorThemeRadioButtons = () => {
   const { modifySettings } = useSettings();

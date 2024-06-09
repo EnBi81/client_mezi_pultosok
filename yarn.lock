@@ -2861,6 +2861,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/react-native-fs@npm:^2.13.0":
+  version: 2.13.0
+  resolution: "@types/react-native-fs@npm:2.13.0"
+  dependencies:
+    react-native-fs: "*"
+  checksum: 4a3fd0c777e0accba157ae240c59e3a9dc744692a07f41d64f6962695c2538e3fe4760709965261a6ebd168639e69aa8cdf257ef818f18df74615b79142efe73
+  languageName: node
+  linkType: hard
+
 "@types/react-test-renderer@npm:^18.0.0":
   version: 18.3.0
   resolution: "@types/react-test-renderer@npm:18.3.0"
@@ -3888,6 +3897,7 @@ __metadata:
     "@react-navigation/native": ^6.1.17
     "@react-navigation/stack": ^6.3.29
     "@types/react": ^18.2.6
+    "@types/react-native-fs": ^2.13.0
     "@types/react-test-renderer": ^18.0.0
     babel-jest: ^29.6.3
     eslint: ^8.19.0
@@ -8361,7 +8371,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-fs@npm:^2.20.0":
+"react-native-fs@npm:*, react-native-fs@npm:^2.20.0":
   version: 2.20.0
   resolution: "react-native-fs@npm:2.20.0"
   dependencies:

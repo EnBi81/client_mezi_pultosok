@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { API_ENDPOINT, CURRENT_APK_VERSION } from '../../constants';
+import { API_ENDPOINT, CURRENT_APK_VERSION } from '../../utils/constants';
 
 export const useApkUpdateChecker = () => {
   const [latestApkVersion, setLatestApkVersion] = useState<string>();
@@ -9,10 +9,7 @@ export const useApkUpdateChecker = () => {
   useEffect(() => {
     fetch(`${API_ENDPOINT}/apk-version`)
       .then((data) => {
-        if (!data.ok)
-          throw new Error(
-            'Error while checking apk version: ' + data.statusText,
-          );
+        if (!data.ok) throw new Error('Error while checking apk version: ' + data.statusText);
 
         return data.text();
       })

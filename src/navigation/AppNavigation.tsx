@@ -3,8 +3,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SchedulePage } from '../pages/SchedulePage';
 import { SettingsPage } from '../pages/SettingsPage';
-import { useLocale } from '../locale/hooks/useLocale';
-import { useColorTheme } from '../colors_themes/hooks/useColorTheme';
+import { useLocale } from '../hooks/useLocale';
+import { useColorTheme } from '../hooks/useColorTheme';
 
 const Stack = createStackNavigator();
 

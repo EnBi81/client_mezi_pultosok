@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import RNFS from 'react-native-fs';
-import { API_ENDPOINT } from '../../constants';
+import { API_ENDPOINT } from '../../utils/constants';
 
 const paths = {
   fileName: 'mezi_pultos_garda_update.apk',

@@ -1,8 +1,8 @@
-import { RadioGroup, RadioItem } from './general/RadioGroup';
-import { CollapsiblePanel } from './general/CollapsiblePanel';
-import { useLocale } from '../../locale/hooks/useLocale';
+import { RadioGroup, RadioItem } from '../RadioGroup';
+import { CollapsiblePanel } from '../CollapsiblePanel';
+import { useLocale } from '../../hooks/useLocale';
 import { useMemo } from 'react';
-import { useSettings } from '../../settings/hooks/useSettings';
+import { useSettings } from '../../hooks/useSettings';
 import { Icon } from '../icons/Icon';
 
 export const LanguageRadioButtons = () => {

@@ -3,11 +3,11 @@ import React from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { toast } from '../../utils';
-import { useLocale } from '../../locale/hooks/useLocale';
+import { toast } from '../../utils/utils';
+import { useLocale } from '../../hooks/useLocale';
 import { useUIEffects } from '../../hooks/useUIEffects';
-import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
-import { useGradientPalette } from '../../colors_themes/hooks/useGradientPalette';
+import { useColorTheme } from '../../hooks/useColorTheme';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
 
 export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) => {
   const isCikolaDown = schedule.cikola.length === 0;

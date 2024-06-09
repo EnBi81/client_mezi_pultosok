@@ -1,9 +1,9 @@
 import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import { useUIEffects } from '../../hooks/useUIEffects';
-import { useLocale } from '../../locale/hooks/useLocale';
-import { usePultosokDataContext } from '../../schedule_data/hooks/usePultosokDataContext';
-import { toast } from '../../utils';
-import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
+import { useLocale } from '../../hooks/useLocale';
+import { usePultosokDataContext } from '../../hooks/usePultosokDataContext';
+import { toast } from '../../utils/utils';
+import { useColorTheme } from '../../hooks/useColorTheme';
 import { Icon } from '../icons/Icon';
 
 export const MarkAllReadButton = () => {

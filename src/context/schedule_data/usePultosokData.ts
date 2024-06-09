@@ -1,0 +1,140 @@
+import { useEffect, useState } from 'react';
+import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
+import PultosokSharedPreferences from 'react-native-shared-preferences';
+import { usePultosokDataNetworking } from './usePultosokDataNetworking';
+import { usePultosokDataCaching } from './usePultosokDataCaching';
+import { toast } from '../../utils/utils';
+import { useLocale } from '../../hooks/useLocale';
+
+export const usePultosokData = () => {
+  const { refresh, data: networkingData, isRefreshing, error: networkingError } = usePultosokDataNetworking();
+
+  const { cachedData, cacheData, isInitialCacheLoaded } = usePultosokDataCaching();
+
+  const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
+
+  const { l } = useLocale();
+
+  // handling cache x network data
+  useEffect(() => {
+    if (!isInitialCacheLoaded) return;
+
+    // if no data is available, skip
+    if (!cachedData && !networkingData) return;
+
+    // if only the cache data is available, load that
+    if (cachedData && !networkingData) {
+      setWorkingDays(cachedData.data);
+      return;
+    }
+
+    const now = new Date().getTime();
+
+    // if no cache data is available but the data from the server is, then load that
+    if (!cachedData && networkingData) {
+      const data: WorkingDaySchedule[] = networkingData.map((d) => ({
+        ...d,
+        isNew: true,
+        isNewDateRegistered: now,
+      }));
+
+      setWorkingDays(data);
+      return;
+    }
+
+    // double-checking
+    if (!networkingData || !cachedData) return;
+
+    // here both the networking and cache data is available
+    const days: WorkingDaySchedule[] = networkingData.map((d) => {
+      const cachedDay = cachedData.data.find((f) => f.date === d.date);
+      let isNew = false;
+      let newDateRegistered = undefined;
+
+      if (!cachedDay) {
+        isNew = true;
+        newDateRegistered = now;
+      }
+      // if in the cache it was set to new
+      else if (cachedDay.isNew) {
+        newDateRegistered = cachedDay.isNewDateRegistered ?? now;
+
+        const now = new Date().getTime();
+        const newThresholdMilliSeconds = 1000 * 60 * 60 * 24; // 1 day
+        //const newThresholdMilliSeconds = 1000 * 60; // 1 minute
+        if (now - newDateRegistered < newThresholdMilliSeconds) {
+          isNew = true;
+        }
+      } else {
+        isNew =
+          JSON.stringify(d.cikola) !== JSON.stringify(cachedDay.cikola) ||
+          JSON.stringify(d.doborgaz) !== JSON.stringify(cachedDay.doborgaz);
+
+        if (isNew) {
+          newDateRegistered = now;
+        }
+      }
+
+      return {
+        ...d,
+        isNewDateRegistered: newDateRegistered,
+        isNew: isNew,
+      };
+    });
+
+    setWorkingDays(days);
+  }, [isInitialCacheLoaded, networkingData]);
+
+  // sending data to the widget
+  useEffect(() => {
+    if (!workingDays) return;
+
+    PultosokSharedPreferences.setName('com.client_mezi_pultosok.PultosokSharedPreferences');
+    PultosokSharedPreferences.setItem('apiData', JSON.stringify(workingDays));
+  }, [workingDays]);
+
+  // displaying error toasts
+  useEffect(() => {
+    if (networkingError.isError) {
+      if (networkingError.isNetworkError) toast(l.schedule.networking.networkError);
+      else toast(l.schedule.networking.dataError);
+      return;
+    }
+  }, [networkingData, networkingError]);
+
+  // auto refresh data
+  useEffect(() => {
+    const interval = setInterval(
+      () => {
+        refresh();
+      },
+      3 * 60 * 60 * 1000,
+    );
+
+    return () => clearInterval(interval);
+  }, []);
+
+  // cache data
+  useEffect(() => {
+    if (workingDays) cacheData(workingDays);
+  }, [workingDays]);
+
+  const markAllAsRead = () => {
+    if (!workingDays) return;
+
+    const markedRead: WorkingDaySchedule[] = workingDays.map((day) => ({
+      ...day,
+      isNew: false,
+    }));
+
+    setWorkingDays(markedRead);
+  };
+
+  return {
+    workingDays,
+    refresh: refresh,
+    isRefreshing,
+    error: networkingError,
+    markAllAsRead: () => markAllAsRead(),
+  };
+};

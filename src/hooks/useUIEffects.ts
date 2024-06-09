@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
-import { useColorTheme } from '../colors_themes/hooks/useColorTheme';
+import { useColorTheme } from './useColorTheme';
 
 export const useUIEffects = () => {
   const { colors } = useColorTheme();

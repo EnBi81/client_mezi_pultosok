@@ -1,7 +1,7 @@
 import React from 'react';
 import SkeletonPlaceholder from 'react-native-skeleton-placeholder';
 import { StyleSheet, View } from 'react-native';
-import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
+import { useColorTheme } from '../../hooks/useColorTheme';
 
 export const WorkingDayCardSkeleton = () => {
   const { colors } = useColorTheme();

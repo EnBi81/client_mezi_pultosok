@@ -1,4 +1,4 @@
-import { useColorTheme } from '../colors_themes/hooks/useColorTheme';
+import { useColorTheme } from '../hooks/useColorTheme';
 import { View } from 'react-native';
 
 export const AppBackground = ({ children }: { children: React.ReactNode }) => {
