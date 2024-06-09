@@ -2,7 +2,7 @@ name: Build Client Mezi Pultosok Apk
 
 on:
   push:
-    branches: [main]
+    branches: [main, fix-build-deploy]
 
 jobs:
   build:
@@ -32,8 +32,17 @@ jobs:
           build-tools: 34.0.0
           ndk-version: 21.4.7075529
 
+      #- name: Install dependencies
+      #  run: yarn install
       - name: Install dependencies
-        run: yarn install
+        run: |
+            yarn install 2>&1 | tee yarn-install.log
+            if grep -q "(exit code 128, logs can be found here:" yarn-install.log; then
+              log_file=$(grep "(exit code 128, logs can be found here:" yarn-install.log | sed -n 's/.*logs can be found here: \(.*\))/\1/p')
+              echo "Yarn install failed. Printing log file at $log_file"
+              cat $log_file
+              exit 1
+            fi
 
       - name: Modify build.gradle in react-native-os
         run: sed -i "s/compile 'com.facebook.react:react-native:+/implementation 'com.facebook.react:react-native:+/g" node_modules/react-native-os/android/build.gradle
