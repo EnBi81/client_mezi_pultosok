@@ -11,6 +11,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0  # Fetch all history for all branches and tags
 
       - name: Set up Node.js 20.x
         uses: actions/setup-node@v2
@@ -31,7 +33,7 @@ jobs:
           ndk-version: 21.4.7075529
 
       - name: Install dependencies
-        run: yarn install --frozen-lockfile
+        run: yarn install --production --frozen-lockfile
 
       - name: Modify build.gradle in react-native-os
         run: sed -i "s/compile 'com.facebook.react:react-native:+/implementation 'com.facebook.react:react-native:+/g" node_modules/react-native-os/android/build.gradle
