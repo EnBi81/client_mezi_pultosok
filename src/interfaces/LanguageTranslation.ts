@@ -44,7 +44,10 @@ export interface LanguageTranslation {
       markAllAsRead: string;
       markedAllAsRead: string;
     };
-    markAllAsRead: string;
+    update: {
+      title: string;
+      description: string;
+    };
   };
   location: {
     permissionDenied: string;

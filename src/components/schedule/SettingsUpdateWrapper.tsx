@@ -1,14 +1,14 @@
 import { StyleSheet, View, Text, TouchableNativeFeedback, Animated, Dimensions, Easing } from 'react-native';
-import { useApkUpdater } from '../../hooks/apkUpdater/useApkUpdater';
-import { useLocale } from '../../locale/hooks/useLocale';
+import { useApkUpdater } from '../../hooks/useApkUpdater';
+import { useLocale } from '../../hooks/useLocale';
 import { SettingsCircularButton } from './SettingsCircularButton';
-import { useNavigation } from '../../navigation/useNavigation';
-import { formatString } from '../../utils';
+import { useNavigation } from '../../hooks/useNavigation';
+import { formatString } from '../../utils/utils';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import React, { useEffect, useRef } from 'react';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { useGradientPalette } from '../../colors_themes/hooks/useGradientPalette';
-import { useColorTheme } from '../../colors_themes/hooks/useColorTheme';
+import { useGradientPalette } from '../../hooks/useGradientPalette';
+import { useColorTheme } from '../../hooks/useColorTheme';
 
 export const SettingsUpdateWrapper = () => {
   const {

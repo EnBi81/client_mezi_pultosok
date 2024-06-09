@@ -1,8 +1,5 @@
-import { useGradientPalette } from '../colors_themes/hooks/useGradientPalette';
-import {
-  usePultosokAppDisplayData,
-  WorkingDayListObjectOptimized,
-} from '../schedule_data/hooks/usePultosokAppDisplayData';
+import { useGradientPalette } from '../hooks/useGradientPalette';
+import { usePultosokAppDisplayData, WorkingDayListObjectOptimized } from '../hooks/usePultosokAppDisplayData';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { ErrorCard } from '../components/schedule/ErrorCard';
 import { WorkingDayCardSkeleton } from '../components/schedule/WorkingDayCardSkeleton';
@@ -10,7 +7,7 @@ import React from 'react';
 import { FlatList, RefreshControl, SafeAreaView, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
-import { usePultosokDataContext } from '../schedule_data/hooks/usePultosokDataContext';
+import { usePultosokDataContext } from '../hooks/usePultosokDataContext';
 
 export const SchedulePage = () => {
   const { colorPalette } = useGradientPalette();

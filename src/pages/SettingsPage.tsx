@@ -1,34 +1,81 @@
-import { View, StyleSheet } from 'react-native';
-import { SettingsHeader } from '../components/settings/general/SettingsHeader';
+import { View, StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
+import { SettingsHeader } from '../components/settings/SettingsHeader';
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
-import { useLocale } from '../locale/hooks/useLocale';
-import { GradientBorder } from '../components/settings/general/GradientBorder';
+import { useLocale } from '../hooks/useLocale';
+import { GradientBorder } from '../components/GradientBorder';
 import { MarkAllReadButton } from '../components/settings/MarkAllReadButton';
 import { ColorThemeRadioButtons } from '../components/settings/ColorThemeRadioButtons';
-import { useColorTheme } from '../colors_themes/hooks/useColorTheme';
+import { useColorTheme } from '../hooks/useColorTheme';
+import { useApkUpdater } from '../hooks/useApkUpdater';
+import { formatString } from '../utils/utils';
+import { CURRENT_APK_VERSION } from '../utils/constants';
+import { SettingsUpdateButton } from '../components/settings/SettingsUpdateButton';
+import DeviceInfo from 'react-native-device-info';
+import { useEffect, useState } from 'react';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
 
   const { l } = useLocale();
   const { colors } = useColorTheme();
+  const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
+  const [staticTexts, setStaticTexts] = useState<string[]>();
+
+  useEffect(() => {
+    setStaticTexts([
+      `${DeviceInfo.getApplicationName()} V${CURRENT_APK_VERSION} (${DeviceInfo.getBuildNumber()})`,
+      DeviceInfo.getBundleId(),
+      `${DeviceInfo.getBrand()} - ${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
+      DeviceInfo.getDeviceId(),
+    ]);
+  }, []);
 
   return (
-    <View style={[styles.contentWrapper, { backgroundColor: colors.background.page }]}>
-      <View style={{ height: 30 }}></View>
-      <SettingsHeader title={l.settings.general.title} description={l.settings.general.description} />
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <ScrollView style={styles.scrollView}>
+        <View style={[styles.contentWrapper, { backgroundColor: colors.background.page }]}>
+          {isUpdateAvailable && (
+            <View>
+              <SettingsHeader
+                title={l.settings.update.title}
+                description={formatString(l.settings.update.description, latestApkVersion, CURRENT_APK_VERSION)}
+              />
+              <GradientBorder borderWidth={2} borderRadius={12}>
+                <SettingsUpdateButton />
+              </GradientBorder>
+              <SettingsSectionDivider />
+            </View>
+          )}
 
-      <GradientBorder borderWidth={2} borderRadius={12}>
-        <LanguageRadioButtons />
-        <SettingsDivider />
-        <ColorThemeRadioButtons />
-        <SettingsDivider />
-        <MarkAllReadButton />
-      </GradientBorder>
+          <SettingsHeader title={l.settings.general.title} description={l.settings.general.description} />
+          <GradientBorder borderWidth={2} borderRadius={12}>
+            <LanguageRadioButtons />
+            <SettingsDivider />
+            <ColorThemeRadioButtons />
+            <SettingsDivider />
+            <MarkAllReadButton />
+          </GradientBorder>
 
-      <View style={{ height: 40 }}></View>
+          <SettingsSectionDivider />
 
-      {/*<SettingsHeader
+          {staticTexts && (
+            <View style={styles.versionContainer}>
+              {staticTexts.map((text, i) => {
+                return (
+                  <Text
+                    style={{
+                      color: colors.text.secondary,
+                    }}
+                    key={i}
+                  >
+                    {text}
+                  </Text>
+                );
+              })}
+            </View>
+          )}
+
+          {/*<SettingsHeader
         title={'Notifications'}
         description={'Customize your notifications'}
       />
@@ -36,9 +83,13 @@ export const SettingsPage = () => {
       <GradientBorder borderWidth={2} borderRadius={12}>
         <Switch onValueChange={(val) => console.log('change')} value={true} />
       </GradientBorder>*/}
-    </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
+
+const SettingsSectionDivider = () => <View style={{ height: 40 }}></View>;
 
 const SettingsDivider = () => {
   const { colors } = useColorTheme();
@@ -55,11 +106,18 @@ const SettingsDivider = () => {
 };
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    height: '100%',
+    width: '100%',
+  },
+  scrollView: {},
   contentWrapper: {
     backgroundColor: 'white',
     width: '100%',
     height: '100%',
     paddingHorizontal: 8,
+    paddingTop: 30,
+    paddingBottom: 90,
   },
   maxSize: {
     width: '100%',
@@ -81,5 +139,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6',
     width: '100%',
     overflow: 'hidden',
+  },
+  versionContainer: {
+    width: '100%',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
