@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { SettingsHeader } from '../components/settings/SettingsHeader';
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
 import { useLocale } from '../hooks/useLocale';
@@ -10,6 +10,8 @@ import { useApkUpdater } from '../hooks/useApkUpdater';
 import { formatString } from '../utils/utils';
 import { CURRENT_APK_VERSION } from '../utils/constants';
 import { SettingsUpdateButton } from '../components/settings/SettingsUpdateButton';
+import DeviceInfo from 'react-native-device-info';
+import { useEffect, useState } from 'react';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
@@ -17,6 +19,16 @@ export const SettingsPage = () => {
   const { l } = useLocale();
   const { colors } = useColorTheme();
   const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
+  const [staticTexts, setStaticTexts] = useState<string[]>();
+
+  useEffect(() => {
+    setStaticTexts([
+      `${DeviceInfo.getApplicationName()} V${CURRENT_APK_VERSION} (${DeviceInfo.getBuildNumber()})`,
+      DeviceInfo.getBundleId(),
+      `${DeviceInfo.getBrand()} - ${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
+      DeviceInfo.getDeviceId(),
+    ]);
+  }, []);
 
   return (
     <View style={[styles.contentWrapper, { backgroundColor: colors.background.page }]}>
@@ -45,6 +57,23 @@ export const SettingsPage = () => {
       </GradientBorder>
 
       <SettingsSectionDivider />
+
+      {staticTexts && (
+        <View style={styles.versionContainer}>
+          {staticTexts.map((text, i) => {
+            return (
+              <Text
+                style={{
+                  color: colors.text.secondary,
+                }}
+                key={i}
+              >
+                {text}
+              </Text>
+            );
+          })}
+        </View>
+      )}
 
       {/*<SettingsHeader
         title={'Notifications'}
@@ -104,7 +133,8 @@ const styles = StyleSheet.create({
   },
   versionContainer: {
     width: '100%',
-    flexDirection: 'row',
+    flexDirection: 'column',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });

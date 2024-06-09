@@ -21,6 +21,7 @@
     "react-native": "^0.74.1",
     "react-native-collapsible": "^1.6.1",
     "react-native-config": "^1.5.1",
+    "react-native-device-info": "^11.1.0",
     "react-native-fs": "^2.20.0",
     "react-native-geolocation-service": "^5.3.1",
     "react-native-gesture-handler": "^2.16.2",
