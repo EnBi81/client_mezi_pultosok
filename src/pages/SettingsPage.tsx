@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text } from 'react-native';
+import { View, StyleSheet, Text, SafeAreaView, ScrollView } from 'react-native';
 import { SettingsHeader } from '../components/settings/SettingsHeader';
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
 import { useLocale } from '../hooks/useLocale';
@@ -31,51 +31,51 @@ export const SettingsPage = () => {
   }, []);
 
   return (
-    <View style={[styles.contentWrapper, { backgroundColor: colors.background.page }]}>
-      <View style={{ height: 30 }}></View>
+    <SafeAreaView style={styles.safeAreaContainer}>
+      <ScrollView style={styles.scrollView}>
+        <View style={[styles.contentWrapper, { backgroundColor: colors.background.page }]}>
+          {isUpdateAvailable && (
+            <View>
+              <SettingsHeader
+                title={l.settings.update.title}
+                description={formatString(l.settings.update.description, latestApkVersion, CURRENT_APK_VERSION)}
+              />
+              <GradientBorder borderWidth={2} borderRadius={12}>
+                <SettingsUpdateButton />
+              </GradientBorder>
+              <SettingsSectionDivider />
+            </View>
+          )}
 
-      {isUpdateAvailable && (
-        <View>
-          <SettingsHeader
-            title={l.settings.update.title}
-            description={formatString(l.settings.update.description, latestApkVersion, CURRENT_APK_VERSION)}
-          />
+          <SettingsHeader title={l.settings.general.title} description={l.settings.general.description} />
           <GradientBorder borderWidth={2} borderRadius={12}>
-            <SettingsUpdateButton />
+            <LanguageRadioButtons />
+            <SettingsDivider />
+            <ColorThemeRadioButtons />
+            <SettingsDivider />
+            <MarkAllReadButton />
           </GradientBorder>
+
           <SettingsSectionDivider />
-        </View>
-      )}
 
-      <SettingsHeader title={l.settings.general.title} description={l.settings.general.description} />
-      <GradientBorder borderWidth={2} borderRadius={12}>
-        <LanguageRadioButtons />
-        <SettingsDivider />
-        <ColorThemeRadioButtons />
-        <SettingsDivider />
-        <MarkAllReadButton />
-      </GradientBorder>
+          {staticTexts && (
+            <View style={styles.versionContainer}>
+              {staticTexts.map((text, i) => {
+                return (
+                  <Text
+                    style={{
+                      color: colors.text.secondary,
+                    }}
+                    key={i}
+                  >
+                    {text}
+                  </Text>
+                );
+              })}
+            </View>
+          )}
 
-      <SettingsSectionDivider />
-
-      {staticTexts && (
-        <View style={styles.versionContainer}>
-          {staticTexts.map((text, i) => {
-            return (
-              <Text
-                style={{
-                  color: colors.text.secondary,
-                }}
-                key={i}
-              >
-                {text}
-              </Text>
-            );
-          })}
-        </View>
-      )}
-
-      {/*<SettingsHeader
+          {/*<SettingsHeader
         title={'Notifications'}
         description={'Customize your notifications'}
       />
@@ -83,7 +83,9 @@ export const SettingsPage = () => {
       <GradientBorder borderWidth={2} borderRadius={12}>
         <Switch onValueChange={(val) => console.log('change')} value={true} />
       </GradientBorder>*/}
-    </View>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 
@@ -104,11 +106,18 @@ const SettingsDivider = () => {
 };
 
 const styles = StyleSheet.create({
+  safeAreaContainer: {
+    height: '100%',
+    width: '100%',
+  },
+  scrollView: {},
   contentWrapper: {
     backgroundColor: 'white',
     width: '100%',
     height: '100%',
     paddingHorizontal: 8,
+    paddingTop: 30,
+    paddingBottom: 90,
   },
   maxSize: {
     width: '100%',
