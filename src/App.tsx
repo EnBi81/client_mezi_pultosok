@@ -10,21 +10,18 @@ import { ThemeManager } from './global_managers/theme/ThemeManager';
 import { SunPositionContextProvider } from './context/sun_position/SunPositionContextProvider';
 
 export default function App() {
-  return (
-    <SettingsContextProvider>
-      <LocaleContextProvider>
-        <PultosokDataContextProvider>
-          <AppBackground>
-            <DeviceLocationManager>
-              <SunPositionContextProvider>
-                <ThemeManager>
-                  <AppNavigation />
-                </ThemeManager>
-              </SunPositionContextProvider>
-            </DeviceLocationManager>
-          </AppBackground>
-        </PultosokDataContextProvider>
-      </LocaleContextProvider>
-    </SettingsContextProvider>
-  );
+  const providers = [
+    SettingsContextProvider,
+    LocaleContextProvider,
+    PultosokDataContextProvider,
+    DeviceLocationManager,
+    SunPositionContextProvider,
+    ThemeManager,
+    AppBackground,
+  ]
+
+  return providers
+    .reverse()
+    .reduce((children, Provider) => (<Provider>{children}</Provider>), <AppNavigation/>)
+
 }
