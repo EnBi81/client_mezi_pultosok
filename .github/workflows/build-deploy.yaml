@@ -36,13 +36,17 @@ jobs:
       #  run: yarn install
       - name: Install dependencies
         run: |
-            yarn install 2>&1 | tee yarn-install.log
-            if grep -q "(exit code 128, logs can be found here:" yarn-install.log; then
-              log_file=$(grep "(exit code 128, logs can be found here:" yarn-install.log | sed -n 's/.*logs can be found here: \(.*\))/\1/p')
-              echo "Yarn install failed. Printing log file at $log_file"
-              cat $log_file
-              exit 1
+          yarn install > yarn-install.log 2>&1 || {
+            log_file=$(grep "exit code 128, logs can be found here:" yarn-install.log | sed -n 's/.*logs can be found here: \(.*\))/\1/p')
+            if [ -n "$log_file" ]; then
+            echo "Yarn install failed. Printing log file at $log_file"
+            cat "$log_file"
+            else
+            echo "Yarn install failed. No specific log file found."
+            cat yarn-install.log
             fi
+            exit 1
+          }
 
       - name: Modify build.gradle in react-native-os
         run: sed -i "s/compile 'com.facebook.react:react-native:+/implementation 'com.facebook.react:react-native:+/g" node_modules/react-native-os/android/build.gradle
