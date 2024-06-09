@@ -2,7 +2,7 @@ name: Build Client Mezi Pultosok Apk
 
 on:
   push:
-    branches: [main, fix-build-deploy]
+    branches: [main]
 
 jobs:
   build:
@@ -11,8 +11,6 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
-        with:
-          fetch-depth: 0  # Fetch all history for all branches and tags
 
       - name: Set up Node.js 20.x
         uses: actions/setup-node@v2
@@ -32,8 +30,6 @@ jobs:
           build-tools: 34.0.0
           ndk-version: 21.4.7075529
 
-      #- name: Install dependencies
-      #  run: yarn install
       - name: Install dependencies
         run: yarn install
 
