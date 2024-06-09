@@ -13,6 +13,10 @@ export const DefaultSettings: Settings = {
     longitude: undefined,
     locationAccess: undefined,
   },
+  notifications: {
+    masterSwitch: false,
+    appUpdates: false,
+  },
 };
 
 const DefaultSettingsContext = {

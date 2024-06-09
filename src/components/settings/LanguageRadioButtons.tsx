@@ -3,7 +3,7 @@ import { CollapsiblePanel } from '../CollapsiblePanel';
 import { useLocale } from '../../hooks/useLocale';
 import { useMemo } from 'react';
 import { useSettings } from '../../hooks/useSettings';
-import { Icon } from '../icons/Icon';
+import { Icon } from '../Icon';
 
 export const LanguageRadioButtons = () => {
   const { settings, modifySettings } = useSettings();

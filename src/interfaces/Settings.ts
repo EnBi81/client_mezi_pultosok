@@ -10,4 +10,8 @@ export interface Settings {
     longitude: number | undefined;
     locationAccess: 'granted' | 'denied' | undefined;
   };
+  notifications: {
+    masterSwitch: boolean;
+    appUpdates: boolean;
+  };
 }

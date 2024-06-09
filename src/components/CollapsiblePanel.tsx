@@ -1,7 +1,7 @@
 import Collapsible from 'react-native-collapsible';
 import { useEffect, useRef, useState } from 'react';
 import { StyleSheet, View, Animated } from 'react-native';
-import { Icon } from './icons/Icon';
+import { Icon } from './Icon';
 import { SettingsOptionContainer } from './settings/SettingsOptionContainer';
 
 export const CollapsiblePanel = ({

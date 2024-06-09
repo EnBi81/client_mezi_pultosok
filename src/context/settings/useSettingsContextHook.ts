@@ -45,6 +45,10 @@ export const useSettingsContextHook = () => {
           tempSettings.locationCache.locationAccess = undefined;
         }
 
+        if ('notifications' in data) {
+          tempSettings.notifications = data['notifications'];
+        }
+
         if (JSON.stringify(settings) !== JSON.stringify(tempSettings)) {
           setSettings(tempSettings);
         }

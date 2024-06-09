@@ -1,5 +1,5 @@
 import { View } from 'react-native';
-import { Icon } from './icons/Icon';
+import { Icon } from './Icon';
 import { SettingsOptionContainer } from './settings/SettingsOptionContainer';
 
 export interface RadioItem {
