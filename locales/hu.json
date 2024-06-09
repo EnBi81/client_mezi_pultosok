@@ -54,6 +54,10 @@
       },
       "markAllAsRead": "Mindet olvasottnak jelölni",
       "markedAllAsRead": "Nahh ez is megvolt"
+    },
+    "update": {
+      "title": "Frissítés Elérhető",
+      "description": "Frissítés a {0} verzióra (jelenlegi: {1})."
     }
   },
   "location": {

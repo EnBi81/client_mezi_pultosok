@@ -54,6 +54,10 @@
       },
       "markAllAsRead": "Mark all as read",
       "markedAllAsRead": "Marked all of them!"
+    },
+    "update": {
+      "title": "Update Available",
+      "description": "Update to version {0} (current: {1})."
     }
   },
   "location": {

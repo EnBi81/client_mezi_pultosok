@@ -1,6 +1,6 @@
-import { View, Text, StyleSheet, TouchableNativeFeedback } from 'react-native';
-import { useColorTheme } from '../hooks/useColorTheme';
+import { View } from 'react-native';
 import { Icon } from './icons/Icon';
+import { SettingsOptionContainer } from './settings/SettingsOptionContainer';
 
 export interface RadioItem {
   id: string;
@@ -49,40 +49,18 @@ const RadioButton = ({
   onPress: () => void;
   onLongPress: () => void;
 }) => {
-  const { colors } = useColorTheme();
-
   return (
-    <View style={buttonStyles.wrapper}>
-      <TouchableNativeFeedback onPress={onPress} onLongPress={onLongPress}>
-        <View style={buttonStyles.contentWrapper}>
-          <View style={{ flexDirection: 'row' }}>
-            <View style={buttonStyles.iconWrapper}>{icon && icon}</View>
-            <View>
-              <Text style={{ color: colors.text.secondary }}>{title}</Text>
-            </View>
-          </View>
-          <View style={{ opacity: ticked ? 1 : 0 }}>
-            <Icon name='done' />
-          </View>
+    <SettingsOptionContainer
+      icon={icon}
+      title={title}
+      type={'secondary'}
+      rightSide={
+        <View style={{ opacity: ticked ? 1 : 0 }}>
+          <Icon name='done' />
         </View>
-      </TouchableNativeFeedback>
-    </View>
+      }
+      onPress={onPress}
+      onLongPress={onLongPress}
+    />
   );
 };
-
-const buttonStyles = StyleSheet.create({
-  wrapper: {},
-  contentWrapper: {
-    padding: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  iconWrapper: {
-    marginRight: 5,
-    width: 30,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});

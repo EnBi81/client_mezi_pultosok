@@ -8,20 +8,19 @@ import { AppBackground } from './components/AppBackground';
 import { DeviceLocationManager } from './global_managers/location/DeviceLocationManager';
 import { ThemeManager } from './global_managers/theme/ThemeManager';
 import { SunPositionContextProvider } from './context/sun_position/SunPositionContextProvider';
+import { ApkUpdateContextProvider } from './context/update/ApkUpdateContextProvider';
 
 export default function App() {
   const providers = [
     SettingsContextProvider,
     LocaleContextProvider,
     PultosokDataContextProvider,
+    ApkUpdateContextProvider,
     DeviceLocationManager,
     SunPositionContextProvider,
     ThemeManager,
     AppBackground,
-  ]
+  ];
 
-  return providers
-    .reverse()
-    .reduce((children, Provider) => (<Provider>{children}</Provider>), <AppNavigation/>)
-
+  return providers.reverse().reduce((children, Provider) => <Provider>{children}</Provider>, <AppNavigation />);
 }

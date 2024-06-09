@@ -1,5 +1,5 @@
 import { StyleSheet, View, Text, TouchableNativeFeedback, Animated, Dimensions, Easing } from 'react-native';
-import { useApkUpdater } from '../../hooks/apkUpdater/useApkUpdater';
+import { useApkUpdater } from '../../hooks/useApkUpdater';
 import { useLocale } from '../../hooks/useLocale';
 import { SettingsCircularButton } from './SettingsCircularButton';
 import { useNavigation } from '../../hooks/useNavigation';

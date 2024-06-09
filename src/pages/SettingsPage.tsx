@@ -6,18 +6,36 @@ import { GradientBorder } from '../components/GradientBorder';
 import { MarkAllReadButton } from '../components/settings/MarkAllReadButton';
 import { ColorThemeRadioButtons } from '../components/settings/ColorThemeRadioButtons';
 import { useColorTheme } from '../hooks/useColorTheme';
+import { useApkUpdater } from '../hooks/useApkUpdater';
+import { formatString } from '../utils/utils';
+import { CURRENT_APK_VERSION } from '../utils/constants';
+import { SettingsUpdateButton } from '../components/settings/SettingsUpdateButton';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
 
   const { l } = useLocale();
   const { colors } = useColorTheme();
+  const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
 
   return (
     <View style={[styles.contentWrapper, { backgroundColor: colors.background.page }]}>
       <View style={{ height: 30 }}></View>
-      <SettingsHeader title={l.settings.general.title} description={l.settings.general.description} />
 
+      {isUpdateAvailable && (
+        <View>
+          <SettingsHeader
+            title={l.settings.update.title}
+            description={formatString(l.settings.update.description, latestApkVersion, CURRENT_APK_VERSION)}
+          />
+          <GradientBorder borderWidth={2} borderRadius={12}>
+            <SettingsUpdateButton />
+          </GradientBorder>
+          <SettingsSectionDivider />
+        </View>
+      )}
+
+      <SettingsHeader title={l.settings.general.title} description={l.settings.general.description} />
       <GradientBorder borderWidth={2} borderRadius={12}>
         <LanguageRadioButtons />
         <SettingsDivider />
@@ -26,7 +44,7 @@ export const SettingsPage = () => {
         <MarkAllReadButton />
       </GradientBorder>
 
-      <View style={{ height: 40 }}></View>
+      <SettingsSectionDivider />
 
       {/*<SettingsHeader
         title={'Notifications'}
@@ -39,6 +57,8 @@ export const SettingsPage = () => {
     </View>
   );
 };
+
+const SettingsSectionDivider = () => <View style={{ height: 40 }}></View>;
 
 const SettingsDivider = () => {
   const { colors } = useColorTheme();
@@ -81,5 +101,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#f6f6f6',
     width: '100%',
     overflow: 'hidden',
+  },
+  versionContainer: {
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
   },
 });

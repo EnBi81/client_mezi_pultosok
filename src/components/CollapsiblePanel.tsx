@@ -1,9 +1,8 @@
 import Collapsible from 'react-native-collapsible';
 import { useEffect, useRef, useState } from 'react';
-import { StyleSheet, View, Text, TouchableNativeFeedback, Animated } from 'react-native';
-import { useUIEffects } from '../hooks/useUIEffects';
-import { useColorTheme } from '../hooks/useColorTheme';
+import { StyleSheet, View, Animated } from 'react-native';
 import { Icon } from './icons/Icon';
+import { SettingsOptionContainer } from './settings/SettingsOptionContainer';
 
 export const CollapsiblePanel = ({
   title,
@@ -16,8 +15,6 @@ export const CollapsiblePanel = ({
 }) => {
   const [isCollapsed, setCollapsed] = useState(true);
   const arrowAnimation = useRef(new Animated.Value(0)).current;
-  const { ripple } = useUIEffects();
-  const { colors } = useColorTheme();
 
   useEffect(() => {
     Animated.timing(arrowAnimation, {
@@ -38,15 +35,16 @@ export const CollapsiblePanel = ({
 
   return (
     <View style={styles.maxWidth}>
-      <TouchableNativeFeedback background={ripple} onPress={() => setCollapsed((prev) => !prev)}>
-        <View style={[styles.row, styles.button]}>
-          <View style={styles.icon}>{icon && icon}</View>
-          <Text style={[styles.title, { color: colors.text.main }]}>{title}</Text>
+      <SettingsOptionContainer
+        icon={icon}
+        title={title}
+        onPress={() => setCollapsed((prev) => !prev)}
+        rightSide={
           <Animated.View style={[styles.arrow, arrowStyle]}>
             <Icon name='keyboard-arrow-down' />
           </Animated.View>
-        </View>
-      </TouchableNativeFeedback>
+        }
+      />
 
       <Collapsible collapsed={isCollapsed}>
         <View style={styles.contentWrapper}>{children}</View>
@@ -58,22 +56,6 @@ export const CollapsiblePanel = ({
 const styles = StyleSheet.create({
   maxWidth: {
     width: '100%',
-  },
-  row: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  button: {
-    padding: 15,
-  },
-  icon: {
-    marginRight: 10,
-  },
-  title: {
-    flex: 1,
-    fontSize: 16,
-    fontWeight: 'bold',
   },
   arrow: {
     marginLeft: 10,

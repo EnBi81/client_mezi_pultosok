@@ -5,12 +5,19 @@ import { SchedulePage } from '../pages/SchedulePage';
 import { SettingsPage } from '../pages/SettingsPage';
 import { useLocale } from '../hooks/useLocale';
 import { useColorTheme } from '../hooks/useColorTheme';
+import { AppRoutes } from './AppRoutes';
 
 const Stack = createStackNavigator();
 
 export const AppNavigation = () => {
   const { l } = useLocale();
   const { colors } = useColorTheme();
+
+  let initialRoute = AppRoutes.schedule;
+
+  if (__DEV__) {
+    //initialRoute = AppRoutes.settings;
+  }
 
   return (
     <NavigationContainer
@@ -20,9 +27,9 @@ export const AppNavigation = () => {
         },
       }}
     >
-      <Stack.Navigator initialRouteName='Schedule'>
+      <Stack.Navigator initialRouteName={initialRoute.name}>
         <Stack.Screen
-          name='Schedule'
+          name={AppRoutes.schedule.name}
           component={SchedulePage}
           options={{
             title: '',
@@ -30,7 +37,7 @@ export const AppNavigation = () => {
           }}
         />
         <Stack.Screen
-          name='Settings'
+          name={AppRoutes.settings.name}
           component={SettingsPage}
           options={{
             title: l.navigation.settingsPage.name,
