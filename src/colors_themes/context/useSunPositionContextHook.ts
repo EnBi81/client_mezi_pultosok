@@ -4,6 +4,7 @@ import { useDeviceLocation } from '../../location/hooks/useDeviceLocation';
 import { formatString } from '../../utils';
 import { useLocale } from '../../locale/hooks/useLocale';
 import { SunEvent } from '../../interfaces/SunEvent';
+import { AppState } from 'react-native';
 
 export const useSunPositionContextHook = () => {
   const { location } = useDeviceLocation();
@@ -162,6 +163,16 @@ export const useSunPositionContextHook = () => {
 
     return () => clearTimeout(timeout);
   }, [nextEvent]);
+
+  // handling app state events
+  useEffect(() => {
+    const event = AppState.addEventListener('focus', () => {
+      // when the user opens the app, recalculate the next event
+      setNextEventCounter((prev) => prev + 1);
+    });
+
+    return () => event.remove();
+  }, []);
 
   return {
     nextEvent: nextEvent,
