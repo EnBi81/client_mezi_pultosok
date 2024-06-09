@@ -9,9 +9,11 @@ import { DeviceLocationManager } from './global_managers/location/DeviceLocation
 import { ThemeManager } from './global_managers/theme/ThemeManager';
 import { SunPositionContextProvider } from './context/sun_position/SunPositionContextProvider';
 import { ApkUpdateContextProvider } from './context/update/ApkUpdateContextProvider';
+import { PaperProvider } from 'react-native-paper';
 
 export default function App() {
   const providers = [
+    PaperProvider,
     SettingsContextProvider,
     LocaleContextProvider,
     PultosokDataContextProvider,

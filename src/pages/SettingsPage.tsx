@@ -109,12 +109,14 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     height: '100%',
     width: '100%',
+    background: 'blue',
   },
-  scrollView: {},
-  contentWrapper: {
-    backgroundColor: 'white',
+  scrollView: {
     width: '100%',
     height: '100%',
+  },
+  contentWrapper: {
+    width: '100%',
     paddingHorizontal: 8,
     paddingTop: 30,
     paddingBottom: 90,
