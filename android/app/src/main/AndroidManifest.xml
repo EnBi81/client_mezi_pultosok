@@ -71,15 +71,5 @@
                 android:name="com.dieam.reactnativepushnotification.modules.RNPushNotificationService"
                 android:exported="false"
                 android:permission="android.permission.BIND_JOB_SERVICE" />
-
-        <!-- <service
-                android:name="com.transistorsoft.rnbackgroundfetch.HeadlessTask"
-                android:enabled="true"
-                android:exported="true">
-            <intent-filter>
-                <action android:name="com.transistorsoft.rnbackgroundfetch.HeadlessTask" />
-            </intent-filter>
-        </service>-->
-
     </application>
 </manifest>
