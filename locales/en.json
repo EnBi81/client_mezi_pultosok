@@ -58,6 +58,13 @@
     "update": {
       "title": "Update Available",
       "description": "Update to version {0} (current: {1})."
+    },
+    "notifications": {
+      "title": "Notifications",
+      "description": "Customize your notifications",
+      "masterNotificationOff": "Please turn on Notifications",
+      "notificationsButton": "Notifications",
+      "notificationsAppUpdatesButton": "App Updates"
     }
   },
   "location": {
@@ -81,5 +88,13 @@
     "minute": "minute",
     "seconds": "seconds",
     "second": "second"
+  },
+  "notifications": {
+    "update": {
+      "updateAvailableTitle": "Update Available",
+      "updateAvailableDescription": "Update to version {0}",
+      "updateButton": "Update",
+      "dismissButton": "Dismiss"
+    }
   }
 }

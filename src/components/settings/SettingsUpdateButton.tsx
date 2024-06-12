@@ -1,5 +1,5 @@
 import { SettingsOptionContainer } from './SettingsOptionContainer';
-import { Icon } from '../icons/Icon';
+import { Icon } from '../Icon';
 import { useApkUpdater } from '../../hooks/useApkUpdater';
 import { useLocale } from '../../hooks/useLocale';
 import { formatString } from '../../utils/utils';

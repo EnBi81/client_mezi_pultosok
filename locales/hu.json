@@ -58,6 +58,13 @@
     "update": {
       "title": "Frissítés Elérhető",
       "description": "Frissítés a {0} verzióra (jelenlegi: {1})."
+    },
+    "notifications": {
+      "title": "Értesítések",
+      "description": "Szabd személyre az értesítéseket",
+      "masterNotificationOff": "Kérlek kapcsol be az Értesítéseket",
+      "notificationsButton": "Értesítések",
+      "notificationsAppUpdatesButton": "Alkalmazás Frissítések"
     }
   },
   "location": {
@@ -81,5 +88,13 @@
     "minute": "perc",
     "seconds": "másodperc",
     "second": "másodperc"
+  },
+  "notifications": {
+    "update": {
+      "updateAvailableTitle": "Frissítés elérhető",
+      "updateAvailableDescription": "Frissíts a {0} verzióra",
+      "updateButton": "Frissít",
+      "dismissButton": "Hagyjuk"
+    }
   }
 }

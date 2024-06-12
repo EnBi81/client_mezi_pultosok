@@ -12,6 +12,7 @@ import { CURRENT_APK_VERSION } from '../utils/constants';
 import { SettingsUpdateButton } from '../components/settings/SettingsUpdateButton';
 import DeviceInfo from 'react-native-device-info';
 import { useEffect, useState } from 'react';
+import { SettingsNotificationsSection } from '../components/settings/SettingsNotificationsSection';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
@@ -57,7 +58,11 @@ export const SettingsPage = () => {
           </GradientBorder>
 
           <SettingsSectionDivider />
-
+          <SettingsHeader title={l.settings.notifications.title} description={l.settings.notifications.description} />
+          <GradientBorder borderWidth={2} borderRadius={12}>
+            <SettingsNotificationsSection />
+          </GradientBorder>
+          <SettingsSectionDivider />
           {staticTexts && (
             <View style={styles.versionContainer}>
               {staticTexts.map((text, i) => {
@@ -74,15 +79,6 @@ export const SettingsPage = () => {
               })}
             </View>
           )}
-
-          {/*<SettingsHeader
-        title={'Notifications'}
-        description={'Customize your notifications'}
-      />
-
-      <GradientBorder borderWidth={2} borderRadius={12}>
-        <Switch onValueChange={(val) => console.log('change')} value={true} />
-      </GradientBorder>*/}
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -109,12 +105,14 @@ const styles = StyleSheet.create({
   safeAreaContainer: {
     height: '100%',
     width: '100%',
+    background: 'blue',
   },
-  scrollView: {},
-  contentWrapper: {
-    backgroundColor: 'white',
+  scrollView: {
     width: '100%',
     height: '100%',
+  },
+  contentWrapper: {
+    width: '100%',
     paddingHorizontal: 8,
     paddingTop: 30,
     paddingBottom: 90,

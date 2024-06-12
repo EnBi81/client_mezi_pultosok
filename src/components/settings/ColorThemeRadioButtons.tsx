@@ -3,7 +3,7 @@ import { RadioGroup, RadioItem } from '../RadioGroup';
 import { CollapsiblePanel } from '../CollapsiblePanel';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import { useLocale } from '../../hooks/useLocale';
-import { Icon } from '../icons/Icon';
+import { Icon } from '../Icon';
 import { useDeviceLocation } from '../../hooks/useDeviceLocation';
 import { toast } from '../../utils/utils';
 import { useSunPosition } from '../../hooks/useSunPosition';

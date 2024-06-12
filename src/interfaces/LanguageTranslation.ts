@@ -48,6 +48,13 @@ export interface LanguageTranslation {
       title: string;
       description: string;
     };
+    notifications: {
+      title: string;
+      description: string;
+      masterNotificationOff: string;
+      notificationsButton: string;
+      notificationsAppUpdatesButton: string;
+    };
   };
   location: {
     permissionDenied: string;
@@ -70,5 +77,13 @@ export interface LanguageTranslation {
     minute: string;
     seconds: string;
     second: string;
+  };
+  notifications: {
+    update: {
+      updateAvailableTitle: string;
+      updateAvailableDescription: string;
+      updateButton: string;
+      dismissButton: string;
+    };
   };
 }

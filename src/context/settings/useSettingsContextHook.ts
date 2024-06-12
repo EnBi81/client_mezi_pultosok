@@ -1,28 +1,19 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { DefaultSettings } from './SettingsContext';
 import { Settings } from '../../interfaces/Settings';
+import { storages } from '../../storage/Storages';
 
 export const useSettingsContextHook = () => {
-  const settingsKey = 'settings-key';
+  const storage = storages.settings();
   const [settings, setSettings] = useState<Settings>(DefaultSettings);
   const [isSettingsLoaded, setIsSettingsLoaded] = useState(false);
 
-  const getData = async () => {
-    const jsonValue = await AsyncStorage.getItem(settingsKey);
-    return jsonValue != null ? JSON.parse(jsonValue) : null;
-  };
-
-  const storeData = async (value) => {
-    const jsonValue = JSON.stringify(value);
-    await AsyncStorage.setItem(settingsKey, jsonValue);
-  };
-
   // read settings initially
   useEffect(() => {
-    getData()
+    storage
+      .get()
       .then((data) => {
-        if (data == null) return;
+        if (data === undefined) return;
 
         const tempSettings: Settings = { ...DefaultSettings };
 
@@ -45,6 +36,10 @@ export const useSettingsContextHook = () => {
           tempSettings.locationCache.locationAccess = undefined;
         }
 
+        if ('notifications' in data) {
+          tempSettings.notifications = data['notifications'];
+        }
+
         if (JSON.stringify(settings) !== JSON.stringify(tempSettings)) {
           setSettings(tempSettings);
         }
@@ -56,11 +51,8 @@ export const useSettingsContextHook = () => {
   const modifySettingsCache = (settings: Settings) => {
     const newSettings = { ...settings };
 
-    storeData(newSettings)
-      .then(() => {
-        setSettings(newSettings);
-      })
-      .catch((err) => console.error('Failed to save settings: ', err));
+    setSettings(newSettings);
+    storage.store(newSettings).catch((err) => console.error('Failed to save settings: ', err));
   };
 
   return {

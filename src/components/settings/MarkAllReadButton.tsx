@@ -4,7 +4,7 @@ import { useLocale } from '../../hooks/useLocale';
 import { usePultosokDataContext } from '../../hooks/usePultosokDataContext';
 import { toast } from '../../utils/utils';
 import { useColorTheme } from '../../hooks/useColorTheme';
-import { Icon } from '../icons/Icon';
+import { Icon } from '../Icon';
 
 export const MarkAllReadButton = () => {
   const { colors } = useColorTheme();
