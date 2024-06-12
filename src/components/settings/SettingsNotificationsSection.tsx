@@ -3,17 +3,25 @@ import { SettingsOptionContainer } from './SettingsOptionContainer';
 import { useSettings } from '../../hooks/useSettings';
 import { StyleSheet, Switch, View } from 'react-native';
 import { toast } from '../../utils/utils';
+import { useLocale } from '../../hooks/useLocale';
 
 export const SettingsNotificationsSection = () => {
   const { settings, modifySettings } = useSettings();
+  const { l } = useLocale();
 
   const toggleNotificationsMaster = () => {
-    modifySettings((settings) => (settings.notifications.masterSwitch = !settings.notifications.masterSwitch));
+    modifySettings((settings) => {
+      settings.notifications.masterSwitch = !settings.notifications.masterSwitch;
+
+      if (!settings.notifications.masterSwitch) {
+        settings.notifications.appUpdates = false;
+      }
+    });
   };
 
   const toggleNotificationsAppUpdates = () => {
     if (!settings.notifications.masterSwitch) {
-      toast('Notifications are off');
+      toast(l.settings.notifications.masterNotificationOff);
       return;
     }
 
@@ -24,7 +32,7 @@ export const SettingsNotificationsSection = () => {
     <View>
       <SettingsOptionContainer
         icon={<Icon name={settings.notifications.masterSwitch ? 'notifications-active' : 'notifications-none'} />}
-        title={'Notifications'}
+        title={l.settings.notifications.notificationsButton}
         onPress={toggleNotificationsMaster}
         rightSide={<Switch onValueChange={toggleNotificationsMaster} value={settings.notifications.masterSwitch} />}
       />
@@ -38,7 +46,7 @@ export const SettingsNotificationsSection = () => {
       >
         <SettingsOptionContainer
           icon={<Icon name={settings.notifications.appUpdates ? 'notifications-active' : 'notifications-none'} />}
-          title={'App Updates'}
+          title={l.settings.notifications.notificationsAppUpdatesButton}
           onPress={toggleNotificationsAppUpdates}
           rightSide={<Switch onValueChange={toggleNotificationsAppUpdates} value={settings.notifications.appUpdates} />}
         />

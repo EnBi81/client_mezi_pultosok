@@ -1,4 +1,3 @@
-import { Platform, NativeModules } from 'react-native';
 import LocalizedString from 'react-native-localization';
 import { useEffect, useRef, useState } from 'react';
 import { AppLanguage } from '../../interfaces/AppLanguage';
@@ -6,9 +5,7 @@ import Icon from 'react-native-ico-flags';
 import { useSettings } from '../../hooks/useSettings';
 import { LanguageTranslation } from '../../interfaces/LanguageTranslation';
 import { toast } from '../../utils/utils';
-
-import en from '../../../locales/en.json';
-import hu from '../../../locales/hu.json';
+import { getDevicePrimaryLanguage, localeTranslations } from './locales';
 
 // noinspection RequiredAttributes
 const languages = {
@@ -17,14 +14,14 @@ const languages = {
     locale: 'en-US',
     name: 'English',
     flag: <Icon name={'united-kingdom'} />,
-    translates: en,
+    translates: localeTranslations.en,
   },
   hu: {
     id: 'hu',
     locale: 'hu-HU',
     name: 'Magyar',
     flag: <Icon name={'hungary'} />,
-    translates: hu,
+    translates: localeTranslations.hu,
   },
 };
 
@@ -85,19 +82,6 @@ export const useLocaleContextHook = () => {
     availableLanguages: availableLanguages,
   };
 };
-
-function getDevicePrimaryLanguage() {
-  const locale = Platform.select({
-    ios: () =>
-      NativeModules.SettingsManager.settings.AppleLocale || NativeModules.SettingsManager.settings.AppleLanguages[0],
-    default: () => NativeModules.I18nManager.localeIdentifier,
-  })();
-
-  return {
-    locale: locale.replace('_', '-'),
-    countryCode: locale.replace('-', '_').split('_')[0],
-  };
-}
 
 type LanguageCollection = {
   [key: string]: LanguageTranslation;

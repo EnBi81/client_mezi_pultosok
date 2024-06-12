@@ -1,49 +1,63 @@
-import { useEffect } from 'react';
 import PushNotification, { Importance } from 'react-native-push-notification';
 import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { LanguageTranslation } from '../interfaces/LanguageTranslation';
+import { formatString } from '../utils/utils';
 
 export const NotificationService = () => {
-  const requestNotificationPermission = async () => {
+  const hasNotificationPermission = async (): Promise<boolean> => {
     const result = await check(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
-    console.log('notification perm: ', result);
-    if (result !== RESULTS.GRANTED) {
-      const requestResult = await request(
-        PERMISSIONS.ANDROID.POST_NOTIFICATIONS,
-      );
-      console.log('notification request result: ', requestResult);
+    return result === RESULTS.GRANTED;
+  };
+
+  const requestNotificationPermission = async (): Promise<boolean> => {
+    try {
+      const requestResult = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
+      return requestResult === 'granted';
+    } catch (e) {
+      return false;
     }
   };
 
-  requestNotificationPermission()
+  /*requestNotificationPermission()
     .then(() => console.log('notification request success'))
-    .catch((err) => console.log('notification request error: ', err));
+    .catch((err) => console.log('notification request error: ', err));*/
 
-  PushNotification.createChannel(
-    {
-      channelId: 'default', // (required)
-      channelName: 'Default channel', // (required)
-      channelDescription: 'A default channel', // (optional) default: undefined.
-      importance: Importance.HIGH, // (optional) default: 4. Int value of the Android notification importance
-      vibrate: true, // (optional) default: true. Creates the default vibration pattern if true.
-    },
-    (created) => console.log(`createChannel 'default' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
-  );
+  function init() {
+    PushNotification.deleteChannel('default');
+    PushNotification.createChannel(
+      {
+        channelId: 'apk_update_available', // (required)
+        channelName: 'Update Available', // (required)
+        channelDescription: 'Notify on available APK updates', // (optional) default: undefined.
+        importance: Importance.IMPORTANCE_DEFAULT, // (optional) default: 4. Int value of the Android notification importance
+        vibrate: false, // (optional) default: true. Creates the default vibration pattern if true.
+      },
+      (created) => console.log(`createChannel 'apk_update_available' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+    );
+  }
 
-  setTimeout(() => {
-    return;
-    console.log('show notification');
+  const sendApkUpdateNotification = ({ locale, version }: { version: string; locale: LanguageTranslation }) => {
     PushNotification.localNotification({
       ticker: '',
       userInfo: undefined,
-      channelId: 'default',
-      title: 'My Notification Title',
-      message: 'My Notification Message',
+      channelId: 'apk_update_available',
+      title: locale.notifications.update.updateAvailableTitle,
+      message: formatString(locale.notifications.update.updateAvailableDescription, version),
+      playSound: false,
+      showWhen: false,
+      ignoreInForeground: true,
+      actions: [locale.notifications.update.updateButton, locale.notifications.update.dismissButton],
     });
-  }, 2000);
+  };
 
-  PushNotification.getChannels(function (channels) {
-    console.log(channels);
-  });
-
-  return {};
+  return {
+    notifications: {
+      sendApkUpdateNotification,
+    },
+    init: init,
+    permissions: {
+      check: hasNotificationPermission,
+      request: requestNotificationPermission,
+    },
+  };
 };
