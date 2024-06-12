@@ -58,14 +58,11 @@ export const SettingsPage = () => {
           </GradientBorder>
 
           <SettingsSectionDivider />
-
-          <SettingsHeader title={'Notifications'} description={'Customize your notifications'} />
+          <SettingsHeader title={l.settings.notifications.title} description={l.settings.notifications.description} />
           <GradientBorder borderWidth={2} borderRadius={12}>
             <SettingsNotificationsSection />
           </GradientBorder>
-
           <SettingsSectionDivider />
-
           {staticTexts && (
             <View style={styles.versionContainer}>
               {staticTexts.map((text, i) => {
