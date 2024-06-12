@@ -46,7 +46,7 @@ export const NotificationService = () => {
       playSound: false,
       showWhen: false,
       ignoreInForeground: true,
-      actions: [locale.notifications.update.updateButton, locale.notifications.update.dismissButton],
+      //actions: [locale.notifications.update.updateButton, locale.notifications.update.dismissButton],
     });
   };
 

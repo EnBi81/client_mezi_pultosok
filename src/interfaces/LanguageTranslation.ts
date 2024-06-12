@@ -54,6 +54,7 @@ export interface LanguageTranslation {
       masterNotificationOff: string;
       notificationsButton: string;
       notificationsAppUpdatesButton: string;
+      permissionDenied: string;
     };
   };
   location: {

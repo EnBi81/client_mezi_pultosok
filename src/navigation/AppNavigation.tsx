@@ -16,7 +16,7 @@ export const AppNavigation = () => {
   let initialRoute = AppRoutes.schedule;
 
   if (__DEV__) {
-    initialRoute = AppRoutes.settings;
+    //initialRoute = AppRoutes.settings;
   }
 
   return (

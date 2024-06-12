@@ -4,12 +4,22 @@ import { useSettings } from '../../hooks/useSettings';
 import { StyleSheet, Switch, View } from 'react-native';
 import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
+import { NotificationService } from '../../notifications/NotificationService';
 
 export const SettingsNotificationsSection = () => {
   const { settings, modifySettings } = useSettings();
   const { l } = useLocale();
+  const notificationService = NotificationService();
 
-  const toggleNotificationsMaster = () => {
+  const toggleNotificationsMaster = async () => {
+    const hasAccess = await notificationService.permissions.check();
+    if (!hasAccess) {
+      if (await notificationService.permissions.request()) {
+        toast(l.settings.notifications.permissionDenied);
+        return;
+      }
+    }
+
     modifySettings((settings) => {
       settings.notifications.masterSwitch = !settings.notifications.masterSwitch;
 
@@ -33,8 +43,10 @@ export const SettingsNotificationsSection = () => {
       <SettingsOptionContainer
         icon={<Icon name={settings.notifications.masterSwitch ? 'notifications-active' : 'notifications-none'} />}
         title={l.settings.notifications.notificationsButton}
-        onPress={toggleNotificationsMaster}
-        rightSide={<Switch onValueChange={toggleNotificationsMaster} value={settings.notifications.masterSwitch} />}
+        onPress={() => toggleNotificationsMaster()}
+        rightSide={
+          <Switch onValueChange={() => toggleNotificationsMaster()} value={settings.notifications.masterSwitch} />
+        }
       />
       <View
         style={[

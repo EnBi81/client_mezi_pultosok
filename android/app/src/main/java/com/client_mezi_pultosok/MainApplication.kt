@@ -47,18 +47,5 @@ class MainApplication : Application(), ReactApplication {
       // If you opted-in for the New Architecture, we load the native entry point for this app.
       load()
     }
-
-    // Create notification channel for Android O and above
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-      val channel = NotificationChannel(
-          "default",
-          "Default Channel",
-          NotificationManager.IMPORTANCE_DEFAULT
-      ).apply {
-        description = "Default Channel 1"
-      }
-      val manager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-      manager.createNotificationChannel(channel)
-    }
   }
 }

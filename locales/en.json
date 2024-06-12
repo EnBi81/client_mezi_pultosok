@@ -64,7 +64,8 @@
       "description": "Customize your notifications",
       "masterNotificationOff": "Please turn on Notifications",
       "notificationsButton": "Notifications",
-      "notificationsAppUpdatesButton": "App Updates"
+      "notificationsAppUpdatesButton": "App Updates",
+      "permissionDenied": "Please enable notifications for this app"
     }
   },
   "location": {

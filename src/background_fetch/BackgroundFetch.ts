@@ -1,5 +1,4 @@
 import BackgroundFetch from 'react-native-background-fetch';
-import { AppState } from 'react-native';
 import { ApkUpdateChecker } from './routines/ApkUpdateChecker';
 
 BackgroundFetch.configure(
@@ -13,12 +12,6 @@ BackgroundFetch.configure(
   },
   async (taskId) => {
     console.log(`[BackgroundFetch] [${new Date().toLocaleString()}] taskId: ${taskId}`);
-
-    if (AppState.currentState !== 'background') {
-      console.log(`[BackgroundFetch] [${new Date().toLocaleString()}] end: app is not in the background`);
-      BackgroundFetch.finish(taskId);
-      return;
-    }
 
     try {
       await ApkUpdateChecker();
