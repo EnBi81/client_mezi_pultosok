@@ -1,18 +1,17 @@
 import PushNotification, { Importance } from 'react-native-push-notification';
-import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
-import { PermissionsAndroid } from 'react-native';
+import { checkNotifications, requestNotifications } from 'react-native-permissions';
 import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 import { formatString } from '../utils/utils';
 
 export const NotificationService = () => {
   const hasNotificationPermission = async (): Promise<boolean> => {
-    const result = await check(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
-    return result === RESULTS.GRANTED;
+    const result = await checkNotifications();
+    return result.status === 'granted';
   };
 
   const requestNotificationPermission = async (): Promise<boolean> => {
-    const result = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
-    return result === PermissionsAndroid.RESULTS.GRANTED;
+    const result = await requestNotifications(['alert', 'sound']);
+    return result.status === 'granted';
   };
 
   function init() {
