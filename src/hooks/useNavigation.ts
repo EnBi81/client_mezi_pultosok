@@ -9,6 +9,7 @@ export const useNavigation = () => {
     navigate: {
       to: {
         settings: () => navigation.navigate(AppRoutes.settings.name),
+        whatsNew: () => navigation.navigate(AppRoutes.whatsNew.name),
       },
     },
   };

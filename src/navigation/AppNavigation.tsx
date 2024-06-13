@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { SchedulePage } from '../pages/SchedulePage';
 import { SettingsPage } from '../pages/SettingsPage';
@@ -7,6 +7,7 @@ import { useLocale } from '../hooks/useLocale';
 import { useColorTheme } from '../hooks/useColorTheme';
 import { AppRoutes } from './AppRoutes';
 import { WhatsNewPage } from '../pages/WhatsNewPage';
+import { Text, TouchableOpacity, View } from 'react-native';
 
 const Stack = createStackNavigator();
 
@@ -46,6 +47,7 @@ export const AppNavigation = () => {
               backgroundColor: colors.background.component, // Set the background color here
             },
             headerTintColor: colors.text.main, // Set the title color here
+            headerRight: () => <SettingsHeaderRight />,
           }}
         />
         <Stack.Screen
@@ -63,3 +65,19 @@ export const AppNavigation = () => {
     </NavigationContainer>
   );
 };
+
+function SettingsHeaderRight() {
+  const navigation = useNavigation();
+  const { colors } = useColorTheme();
+  const { l } = useLocale();
+
+  return (
+    <View style={{ marginRight: 15 }}>
+      <TouchableOpacity onPress={() => navigation.navigate(AppRoutes.whatsNew.name)}>
+        <Text style={{ color: colors.text.main, textDecorationLine: 'underline' }}>
+          {l.navigation.whatsNewPage.name}
+        </Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
