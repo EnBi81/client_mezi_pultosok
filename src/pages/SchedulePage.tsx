@@ -4,7 +4,7 @@ import { LinearGradient } from 'react-native-linear-gradient';
 import { ErrorCard } from '../components/schedule/ErrorCard';
 import { WorkingDayCardSkeleton } from '../components/schedule/WorkingDayCardSkeleton';
 import React from 'react';
-import { FlatList, RefreshControl, SafeAreaView, StyleSheet, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
 import { usePultosokDataContext } from '../hooks/usePultosokDataContext';
@@ -25,6 +25,39 @@ export const SchedulePage = () => {
           end={{ x: 1, y: 1 }}
           style={styles.maxSize}
         >
+          <View style={styles.tasksWrapper}>
+            {!workingDays && pultosokDataError.isError && (
+              <View style={{ marginHorizontal: 20 }}>
+                <ErrorCard errorText={pultosokDataError.errorMessage ?? 'Unexpected error occured.'} />
+              </View>
+            )}
+
+            {/* Loading Object */}
+            {!workingDays && !pultosokDataError.isError && (
+              <View style={{ marginHorizontal: 20 }}>
+                <WorkingDayCardSkeleton />
+                <WorkingDayCardSkeleton />
+                <WorkingDayCardSkeleton />
+                <WorkingDayCardSkeleton />
+              </View>
+            )}
+
+            {/* Data View */}
+            {workingDays && (
+              <FlatList
+                ref={scroll.ref}
+                onScroll={scroll.handleScroll}
+                scrollEventThrottle={__DEV__ ? 100 : 16}
+                refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refreshPultosok} />}
+                removeClippedSubviews={true}
+                initialNumToRender={25}
+                data={workingDaysWithDividers}
+                stickyHeaderIndices={stickyHeaderIndices}
+                renderItem={(params) => <WorkingDayListObjectOptimized item={params.item} />}
+              />
+            )}
+          </View>
+
           <View pointerEvents={'none'} style={styles.settingsView}>
             <LinearGradient
               colors={['#00000080', 'transparent']}
@@ -34,7 +67,6 @@ export const SchedulePage = () => {
             ></LinearGradient>
           </View>
           <View
-            pointerEvents={'box-none'}
             style={{
               position: 'absolute',
               zIndex: 2,
@@ -45,45 +77,12 @@ export const SchedulePage = () => {
               paddingBottom: 20,
             }}
           >
-            <SettingsUpdateWrapper
-              showScrollToTopButton={scroll.isScrollingDownAndOverThreshold}
-              scrollToTop={() => scroll.scrollToTop(true)}
-            />
-          </View>
-
-          <View style={styles.tasksWrapper}>
-            <SafeAreaView>
-              {!workingDays && pultosokDataError.isError && (
-                <View style={{ marginHorizontal: 20 }}>
-                  <ErrorCard errorText={pultosokDataError.errorMessage ?? 'Unexpected error occured.'} />
-                </View>
-              )}
-
-              {/* Loading Object */}
-              {!workingDays && !pultosokDataError.isError && (
-                <View style={{ marginHorizontal: 20 }}>
-                  <WorkingDayCardSkeleton />
-                  <WorkingDayCardSkeleton />
-                  <WorkingDayCardSkeleton />
-                  <WorkingDayCardSkeleton />
-                </View>
-              )}
-
-              {/* Data View */}
-              {workingDays && (
-                <FlatList
-                  ref={scroll.ref}
-                  onScroll={scroll.handleScroll}
-                  scrollEventThrottle={16}
-                  refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refreshPultosok} />}
-                  removeClippedSubviews={true}
-                  initialNumToRender={25}
-                  data={workingDaysWithDividers}
-                  stickyHeaderIndices={stickyHeaderIndices}
-                  renderItem={(params) => <WorkingDayListObjectOptimized item={params.item} />}
-                />
-              )}
-            </SafeAreaView>
+            <View>
+              <SettingsUpdateWrapper
+                showScrollToTopButton={scroll.isScrollOverThreshold}
+                scrollToTop={() => scroll.scrollToTop(true)}
+              />
+            </View>
           </View>
         </LinearGradient>
       </GestureHandlerRootView>
