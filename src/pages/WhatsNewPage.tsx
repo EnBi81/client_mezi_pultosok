@@ -4,6 +4,9 @@ export const WhatsNewPage = () => {
   return (
     <View>
       <ScrollView style={{ padding: 10 }}>
+        <VersionSection version={'V1.4.5'}>
+          <BulletPoint text={'Removed scrolling down condition when showing the Scroll to top button'} />
+        </VersionSection>
         <VersionSection version={'V1.4.4'}>
           <BulletPoint text={'Prompting download upon clicking on app update notification'} />
           <BulletPoint text={'Fixed notification permissions'} />
