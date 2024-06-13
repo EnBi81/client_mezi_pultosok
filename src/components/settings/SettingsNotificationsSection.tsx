@@ -14,7 +14,8 @@ export const SettingsNotificationsSection = () => {
   const toggleNotificationsMaster = async () => {
     const hasAccess = await notificationService.permissions.check();
     if (!hasAccess) {
-      if (await notificationService.permissions.request()) {
+      const gotAccess = await notificationService.permissions.request();
+      if (!gotAccess) {
         toast(l.settings.notifications.permissionDenied);
         return;
       }

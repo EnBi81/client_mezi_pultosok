@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { SettingsNotificationsSection } from '../components/settings/SettingsNotificationsSection';
 import { useGradientPalette } from '../hooks/useGradientPalette';
 import { LinearGradient } from 'react-native-linear-gradient';
+import { useUIEffects } from '../hooks/useUIEffects';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
@@ -24,6 +25,7 @@ export const SettingsPage = () => {
   const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
   const [staticTexts, setStaticTexts] = useState<string[]>();
   const { colorPalette } = useGradientPalette();
+  const { ripple } = useUIEffects();
 
   useEffect(() => {
     setStaticTexts([
@@ -77,7 +79,8 @@ export const SettingsPage = () => {
               end={{ x: 1, y: 1 }}
             >
               <TouchableNativeFeedback
-                onPress={() => toast(`${l.settings.currentGradient}: ${colorPalette.gradientName}`)}
+                background={ripple}
+                onLongPress={() => toast(`${l.settings.currentGradient}: ${colorPalette.gradientName}`)}
               >
                 <View style={{ padding: 5, paddingVertical: 20 }}>
                   <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
