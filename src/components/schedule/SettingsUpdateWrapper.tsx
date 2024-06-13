@@ -77,7 +77,7 @@ export const SettingsUpdateWrapper = ({
 
   const scrollToTopTranslateY = scrollToTopY.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, -70],
+    outputRange: [0, -60],
   });
 
   return (

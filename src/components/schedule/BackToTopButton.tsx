@@ -6,7 +6,7 @@ import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import MaskedView from '@react-native-masked-view/masked-view';
 
-export const BackToTopButton = ({ onPress }: { onPress: () => void }) => {
+export const BackToTopButton = ({ onPress }: { onPress: (e) => void }) => {
   const { ripple } = useUIEffects();
   const { colorPalette, gradientEffects } = useGradientPalette();
   const { isLightTheme, colors } = useColorTheme();
