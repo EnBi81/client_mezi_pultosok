@@ -5,6 +5,9 @@
     },
     "settingsPage": {
       "name": "Settings"
+    },
+    "whatsNewPage": {
+      "name": "What's New"
     }
   },
   "schedule": {
@@ -66,7 +69,8 @@
       "notificationsButton": "Notifications",
       "notificationsAppUpdatesButton": "App Updates",
       "permissionDenied": "Please enable notifications for this app"
-    }
+    },
+    "currentGradient": "Current Gradient"
   },
   "location": {
     "permissionDenied": "Location permission denied",

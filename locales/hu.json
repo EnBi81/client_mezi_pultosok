@@ -5,6 +5,9 @@
     },
     "settingsPage": {
       "name": "Beállítások"
+    },
+    "whatsNewPage": {
+      "name": "Újdonságok (angolul)"
     }
   },
   "schedule": {
@@ -66,7 +69,8 @@
       "notificationsButton": "Értesítések",
       "notificationsAppUpdatesButton": "Alkalmazás Frissítések",
       "permissionDenied": "Kérlek engedélyezd az értesítéseket az alkalmazásnak"
-    }
+    },
+    "currentGradient": "Jelenlegi Színátmenet"
   },
   "location": {
     "permissionDenied": "Helymeghatározási engedély megtagadva",

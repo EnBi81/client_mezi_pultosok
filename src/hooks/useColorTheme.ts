@@ -68,7 +68,7 @@ const lightTheme: ColorTheme = {
     separatorLine: '#d0d0d0',
   },
   effect: {
-    ripple: '#ccc',
+    ripple: 'rgba(255,255,255,0.53)',
     skeleton: {
       light: '#cbcbcb',
       dark: '#f5f5f5',
@@ -93,7 +93,7 @@ const darkTheme: ColorTheme = {
     separatorLine: '#696969',
   },
   effect: {
-    ripple: '#555',
+    ripple: 'rgba(255,255,255,0.27)',
     skeleton: {
       light: '#555',
       dark: '#000',

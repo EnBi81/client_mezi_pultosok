@@ -12,8 +12,9 @@ export const NotificationService = () => {
   const requestNotificationPermission = async (): Promise<boolean> => {
     try {
       const requestResult = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
-      return requestResult === 'granted';
+      return requestResult === RESULTS.GRANTED;
     } catch (e) {
+      console.error('Permission request error: ', e);
       return false;
     }
   };
@@ -23,6 +24,8 @@ export const NotificationService = () => {
     .catch((err) => console.log('notification request error: ', err));*/
 
   function init() {
+    // accidentally left this channel in it in previous builds, want to ensure the default
+    // channel is deleted
     PushNotification.deleteChannel('default');
     PushNotification.createChannel(
       {

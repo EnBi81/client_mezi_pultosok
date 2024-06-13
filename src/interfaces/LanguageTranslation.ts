@@ -6,6 +6,9 @@ export interface LanguageTranslation {
     settingsPage: {
       name: string;
     };
+    whatsNewPage: {
+      name: string;
+    };
   };
   schedule: {
     errorOccurred: string;
@@ -56,6 +59,7 @@ export interface LanguageTranslation {
       notificationsAppUpdatesButton: string;
       permissionDenied: string;
     };
+    currentGradient: string;
   };
   location: {
     permissionDenied: string;
