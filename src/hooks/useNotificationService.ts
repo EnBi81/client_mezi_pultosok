@@ -3,7 +3,7 @@ import { checkNotifications, requestNotifications } from 'react-native-permissio
 import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 import { formatString } from '../utils/utils';
 
-export const NotificationService = () => {
+export const UseNotificationService = () => {
   const hasNotificationPermission = async (): Promise<boolean> => {
     const result = await checkNotifications();
     return result.status === 'granted';
@@ -34,14 +34,14 @@ export const NotificationService = () => {
   const sendApkUpdateNotification = ({ locale, version }: { version: string; locale: LanguageTranslation }) => {
     PushNotification.localNotification({
       ticker: '',
-      userInfo: undefined,
+      userInfo: {},
       channelId: 'apk_update_available',
       title: locale.notifications.update.updateAvailableTitle,
       message: formatString(locale.notifications.update.updateAvailableDescription, version),
       playSound: false,
       showWhen: false,
-      ignoreInForeground: true,
-      //actions: [locale.notifications.update.updateButton, locale.notifications.update.dismissButton],
+      ignoreInForeground: !__DEV__, // ignore it if not in dev
+      //actions: [locale.notifications.update.updateButton],
     });
   };
 

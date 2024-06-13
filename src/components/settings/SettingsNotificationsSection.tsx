@@ -4,12 +4,12 @@ import { useSettings } from '../../hooks/useSettings';
 import { StyleSheet, Switch, View } from 'react-native';
 import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
-import { NotificationService } from '../../notifications/NotificationService';
+import { UseNotificationService } from '../../hooks/useNotificationService';
 
 export const SettingsNotificationsSection = () => {
   const { settings, modifySettings } = useSettings();
   const { l } = useLocale();
-  const notificationService = NotificationService();
+  const notificationService = UseNotificationService();
 
   const toggleNotificationsMaster = async () => {
     const hasAccess = await notificationService.permissions.check();
@@ -42,7 +42,7 @@ export const SettingsNotificationsSection = () => {
   return (
     <View>
       <SettingsOptionContainer
-        icon={<Icon name={settings.notifications.masterSwitch ? 'notifications-active' : 'notifications-none'} />}
+        icon={<Icon name={settings.notifications.masterSwitch ? 'notifications-on' : 'notifications-off'} />}
         title={l.settings.notifications.notificationsButton}
         onPress={() => toggleNotificationsMaster()}
         rightSide={
@@ -58,11 +58,20 @@ export const SettingsNotificationsSection = () => {
         ]}
       >
         <SettingsOptionContainer
-          icon={<Icon name={settings.notifications.appUpdates ? 'notifications-active' : 'notifications-none'} />}
+          icon={<Icon name={settings.notifications.appUpdates ? 'notifications-on' : 'notifications-off'} />}
           title={l.settings.notifications.notificationsAppUpdatesButton}
           onPress={toggleNotificationsAppUpdates}
           rightSide={<Switch onValueChange={toggleNotificationsAppUpdates} value={settings.notifications.appUpdates} />}
         />
+        {__DEV__ && (
+          <SettingsOptionContainer
+            icon={<Icon name={'notification-add'} />}
+            title={'Send Apk Notification'}
+            onPress={() =>
+              notificationService.notifications.sendApkUpdateNotification({ version: '1.4.3-test', locale: l })
+            }
+          />
+        )}
       </View>
     </View>
   );

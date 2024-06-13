@@ -5,11 +5,13 @@ import { endpoints } from '../../api/endpoints';
 export const useApkUpdateChecker = () => {
   const [latestApkVersion, setLatestApkVersion] = useState<string>();
   const [isUpdateAvailable, setIsUpdateAvailable] = useState(false);
+  const [isUpdateAvailableChecked, setIsUpdateAvailableChecked] = useState(false);
 
   // request latest apk version
   useEffect(() => {
     endpoints.latestApkVersion().then((latestApkVersion) => {
       setLatestApkVersion(latestApkVersion);
+      setIsUpdateAvailableChecked(true);
     });
   }, []);
 
@@ -23,5 +25,6 @@ export const useApkUpdateChecker = () => {
   return {
     latestApkVersion,
     isUpdateAvailable,
+    isUpdateAvailableChecked,
   };
 };
