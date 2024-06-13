@@ -25,7 +25,7 @@ export const SettingsPage = () => {
   const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
   const [staticTexts, setStaticTexts] = useState<string[]>();
   const { colorPalette } = useGradientPalette();
-  const { ripple } = useUIEffects();
+  const { ripple } = useUIEffects({ lightColorOverride: '#ffffff30' });
 
   useEffect(() => {
     setStaticTexts([

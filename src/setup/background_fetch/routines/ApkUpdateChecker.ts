@@ -1,8 +1,8 @@
-import { endpoints } from '../../api/endpoints';
-import { CURRENT_APK_VERSION } from '../../utils/constants';
-import { NotificationService } from '../../notifications/NotificationService';
-import { storages } from '../../storage/Storages';
-import { getCurrentLocalTranslations } from '../../context/locale/locales';
+import { endpoints } from '../../../api/endpoints';
+import { CURRENT_APK_VERSION } from '../../../utils/constants';
+import { UseNotificationService } from '../../../hooks/useNotificationService';
+import { storages } from '../../../storage/Storages';
+import { getCurrentLocalTranslations } from '../../../context/locale/locales';
 
 export const ApkUpdateChecker = async () => {
   const storage = storages.lastSavedLatestApkVersion();
@@ -29,7 +29,7 @@ export const ApkUpdateChecker = async () => {
   const locale = getCurrentLocalTranslations(settings);
 
   // else show notification
-  const notificationService = NotificationService();
+  const notificationService = UseNotificationService();
   notificationService.notifications.sendApkUpdateNotification({ locale: locale, version: latestApkVersion });
 
   // save that notification for that was shown

@@ -1,5 +1,7 @@
 import PushNotification from 'react-native-push-notification';
-import { Platform } from 'react-native';
+import { Alert, Platform } from 'react-native';
+import { ReactAppMessageQueue } from '../../utils/ReactAppMessageQueue';
+import { toast } from '../../utils/utils';
 
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
@@ -12,6 +14,17 @@ PushNotification.configure({
     console.log('NOTIFICATION:', notification);
 
     // Process the notification
+    // Check if the notification has an action
+    if (notification.channelId === 'apk_update_available') {
+      Alert.alert('Update app', 'Would you like to update the app?', [
+        {
+          text: 'Cancel',
+          onPress: () => toast('Update Cancelled'),
+          style: 'cancel',
+        },
+        { text: 'Update', onPress: () => ReactAppMessageQueue.appUpdate.enqueue({}) },
+      ]);
+    }
 
     // Required on iOS only
     // notification.finish(PushNotificationIOS.FetchResult.NoData);
