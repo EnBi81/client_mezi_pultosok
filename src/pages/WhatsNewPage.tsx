@@ -7,6 +7,7 @@ export const WhatsNewPage = () => {
         <VersionSection version={'V1.4.2'}>
           <BulletPoint text={'Added whats new page'} />
           <BulletPoint text={'Added current gradient to the settings page'} />
+          <BulletPoint text={'Fixing notification permission request'} />
         </VersionSection>
         <VersionSection version={'V1.4.1'}>
           <BulletPoint text={'Fixing notifications for app updates'} />
