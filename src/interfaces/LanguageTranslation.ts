@@ -6,6 +6,9 @@ export interface LanguageTranslation {
     settingsPage: {
       name: string;
     };
+    whatsNewPage: {
+      name: string;
+    };
   };
   schedule: {
     errorOccurred: string;

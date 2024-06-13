@@ -5,6 +5,9 @@
     },
     "settingsPage": {
       "name": "Settings"
+    },
+    "whatsNewPage": {
+      "name": "What's New"
     }
   },
   "schedule": {

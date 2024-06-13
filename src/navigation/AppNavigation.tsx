@@ -17,7 +17,7 @@ export const AppNavigation = () => {
   let initialRoute = AppRoutes.schedule;
 
   if (__DEV__) {
-    initialRoute = AppRoutes.whatsNew;
+    initialRoute = AppRoutes.settings;
   }
 
   return (
@@ -52,7 +52,7 @@ export const AppNavigation = () => {
           name={AppRoutes.whatsNew.name}
           component={WhatsNewPage}
           options={{
-            title: l.navigation.settingsPage.name,
+            title: l.navigation.whatsNewPage.name,
             headerStyle: {
               backgroundColor: colors.background.component, // Set the background color here
             },
