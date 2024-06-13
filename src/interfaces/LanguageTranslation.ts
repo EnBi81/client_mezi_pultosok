@@ -59,6 +59,7 @@ export interface LanguageTranslation {
       notificationsAppUpdatesButton: string;
       permissionDenied: string;
     };
+    currentGradient: string;
   };
   location: {
     permissionDenied: string;

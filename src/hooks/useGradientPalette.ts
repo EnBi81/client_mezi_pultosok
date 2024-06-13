@@ -1,6 +1,7 @@
 import { DarkColorPalettes, GolderPalettes, LightColorPalettes, SpecialPalettes } from '../utils/gradientColors';
 import { useColorTheme } from './useColorTheme';
 import tinycolor from 'tinycolor2';
+import { ColorPalette } from '../interfaces/ColorPalette';
 
 export const useGradientPalette = () => {
   const { isLightTheme, isGoldenTheme } = useColorTheme();
@@ -11,7 +12,7 @@ export const useGradientPalette = () => {
   else colorPalettes = DarkColorPalettes;
 
   const today = new Date();
-  let colorPalette;
+  let colorPalette: ColorPalette;
 
   if (is(today).on(8, 20)) {
     colorPalette = SpecialPalettes.hungarianFlag;

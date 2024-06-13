@@ -6,6 +6,7 @@ export const WhatsNewPage = () => {
       <ScrollView style={{ padding: 10 }}>
         <VersionSection version={'V1.4.2'}>
           <BulletPoint text={'Added whats new page'} />
+          <BulletPoint text={'Added current gradient to the settings page'} />
         </VersionSection>
         <VersionSection version={'V1.4.1'}>
           <BulletPoint text={'Fixing notifications for app updates'} />
