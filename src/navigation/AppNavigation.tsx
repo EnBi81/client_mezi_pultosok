@@ -6,6 +6,7 @@ import { SettingsPage } from '../pages/SettingsPage';
 import { useLocale } from '../hooks/useLocale';
 import { useColorTheme } from '../hooks/useColorTheme';
 import { AppRoutes } from './AppRoutes';
+import { WhatsNewPage } from '../pages/WhatsNewPage';
 
 const Stack = createStackNavigator();
 
@@ -16,7 +17,7 @@ export const AppNavigation = () => {
   let initialRoute = AppRoutes.schedule;
 
   if (__DEV__) {
-    //initialRoute = AppRoutes.settings;
+    initialRoute = AppRoutes.whatsNew;
   }
 
   return (
@@ -39,6 +40,17 @@ export const AppNavigation = () => {
         <Stack.Screen
           name={AppRoutes.settings.name}
           component={SettingsPage}
+          options={{
+            title: l.navigation.settingsPage.name,
+            headerStyle: {
+              backgroundColor: colors.background.component, // Set the background color here
+            },
+            headerTintColor: colors.text.main, // Set the title color here
+          }}
+        />
+        <Stack.Screen
+          name={AppRoutes.whatsNew.name}
+          component={WhatsNewPage}
           options={{
             title: l.navigation.settingsPage.name,
             headerStyle: {
