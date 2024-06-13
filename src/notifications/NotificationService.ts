@@ -1,5 +1,6 @@
 import PushNotification, { Importance } from 'react-native-push-notification';
-import { check, request, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { check, PERMISSIONS, RESULTS } from 'react-native-permissions';
+import { PermissionsAndroid } from 'react-native';
 import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 import { formatString } from '../utils/utils';
 
@@ -10,23 +11,11 @@ export const NotificationService = () => {
   };
 
   const requestNotificationPermission = async (): Promise<boolean> => {
-    try {
-      const requestResult = await request(PERMISSIONS.ANDROID.POST_NOTIFICATIONS);
-      return requestResult === RESULTS.GRANTED;
-    } catch (e) {
-      console.error('Permission request error: ', e);
-      return false;
-    }
+    const result = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.POST_NOTIFICATIONS);
+    return result === PermissionsAndroid.RESULTS.GRANTED;
   };
 
-  /*requestNotificationPermission()
-    .then(() => console.log('notification request success'))
-    .catch((err) => console.log('notification request error: ', err));*/
-
   function init() {
-    // accidentally left this channel in it in previous builds, want to ensure the default
-    // channel is deleted
-    PushNotification.deleteChannel('default');
     PushNotification.createChannel(
       {
         channelId: 'apk_update_available', // (required)
@@ -37,6 +26,10 @@ export const NotificationService = () => {
       },
       (created) => console.log(`createChannel 'apk_update_available' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
     );
+
+    // accidentally left this channel in it in previous builds, want to ensure the default
+    // channel is deleted
+    PushNotification.deleteChannel('default');
   }
 
   const sendApkUpdateNotification = ({ locale, version }: { version: string; locale: LanguageTranslation }) => {

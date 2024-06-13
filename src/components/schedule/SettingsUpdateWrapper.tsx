@@ -5,12 +5,19 @@ import { SettingsCircularButton } from './SettingsCircularButton';
 import { useNavigation } from '../../hooks/useNavigation';
 import { formatString } from '../../utils/utils';
 import { useUIEffects } from '../../hooks/useUIEffects';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useColorTheme } from '../../hooks/useColorTheme';
+import { BackToTopButton } from './BackToTopButton';
 
-export const SettingsUpdateWrapper = () => {
+export const SettingsUpdateWrapper = ({
+  showScrollToTopButton,
+  scrollToTop,
+}: {
+  showScrollToTopButton: boolean;
+  scrollToTop: () => void;
+}) => {
   const {
     latestApkVersion,
     isUpdateAvailable,
@@ -28,6 +35,7 @@ export const SettingsUpdateWrapper = () => {
   const { ripple } = useUIEffects();
   const { colorPalette } = useGradientPalette();
   const { colors } = useColorTheme();
+  const [scrollToTopY] = useState(new Animated.Value(0));
 
   const componentWidth = Dimensions.get('window').width - 40; // 40: padding from both sides
 
@@ -49,11 +57,42 @@ export const SettingsUpdateWrapper = () => {
     else install();
   };
 
+  useEffect(() => {
+    if (showScrollToTopButton) {
+      // User is scrolling up and has scrolled more than 100 pixels
+      Animated.timing(scrollToTopY, {
+        toValue: 1,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    } else {
+      // User is scrolling down or hasn't scrolled past 100 pixels
+      Animated.timing(scrollToTopY, {
+        toValue: 0,
+        duration: 300,
+        useNativeDriver: true,
+      }).start();
+    }
+  }, [showScrollToTopButton]);
+
+  const scrollToTopTranslateY = scrollToTopY.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0, -70],
+  });
+
   return (
     <View>
       {!isUpdateAvailable && (
-        <View pointerEvents={'box-none'} style={styles.circularButtonContainer}>
-          <SettingsCircularButton onPress={() => navigate.to.settings()} />
+        <View>
+          <View pointerEvents={'box-none'} style={styles.backToTopButtonWrapper}>
+            <Animated.View style={[{ transform: [{ translateY: scrollToTopTranslateY }] }]}>
+              <BackToTopButton onPress={scrollToTop} />
+            </Animated.View>
+          </View>
+
+          <View pointerEvents={'box-none'} style={styles.circularButtonContainer}>
+            <SettingsCircularButton onPress={() => navigate.to.settings()} />
+          </View>
         </View>
       )}
 
@@ -69,6 +108,11 @@ export const SettingsUpdateWrapper = () => {
             },
           ]}
         >
+          <View pointerEvents={'box-none'} style={styles.backToTopButtonWrapper}>
+            <Animated.View style={[{ transform: [{ translateY: scrollToTopTranslateY }] }]}>
+              <BackToTopButton onPress={scrollToTop} />
+            </Animated.View>
+          </View>
           <Animated.View
             style={{
               width: animatedWidth,
@@ -129,7 +173,8 @@ export const SettingsUpdateWrapper = () => {
                 ></View>
               </View>
             </TouchableNativeFeedback>
-            <View style={styles.circularButtonContainer}>
+
+            <View pointerEvents={'box-none'} style={styles.circularButtonContainer}>
               <SettingsCircularButton onPress={() => navigate.to.settings()} />
             </View>
           </Animated.View>
@@ -163,5 +208,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
     top: 0,
+  },
+  backToTopButtonWrapper: {
+    position: 'absolute',
+    right: 0,
+    bottom: 0,
+    width: 60,
+    height: 60,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });

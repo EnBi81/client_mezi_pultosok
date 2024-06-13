@@ -4,6 +4,10 @@ export const WhatsNewPage = () => {
   return (
     <View>
       <ScrollView style={{ padding: 10 }}>
+        <VersionSection version={'V1.4.3'}>
+          <BulletPoint text={'Added Scroll to Top button to the schedule page'} />
+          <BulletPoint text={'Fixed color issue in ripple effect'} />
+        </VersionSection>
         <VersionSection version={'V1.4.2'}>
           <BulletPoint text={'Added whats new page'} />
           <BulletPoint text={'Added current gradient to the settings page'} />

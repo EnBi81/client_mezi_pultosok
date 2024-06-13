@@ -8,12 +8,12 @@ import { FlatList, RefreshControl, SafeAreaView, StyleSheet, View } from 'react-
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
 import { usePultosokDataContext } from '../hooks/usePultosokDataContext';
+import { useScrollUtils } from '../hooks/useScrollUtils';
 
 export const SchedulePage = () => {
+  const scroll = useScrollUtils({ type: 'flatlist', thresholdTopScroll: 40 });
   const { colorPalette } = useGradientPalette();
-
   const { workingDays, refresh: refreshPultosok, isRefreshing, error: pultosokDataError } = usePultosokDataContext();
-
   const { workingDaysWithDividers, stickyHeaderIndices } = usePultosokAppDisplayData(workingDays);
 
   return (
@@ -45,7 +45,10 @@ export const SchedulePage = () => {
               paddingBottom: 20,
             }}
           >
-            <SettingsUpdateWrapper />
+            <SettingsUpdateWrapper
+              showScrollToTopButton={scroll.isScrollingDownAndOverThreshold}
+              scrollToTop={() => scroll.scrollToTop(true)}
+            />
           </View>
 
           <View style={styles.tasksWrapper}>
@@ -69,6 +72,9 @@ export const SchedulePage = () => {
               {/* Data View */}
               {workingDays && (
                 <FlatList
+                  ref={scroll.ref}
+                  onScroll={scroll.handleScroll}
+                  scrollEventThrottle={16}
                   refreshControl={<RefreshControl refreshing={isRefreshing} onRefresh={refreshPultosok} />}
                   removeClippedSubviews={true}
                   initialNumToRender={25}
