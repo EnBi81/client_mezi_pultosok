@@ -1,5 +1,6 @@
 import en from '../../../locales/en.json';
 import hu from '../../../locales/hu.json';
+
 import { Settings } from '../../interfaces/Settings';
 import { NativeModules, Platform } from 'react-native';
 import { LanguageTranslation } from '../../interfaces/LanguageTranslation';
@@ -9,7 +10,7 @@ export const localeTranslations: { en: LanguageTranslation; hu: LanguageTranslat
   hu: hu,
 };
 
-export const getCurrentLocalTranslations = (settings: Settings | undefined) => {
+export const getCurrentLocalTranslations = (settings: Settings | undefined): LanguageTranslation => {
   if (settings) {
     const savedLanguageId = settings?.languageId;
 
@@ -25,7 +26,7 @@ export const getCurrentLocalTranslations = (settings: Settings | undefined) => {
   if (devicePrimaryLanguage.countryCode in localeTranslations) {
     return localeTranslations[devicePrimaryLanguage.countryCode];
   } else {
-    return localeTranslations;
+    return localeTranslations['en'];
   }
 };
 

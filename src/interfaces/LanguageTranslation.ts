@@ -87,8 +87,11 @@ export interface LanguageTranslation {
     update: {
       updateAvailableTitle: string;
       updateAvailableDescription: string;
-      updateButton: string;
-      dismissButton: string;
+      updateAppPromptTitle: string;
+      updateAppPromptDescription: string;
+      updateAppPromptUpdateButton: string;
+      updateAppPromptCancelButton: string;
+      updateAppPromptCancelled: string;
     };
   };
 }
