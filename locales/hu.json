@@ -98,8 +98,11 @@
     "update": {
       "updateAvailableTitle": "Frissítés elérhető",
       "updateAvailableDescription": "Frissíts a {0} verzióra",
-      "updateButton": "Frissít",
-      "dismissButton": "Hagyjuk"
+      "updateAppPromptTitle": "Alkalmazás frissítése",
+      "updateAppPromptDescription": "Szeretné frissíteni az alkalmazást?",
+      "updateAppPromptUpdateButton": "Frissítés",
+      "updateAppPromptCancelButton": "Mégse",
+      "updateAppPromptCancelled": "Frissítés megszakítva"
     }
   }
 }

@@ -2,6 +2,8 @@ import PushNotification from 'react-native-push-notification';
 import { Alert, Platform } from 'react-native';
 import { ReactAppMessageQueue } from '../../utils/ReactAppMessageQueue';
 import { toast } from '../../utils/utils';
+import { getCurrentLocalTranslations } from '../../context/locale/locales';
+import { storages } from '../../storage/Storages';
 
 PushNotification.configure({
   // (optional) Called when Token is generated (iOS and Android)
@@ -16,14 +18,28 @@ PushNotification.configure({
     // Process the notification
     // Check if the notification has an action
     if (notification.channelId === 'apk_update_available') {
-      Alert.alert('Update app', 'Would you like to update the app?', [
-        {
-          text: 'Cancel',
-          onPress: () => toast('Update Cancelled'),
-          style: 'cancel',
-        },
-        { text: 'Update', onPress: () => ReactAppMessageQueue.appUpdate.enqueue({}) },
-      ]);
+      storages
+        .settings()
+        .get()
+        .then((settings) => {
+          const translation = getCurrentLocalTranslations(settings);
+
+          Alert.alert(
+            translation.notifications.update.updateAppPromptTitle,
+            translation.notifications.update.updateAppPromptDescription,
+            [
+              {
+                text: translation.notifications.update.updateAppPromptCancelButton,
+                onPress: () => toast(translation.notifications.update.updateAppPromptCancelled),
+                style: 'cancel',
+              },
+              {
+                text: translation.notifications.update.updateAppPromptUpdateButton,
+                onPress: () => ReactAppMessageQueue.appUpdate.enqueue({}),
+              },
+            ],
+          );
+        });
     }
 
     // Required on iOS only

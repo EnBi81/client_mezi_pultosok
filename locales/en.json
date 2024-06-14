@@ -98,8 +98,11 @@
     "update": {
       "updateAvailableTitle": "Update Available",
       "updateAvailableDescription": "Update to version {0}",
-      "updateButton": "Update",
-      "dismissButton": "Dismiss"
+      "updateAppPromptTitle": "Update app",
+      "updateAppPromptDescription": "Would you like to update the app?",
+      "updateAppPromptUpdateButton": "Update",
+      "updateAppPromptCancelButton": "Cancel",
+      "updateAppPromptCancelled": "Update Cancelled"
     }
   }
 }
