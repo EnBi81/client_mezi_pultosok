@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android-dev": "SET ENVFILE=.env.development && react-native run-android",
     "sync-version": ".scripts/version-sync.cmd",
     "post-install": ".scripts/custom-post-install.cmd",
     "ios": "react-native run-ios",
