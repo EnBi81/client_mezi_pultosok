@@ -5,11 +5,13 @@ import { StyleSheet, Switch, View } from 'react-native';
 import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import { UseNotificationService } from '../../hooks/useNotificationService';
+import { useEnvironment } from '../../hooks/useEnvironment';
 
 export const SettingsNotificationsSection = () => {
   const { settings, modifySettings } = useSettings();
   const { l } = useLocale();
   const notificationService = UseNotificationService();
+  const { isDebug } = useEnvironment();
 
   const toggleNotificationsMaster = async () => {
     const hasAccess = await notificationService.permissions.check();
@@ -63,7 +65,7 @@ export const SettingsNotificationsSection = () => {
           onPress={toggleNotificationsAppUpdates}
           rightSide={<Switch onValueChange={toggleNotificationsAppUpdates} value={settings.notifications.appUpdates} />}
         />
-        {__DEV__ && (
+        {isDebug && (
           <SettingsOptionContainer
             icon={<Icon name={'notification-add'} />}
             title={'Send Apk Notification'}
