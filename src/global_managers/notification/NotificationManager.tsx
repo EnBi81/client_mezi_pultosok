@@ -1,7 +1,7 @@
-import { UseNotificationService } from '../../hooks/useNotificationService';
+import { useNotificationService } from '../../hooks/useNotificationService';
 
 export const NotificationManager = ({ children }: { children: React.ReactNode }) => {
-  const { init } = UseNotificationService();
+  const { init } = useNotificationService();
 
   init();
 

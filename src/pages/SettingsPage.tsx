@@ -1,4 +1,4 @@
-import { View, StyleSheet, Text, SafeAreaView, ScrollView, TouchableNativeFeedback } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
 import { SettingsHeader } from '../components/settings/SettingsHeader';
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
 import { useLocale } from '../hooks/useLocale';
@@ -7,34 +7,17 @@ import { MarkAllReadButton } from '../components/settings/MarkAllReadButton';
 import { ColorThemeRadioButtons } from '../components/settings/ColorThemeRadioButtons';
 import { useColorTheme } from '../hooks/useColorTheme';
 import { useApkUpdater } from '../hooks/useApkUpdater';
-import { formatString, toast } from '../utils/utils';
+import { formatString } from '../utils/utils';
 import { CURRENT_APK_VERSION } from '../utils/constants';
 import { SettingsUpdateButton } from '../components/settings/SettingsUpdateButton';
-import DeviceInfo from 'react-native-device-info';
-import { useEffect, useState } from 'react';
 import { SettingsNotificationsSection } from '../components/settings/SettingsNotificationsSection';
-import { useGradientPalette } from '../hooks/useGradientPalette';
-import { LinearGradient } from 'react-native-linear-gradient';
-import { useUIEffects } from '../hooks/useUIEffects';
+import { SettingsAppInfoComponent } from '../components/settings/SettingsAppInfoComponent';
+import { SettingsCurrentGradientDisplay } from '../components/settings/SettingsCurrentGradientDisplay';
 
 export const SettingsPage = () => {
-  // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
-
   const { l } = useLocale();
   const { colors } = useColorTheme();
   const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
-  const [staticTexts, setStaticTexts] = useState<string[]>();
-  const { colorPalette } = useGradientPalette();
-  const { ripple } = useUIEffects({ lightColorOverride: '#ffffff30' });
-
-  useEffect(() => {
-    setStaticTexts([
-      `${DeviceInfo.getApplicationName()} V${CURRENT_APK_VERSION} (${DeviceInfo.getBuildNumber()})`,
-      DeviceInfo.getBundleId(),
-      `${DeviceInfo.getBrand()} - ${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
-      DeviceInfo.getDeviceId(),
-    ]);
-  }, []);
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
@@ -72,44 +55,12 @@ export const SettingsPage = () => {
           <SettingsDivider />
           <SettingsSectionDivider />
 
-          <View style={{ borderRadius: 12, overflow: 'hidden' }}>
-            <LinearGradient
-              colors={colorPalette.gradient} // Define your gradient colors here
-              start={{ x: 0, y: 0 }}
-              end={{ x: 1, y: 1 }}
-            >
-              <TouchableNativeFeedback
-                background={ripple}
-                onLongPress={() => toast(`${l.settings.currentGradient}: ${colorPalette.gradientName}`)}
-              >
-                <View style={{ padding: 5, paddingVertical: 20 }}>
-                  <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
-                    <Text style={{ color: colorPalette.textColor, fontSize: 20, fontWeight: 'bold' }}>
-                      {colorPalette.gradientName}
-                    </Text>
-                  </View>
-                </View>
-              </TouchableNativeFeedback>
-            </LinearGradient>
-          </View>
+          <SettingsCurrentGradientDisplay />
 
           <SettingsSectionDivider />
-          {staticTexts && (
-            <View style={styles.versionContainer}>
-              {staticTexts.map((text, i) => {
-                return (
-                  <Text
-                    style={{
-                      color: colors.text.secondary,
-                    }}
-                    key={i}
-                  >
-                    {text}
-                  </Text>
-                );
-              })}
-            </View>
-          )}
+          <View style={styles.versionContainer}>
+            <SettingsAppInfoComponent />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -170,8 +121,5 @@ const styles = StyleSheet.create({
   },
   versionContainer: {
     width: '100%',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
