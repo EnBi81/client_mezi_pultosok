@@ -2,8 +2,11 @@ import PushNotification, { Importance } from 'react-native-push-notification';
 import { checkNotifications, requestNotifications } from 'react-native-permissions';
 import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 import { formatString } from '../utils/utils';
+import { useEnvironment } from './useEnvironment';
 
 export const UseNotificationService = () => {
+  const { isDebug } = useEnvironment();
+
   const hasNotificationPermission = async (): Promise<boolean> => {
     const result = await checkNotifications();
     return result.status === 'granted';
@@ -40,8 +43,8 @@ export const UseNotificationService = () => {
       message: formatString(locale.notifications.update.updateAvailableDescription, version),
       playSound: false,
       showWhen: false,
-      ignoreInForeground: !__DEV__, // ignore it if not in dev
-      //actions: [locale.notifications.update.updateButton],
+      ignoreInForeground: !isDebug,
+      largeIcon: '',
     });
   };
 
