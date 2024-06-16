@@ -82,8 +82,8 @@ android {
         applicationId "com.client_mezi_pultosok"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 32
-        versionName "1.4.6"
+        versionCode 33
+        versionName "1.4.7"
     }
     signingConfigs {
         debug {
