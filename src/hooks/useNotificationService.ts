@@ -7,6 +7,14 @@ import { useEnvironment } from './useEnvironment';
 export const UseNotificationService = () => {
   const { isDebug } = useEnvironment();
 
+  const channels = {
+    // this was accidentally left in previous releases,
+    // only purpose is to delete this channel
+    default: 'default',
+    // notifications for app updates, available newer versions
+    updateAvailable: 'apk_update_available',
+  };
+
   const hasNotificationPermission = async (): Promise<boolean> => {
     const result = await checkNotifications();
     return result.status === 'granted';
@@ -20,7 +28,7 @@ export const UseNotificationService = () => {
   function init() {
     PushNotification.createChannel(
       {
-        channelId: 'apk_update_available', // (required)
+        channelId: channels.updateAvailable, // (required)
         channelName: 'Update Available', // (required)
         channelDescription: 'Notify on available APK updates', // (optional) default: undefined.
         importance: Importance.IMPORTANCE_DEFAULT, // (optional) default: 4. Int value of the Android notification importance
@@ -31,14 +39,14 @@ export const UseNotificationService = () => {
 
     // accidentally left this channel in it in previous builds, want to ensure the default
     // channel is deleted
-    PushNotification.deleteChannel('default');
+    PushNotification.deleteChannel(channels.default);
   }
 
   const sendApkUpdateNotification = ({ locale, version }: { version: string; locale: LanguageTranslation }) => {
     PushNotification.localNotification({
       ticker: '',
       userInfo: {},
-      channelId: 'apk_update_available',
+      channelId: channels.updateAvailable,
       title: locale.notifications.update.updateAvailableTitle,
       message: formatString(locale.notifications.update.updateAvailableDescription, version),
       playSound: false,
