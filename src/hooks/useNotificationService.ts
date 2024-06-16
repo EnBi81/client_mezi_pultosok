@@ -2,11 +2,8 @@ import PushNotification, { Importance } from 'react-native-push-notification';
 import { checkNotifications, requestNotifications } from 'react-native-permissions';
 import { LanguageTranslation } from '../interfaces/LanguageTranslation';
 import { formatString } from '../utils/utils';
-import { useEnvironment } from './useEnvironment';
 
-export const UseNotificationService = () => {
-  const { isDebug } = useEnvironment();
-
+export const useNotificationService = () => {
   const channels = {
     // this was accidentally left in previous releases,
     // only purpose is to delete this channel
@@ -42,7 +39,15 @@ export const UseNotificationService = () => {
     PushNotification.deleteChannel(channels.default);
   }
 
-  const sendApkUpdateNotification = ({ locale, version }: { version: string; locale: LanguageTranslation }) => {
+  const sendApkUpdateNotification = ({
+    locale,
+    version,
+    ignoreInForegroundOverride = true,
+  }: {
+    version: string;
+    locale: LanguageTranslation;
+    ignoreInForegroundOverride?: boolean;
+  }) => {
     PushNotification.localNotification({
       ticker: '',
       userInfo: {},
@@ -51,7 +56,7 @@ export const UseNotificationService = () => {
       message: formatString(locale.notifications.update.updateAvailableDescription, version),
       playSound: false,
       showWhen: false,
-      ignoreInForeground: !isDebug,
+      ignoreInForeground: ignoreInForegroundOverride,
       largeIcon: '',
     });
   };

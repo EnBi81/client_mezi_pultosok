@@ -4,13 +4,13 @@ import { useSettings } from '../../hooks/useSettings';
 import { StyleSheet, Switch, View } from 'react-native';
 import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
-import { UseNotificationService } from '../../hooks/useNotificationService';
+import { useNotificationService } from '../../hooks/useNotificationService';
 import { useEnvironment } from '../../hooks/useEnvironment';
 
 export const SettingsNotificationsSection = () => {
   const { settings, modifySettings } = useSettings();
   const { l } = useLocale();
-  const notificationService = UseNotificationService();
+  const notificationService = useNotificationService();
   const { isDebug } = useEnvironment();
 
   const toggleNotificationsMaster = async () => {
@@ -68,9 +68,13 @@ export const SettingsNotificationsSection = () => {
         {isDebug && (
           <SettingsOptionContainer
             icon={<Icon name={'notification-add'} />}
-            title={'Send Apk Notification'}
+            title={'Test Update Notification'}
             onPress={() =>
-              notificationService.notifications.sendApkUpdateNotification({ version: '1.4.3-test', locale: l })
+              notificationService.notifications.sendApkUpdateNotification({
+                version: '1.4.3-test',
+                locale: l,
+                ignoreInForegroundOverride: false,
+              })
             }
           />
         )}
