@@ -12,6 +12,7 @@ import { SunPositionContextProvider } from './context/sun_position/SunPositionCo
 import { ApkUpdateContextProvider } from './context/update/ApkUpdateContextProvider';
 import { PaperProvider } from 'react-native-paper';
 import { NotificationManager } from './global_managers/notification/NotificationManager';
+import { EnvironmentContextProvider } from './context/environment/EnvironmentContextProvider';
 
 export default function App() {
   const providers = [
@@ -19,6 +20,7 @@ export default function App() {
     SettingsContextProvider,
     NotificationManager,
     LocaleContextProvider,
+    EnvironmentContextProvider,
     PultosokDataContextProvider,
     ApkUpdateContextProvider,
     DeviceLocationManager,

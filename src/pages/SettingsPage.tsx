@@ -10,12 +10,11 @@ import { useApkUpdater } from '../hooks/useApkUpdater';
 import { formatString, toast } from '../utils/utils';
 import { CURRENT_APK_VERSION } from '../utils/constants';
 import { SettingsUpdateButton } from '../components/settings/SettingsUpdateButton';
-import DeviceInfo from 'react-native-device-info';
-import { useEffect, useState } from 'react';
 import { SettingsNotificationsSection } from '../components/settings/SettingsNotificationsSection';
 import { useGradientPalette } from '../hooks/useGradientPalette';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { useUIEffects } from '../hooks/useUIEffects';
+import { SettingsAppInfoComponent } from '../components/settings/SettingsAppInfoComponent';
 
 export const SettingsPage = () => {
   // inspiration: https://i.pinimg.com/736x/b8/c9/c5/b8c9c5b7e004b69af78ce9773cf965ff.jpg
@@ -23,18 +22,8 @@ export const SettingsPage = () => {
   const { l } = useLocale();
   const { colors } = useColorTheme();
   const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
-  const [staticTexts, setStaticTexts] = useState<string[]>();
   const { colorPalette } = useGradientPalette();
   const { ripple } = useUIEffects({ lightColorOverride: '#ffffff30' });
-
-  useEffect(() => {
-    setStaticTexts([
-      `${DeviceInfo.getApplicationName()} V${CURRENT_APK_VERSION} (${DeviceInfo.getBuildNumber()})`,
-      DeviceInfo.getBundleId(),
-      `${DeviceInfo.getBrand()} - ${DeviceInfo.getSystemName()} ${DeviceInfo.getSystemVersion()}`,
-      DeviceInfo.getDeviceId(),
-    ]);
-  }, []);
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
@@ -94,22 +83,9 @@ export const SettingsPage = () => {
           </View>
 
           <SettingsSectionDivider />
-          {staticTexts && (
-            <View style={styles.versionContainer}>
-              {staticTexts.map((text, i) => {
-                return (
-                  <Text
-                    style={{
-                      color: colors.text.secondary,
-                    }}
-                    key={i}
-                  >
-                    {text}
-                  </Text>
-                );
-              })}
-            </View>
-          )}
+          <View style={styles.versionContainer}>
+            <SettingsAppInfoComponent />
+          </View>
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -170,8 +146,5 @@ const styles = StyleSheet.create({
   },
   versionContainer: {
     width: '100%',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
