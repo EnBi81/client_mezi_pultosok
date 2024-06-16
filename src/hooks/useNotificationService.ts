@@ -31,7 +31,7 @@ export const useNotificationService = () => {
         importance: Importance.IMPORTANCE_DEFAULT, // (optional) default: 4. Int value of the Android notification importance
         vibrate: false, // (optional) default: true. Creates the default vibration pattern if true.
       },
-      (created) => console.log(`createChannel 'apk_update_available' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+      (created) => console.log(`createChannel '${channels.updateAvailable}' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
     );
 
     // accidentally left this channel in it in previous builds, want to ensure the default
