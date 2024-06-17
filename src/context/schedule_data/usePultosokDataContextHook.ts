@@ -65,7 +65,7 @@ export const usePultosokDataContextHook = () => {
 
   // auto refresh data on focus
   useEffect(() => {
-    refresh();
+    if (onFocusCounter > 0) refresh();
   }, [onFocusCounter]);
 
   // cache data

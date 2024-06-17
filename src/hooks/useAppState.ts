@@ -6,7 +6,7 @@ export const useAppState = () => {
 
   useEffect(() => {
     const event = AppState.addEventListener('focus', () => {
-      // when the user opens the app, recalculate the next event
+      // when the user opens the app
       setCounter((prev) => prev + 1);
     });
 
