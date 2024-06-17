@@ -21,8 +21,6 @@ export const usePultosokDataNetworking = () => {
     endpoints
       .scheduleData({ locale: l, localeCode: currentLocale })
       .then((result) => {
-        setIsRefreshing(false);
-
         if (result.error) {
           setError({
             isError: true,
@@ -49,6 +47,9 @@ export const usePultosokDataNetworking = () => {
 
         const data = result.data;
         setWorkingDays(data);
+      })
+      .then(() => {
+        setIsRefreshing(false);
       })
       .catch((err) => {
         setIsRefreshing(false);

@@ -6,14 +6,14 @@ import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import { storages } from '../../storage/Storages';
 import { ScheduleComparison } from '../../utils/ScheduleComparison';
+import { useAppState } from '../../hooks/useAppState';
 
 export const usePultosokDataContextHook = () => {
   const { refresh, data: networkingData, isRefreshing, error: networkingError } = usePultosokDataNetworking();
   const cacheStorage = storages.schedule();
-
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
-
   const { l } = useLocale();
+  const { onFocusCounter } = useAppState();
 
   // handling cache x network data
   useEffect(() => {
@@ -56,18 +56,10 @@ export const usePultosokDataContextHook = () => {
     }
   }, [networkingData, networkingError]);
 
-  // auto refresh data
+  // auto refresh data on focus
   useEffect(() => {
-    // TODO: do this on focus
-    const interval = setInterval(
-      () => {
-        refresh();
-      },
-      3 * 60 * 60 * 1000,
-    );
-
-    return () => clearInterval(interval);
-  }, []);
+    refresh();
+  }, [onFocusCounter]);
 
   // cache data
   useEffect(() => {
