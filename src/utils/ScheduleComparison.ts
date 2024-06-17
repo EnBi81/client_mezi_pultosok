@@ -102,6 +102,9 @@ export const ScheduleComparison = {
       return formatString(locale.notifications.schedule.changeRemovedSingle, names);
     };
 
+    // sort the days in time order
+    partialDays.sort((d1, d2) => d1.dateTime - d2.dateTime);
+
     const notificationsData: PartialChangeNotificationData[] = partialDays
       .map((day) => {
         const arr: PartialChangeNotificationData[] = [];

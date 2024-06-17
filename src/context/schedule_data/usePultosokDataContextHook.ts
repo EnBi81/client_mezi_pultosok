@@ -33,9 +33,12 @@ export const usePultosokDataContextHook = () => {
       if (!networkingData) return;
 
       const comparisonResult = ScheduleComparison.compare(cachedData?.data ?? [], networkingData);
-      ScheduleComparison.showNotifications(comparisonResult.changes).catch((e) =>
-        console.log('error while invoking notifications: ', e),
-      );
+
+      if (cachedData !== undefined) {
+        ScheduleComparison.showNotifications(comparisonResult.changes).catch((e) =>
+          console.log('error while invoking notifications: ', e),
+        );
+      }
 
       const scheduleData = comparisonResult.processedSchedule;
 
