@@ -10,6 +10,9 @@ export const useNotificationService = () => {
     default: 'default',
     // notifications for app updates, available newer versions
     updateAvailable: 'apk_update_available',
+    // notifications when the workers have been changed
+    // on an already planned working day
+    workersChanged: 'workers_changed',
   };
 
   const hasNotificationPermission = async (): Promise<boolean> => {
@@ -28,10 +31,29 @@ export const useNotificationService = () => {
         channelId: channels.updateAvailable, // (required)
         channelName: 'Update Available', // (required)
         channelDescription: 'Notify on available APK updates', // (optional) default: undefined.
-        importance: Importance.IMPORTANCE_DEFAULT, // (optional) default: 4. Int value of the Android notification importance
+        importance: Importance.DEFAULT, // (optional) default: 4. Int value of the Android notification importance
         vibrate: false, // (optional) default: true. Creates the default vibration pattern if true.
+        playSound: false, // (optional) default: true
       },
-      (created) => console.log(`createChannel '${channels.updateAvailable}' returned '${created}'`), // (optional) callback returns whether the channel was created, false means it already existed.
+      (created) => {
+        if (created) {
+          console.log(`Notification Channel '${channels.updateAvailable}' created`);
+        }
+      },
+    );
+
+    PushNotification.createChannel(
+      {
+        channelId: channels.workersChanged, // (required)
+        channelName: 'Planned Schedule Change', // (required)
+        channelDescription: 'Notify on schedule change on an already planned day', // (optional) default: undefined.
+        importance: Importance.HIGH, // (optional) default: 4. Int value of the Android notification importance
+      },
+      (created) => {
+        if (created) {
+          console.log(`Notification Channel '${channels.workersChanged}' created`);
+        }
+      },
     );
 
     // accidentally left this channel in it in previous builds, want to ensure the default
@@ -61,9 +83,51 @@ export const useNotificationService = () => {
     });
   };
 
+  const sendWorkersChangedNotification = ({
+    title,
+    message,
+    locale,
+    isTest = false,
+    groupSummary,
+  }: {
+    title: string;
+    message: string;
+    locale: LanguageTranslation;
+    groupSummary: boolean;
+    isTest?: boolean;
+  }) => {
+    const group = isTest ? 'test-schedule-changed-group' : 'schedule-changed-group';
+    const groupSummaryTag = isTest ? 'test-schedule-changed-group-summary' : 'schedule-changed-group-summary';
+
+    PushNotification.localNotification({
+      ticker: '',
+      userInfo: {},
+      channelId: channels.workersChanged,
+      title: title,
+      message: message,
+      subText: isTest ? 'Test Schedule Changed' : locale.notifications.schedule.scheduleChanged,
+      group: group,
+      groupSummary: groupSummary,
+      largeIcon: '',
+      ignoreInForeground: false,
+      tag: groupSummary ? groupSummaryTag : '',
+    });
+  };
+
+  const checkWorkersChangedSummaryExists = ({ callback, isTest }: { isTest: boolean; callback: (boolean) => void }) => {
+    const groupSummaryTag = isTest ? 'test-schedule-changed-group-summary' : 'schedule-changed-group-summary';
+
+    PushNotification.getDeliveredNotifications((notifications) => {
+      const summaryExists = notifications.some((n) => n.tag === groupSummaryTag);
+      callback(summaryExists);
+    });
+  };
+
   return {
     notifications: {
       sendApkUpdateNotification,
+      sendWorkersChangedNotification,
+      checkWorkersChangedSummaryExists,
     },
     init: init,
     permissions: {

@@ -58,6 +58,7 @@ export interface LanguageTranslation {
       notificationsButton: string;
       notificationsAppUpdatesButton: string;
       permissionDenied: string;
+      notificationScheduleUpdateButton: string;
     };
     currentGradient: string;
   };
@@ -92,6 +93,17 @@ export interface LanguageTranslation {
       updateAppPromptUpdateButton: string;
       updateAppPromptCancelButton: string;
       updateAppPromptCancelled: string;
+    };
+    schedule: {
+      scheduleChanged: string;
+      changeAddedSingle: string;
+      changeAddedMulti: string;
+      changeRemovedSingle: string;
+      changeRemovedMulti: string;
+      newDaysAddedTitle: string;
+      newDaysAddedMessage: string;
+      newDayAddedTitle: string;
+      newDayAddedMessage: string;
     };
   };
 }

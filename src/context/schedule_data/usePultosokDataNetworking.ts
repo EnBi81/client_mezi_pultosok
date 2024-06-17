@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
-import { API_ENDPOINT } from '../../utils/constants';
 import { useLocale } from '../../hooks/useLocale';
 import { PultosokDataError } from '../../interfaces/PultosokDataError';
+import { endpoints } from '../../api/endpoints';
 
 export const usePultosokDataNetworking = () => {
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
@@ -15,88 +15,48 @@ export const usePultosokDataNetworking = () => {
   const [isRefreshing, setIsRefreshing] = useState(false);
   const { l, currentLocale } = useLocale();
 
-  const getDayOfWeek = (dayNum: number) => {
-    if (dayNum === 0) return l.schedule.daysOfWeek.sunday;
-    else if (dayNum === 1) return l.schedule.daysOfWeek.monday;
-    else if (dayNum === 2) return l.schedule.daysOfWeek.tuesday;
-    else if (dayNum === 3) return l.schedule.daysOfWeek.wednesday;
-    else if (dayNum === 4) return l.schedule.daysOfWeek.thursday;
-    else if (dayNum === 5) return l.schedule.daysOfWeek.friday;
-    else if (dayNum === 6) return l.schedule.daysOfWeek.saturday;
-    return 'Invalid day number';
-  };
-
   useEffect(() => {
     setIsRefreshing(true);
 
-    const timezoneOffset = new Date().getTimezoneOffset();
-    fetch(`${API_ENDPOINT}/spreadsheet-data?tzo=${timezoneOffset}`)
-      // catch network error
-      .catch(() => {
-        setError({
-          isError: true,
-          errorMessage: 'Could not connect to the server.',
-          isNetworkError: true,
-        });
-      })
-      // set is refreshing to false
-      .then((data) => {
-        setIsRefreshing(false);
-        return data;
-      })
-      // handle response error
-      .then((data) => {
-        if (!data) return;
+    endpoints
+      .scheduleData({ locale: l, localeCode: currentLocale })
+      .then((result) => {
+        if (result.error) {
+          setError({
+            isError: true,
+            errorMessage: result.error.errorMessage,
+            isNetworkError: result.error.isNetworkError,
+          });
+          return;
+        }
 
-        if (!('ok' in data)) return;
+        if (!result.data) {
+          setError({
+            isError: true,
+            errorMessage: "Haven't received any data",
+            isNetworkError: false,
+          });
+          return;
+        }
 
-        if (!data.ok) throw new Error('Error: ' + data.statusText);
-
-        return data.json();
-      })
-      // handle success response
-      .then((data) => {
-        if (data === undefined) return;
-
-        let arr = data.data;
-        if (!Array.isArray(arr)) throw new Error('Invalid data format from server.');
-
-        const schedules: WorkingDaySchedule[] = arr.map((d): WorkingDaySchedule => {
-          const date = new Date(d.date);
-
-          let shortDate;
-
-          try {
-            shortDate = date.toLocaleDateString(currentLocale, {
-              dateStyle: 'short',
-            });
-          } catch (e) {
-            shortDate = date.toLocaleDateString(undefined, {
-              dateStyle: 'short',
-            });
-          }
-
-          return {
-            ...d,
-            isNew: false,
-            dateStringShort: shortDate,
-            dayOfWeekString: getDayOfWeek(date.getDay()),
-          };
-        });
-
-        setWorkingDays(schedules);
         setError({
           isError: false,
           errorMessage: undefined,
           isNetworkError: false,
         });
+
+        const data = result.data;
+        setWorkingDays(data);
       })
-      // handle error response
+      .then(() => {
+        setIsRefreshing(false);
+      })
       .catch((err) => {
+        setIsRefreshing(false);
         console.error(err);
         setError({
           isError: true,
-          errorMessage: err,
+          errorMessage: err.message,
           isNetworkError: false,
         });
       });

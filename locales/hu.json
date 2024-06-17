@@ -68,7 +68,8 @@
       "masterNotificationOff": "Kérlek kapcsol be az Értesítéseket",
       "notificationsButton": "Értesítések",
       "notificationsAppUpdatesButton": "Alkalmazás Frissítések",
-      "permissionDenied": "Kérlek engedélyezd az értesítéseket az alkalmazásnak"
+      "permissionDenied": "Kérlek engedélyezd az értesítéseket az alkalmazásnak",
+      "notificationScheduleUpdateButton": "Beosztás Frissítések"
     },
     "currentGradient": "Jelenlegi Színátmenet"
   },
@@ -103,6 +104,17 @@
       "updateAppPromptUpdateButton": "Frissítés",
       "updateAppPromptCancelButton": "Mégse",
       "updateAppPromptCancelled": "Frissítés megszakítva"
+    },
+    "schedule": {
+      "scheduleChanged": "Beosztás Megváltozott",
+      "changeAddedSingle": "{0} dolgozni fog",
+      "changeAddedMulti": "{0} dolgozni fognak",
+      "changeRemovedSingle": "{0} lekerült a beosztásról",
+      "changeRemovedMulti": "{0} lekerültek a beosztásról",
+      "newDaysAddedTitle": "Új Beosztás",
+      "newDaysAddedMessage": "Új napok hozzáadva: {0} - {1}",
+      "newDayAddedTitle": "Új Beosztás",
+      "newDayAddedMessage": "Új nap hozzáadva: {0}"
     }
   }
 }

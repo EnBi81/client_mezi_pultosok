@@ -1,9 +1,10 @@
 import BackgroundFetch from 'react-native-background-fetch';
 import { ApkUpdateChecker } from './routines/ApkUpdateChecker';
+import { ScheduleNotifications } from './routines/ScheduleNotifications';
 
 BackgroundFetch.configure(
   {
-    minimumFetchInterval: 15, // Fetch interval in minutes
+    minimumFetchInterval: 60, // Fetch interval in minutes
     stopOnTerminate: false, // Set false to continue background-fetch events after user terminates the app
     startOnBoot: true,
     requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY, // This job requires network connectivity.
@@ -15,9 +16,16 @@ BackgroundFetch.configure(
 
     try {
       await ApkUpdateChecker();
-      console.log(`[BackgroundFetch HeadlessTask] [${new Date().toLocaleString()}] Apk update checker fetched`);
+      console.log(`[BackgroundFetch] [${new Date().toLocaleString()}] Apk update checker fetched`);
     } catch (e) {
-      console.log(`[BackgroundFetch HeadlessTask] [${new Date().toLocaleString()}] Error: `, e);
+      console.log(`[BackgroundFetch] [${new Date().toLocaleString()}] Apk update Error: `, e);
+    }
+
+    try {
+      await ScheduleNotifications();
+      console.log(`[BackgroundFetch] [${new Date().toLocaleString()}] Schedule Notifications run done`);
+    } catch (e) {
+      console.log(`[BackgroundFetch] [${new Date().toLocaleString()}] Schedule Error: `, e);
     }
 
     BackgroundFetch.finish(taskId);
@@ -33,7 +41,7 @@ let AppHeadlessTask = async (event) => {
   let taskId = event.taskId;
   let isTimeout = event.timeout; // <-- true when your background-time has expired.
   if (isTimeout) {
-    console.log(`[BackgroundFetch] [${new Date().toLocaleString()}] Headless TIMEOUT: `, taskId);
+    console.log(`[BackgroundFetch HeadlessTask] [${new Date().toLocaleString()}] TIMEOUT: `, taskId);
     BackgroundFetch.finish(taskId);
     return;
   }
@@ -43,6 +51,13 @@ let AppHeadlessTask = async (event) => {
     console.log(`[BackgroundFetch HeadlessTask] [${new Date().toLocaleString()}] Apk update checker fetched`);
   } catch (e) {
     console.log(`[BackgroundFetch HeadlessTask] [${new Date().toLocaleString()}] Error: `, e);
+  }
+
+  try {
+    await ScheduleNotifications();
+    console.log(`[BackgroundFetch HeadlessTask] [${new Date().toLocaleString()}] Schedule Notifications run done`);
+  } catch (e) {
+    console.log(`[BackgroundFetch HeadlessTask] [${new Date().toLocaleString()}] Schedule Error: `, e);
   }
 
   BackgroundFetch.finish(taskId);

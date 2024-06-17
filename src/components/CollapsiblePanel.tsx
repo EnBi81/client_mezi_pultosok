@@ -62,6 +62,5 @@ const styles = StyleSheet.create({
   },
   contentWrapper: {
     width: '100%',
-    paddingLeft: 15,
   },
 });

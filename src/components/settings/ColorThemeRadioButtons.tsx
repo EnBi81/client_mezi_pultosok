@@ -74,7 +74,7 @@ export const ColorThemeRadioButtons = () => {
       title={l.settings.general.colorTheme.collapseTitle}
       icon={<Icon name={'theme-light-dark'} provider={'material-community'} />}
     >
-      <RadioGroup items={radioItems} selectedId={colorThemeSettings} onSelect={onSelectionChange} />
+      <RadioGroup items={radioItems} level={1} selectedId={colorThemeSettings} onSelect={onSelectionChange} />
     </CollapsiblePanel>
   );
 };

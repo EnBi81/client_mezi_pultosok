@@ -14,10 +14,18 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
   const isDoborgazDown = schedule.doborgaz.length === 0;
   const isJanicsDown = isCikolaDown && isDoborgazDown;
 
+  const markedAsReadAfterLastModifiedDate =
+    schedule.markedAsReadTime && schedule.lastModifiedDate && schedule.markedAsReadTime > schedule.lastModifiedDate;
+
   const { ripple } = useUIEffects();
   const { l } = useLocale();
   const { colors, isLightTheme } = useColorTheme();
   const { colorPalette, gradientEffects } = useGradientPalette();
+
+  const newTagThreshold = new Date().getTime() - 24 * 60 * 60 * 1000;
+  const isLastModifiedDateADayBefore = schedule.lastModifiedDate && newTagThreshold < schedule.lastModifiedDate;
+
+  const isNew = !isJanicsDown && !markedAsReadAfterLastModifiedDate && isLastModifiedDateADayBefore;
 
   return (
     <View
@@ -41,7 +49,7 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
       >
         <View style={{ flexDirection: 'row' }}>
           <Text style={[styles.day, { color: colors.text.main }]}>{schedule.dayOfWeekString}</Text>
-          {!isJanicsDown && schedule.isNew && (
+          {isNew && (
             <LinearGradient
               colors={isLightTheme ? colorPalette.gradient : gradientEffects.brighten(15)}
               start={{ x: 0, y: 0 }}

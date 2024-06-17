@@ -1,8 +1,8 @@
-import { usePultosokData } from './usePultosokData';
+import { usePultosokDataContextHook } from './usePultosokDataContextHook';
 import { PultosokDataContext } from './PultosokDataContext';
 
 export const PultosokDataContextProvider = ({ children }: { children: React.ReactNode }) => {
-  const { refresh, isRefreshing, error, workingDays, markAllAsRead } = usePultosokData();
+  const { refresh, isRefreshing, error, workingDays, markAllAsRead } = usePultosokDataContextHook();
 
   return (
     <PultosokDataContext.Provider

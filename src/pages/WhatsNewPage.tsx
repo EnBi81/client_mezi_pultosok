@@ -4,6 +4,10 @@ export const WhatsNewPage = () => {
   return (
     <View>
       <ScrollView style={{ padding: 10 }}>
+        <VersionSection version={'V1.5.0'}>
+          <BulletPoint text={'Added Working Schedule Notifications'} />
+          <BulletPoint text={'Auto refresh schedule when app is opened'} />
+        </VersionSection>
         <VersionSection version={'V1.4.7'}>
           <BulletPoint text={'Adding Debug mode'} />
           <BulletPoint text={'Fixing icons for notifications'} />

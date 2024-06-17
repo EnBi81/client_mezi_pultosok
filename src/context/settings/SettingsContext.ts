@@ -16,6 +16,7 @@ export const DefaultSettings: Settings = {
   notifications: {
     masterSwitch: false,
     appUpdates: false,
+    scheduleUpdates: false,
   },
 };
 

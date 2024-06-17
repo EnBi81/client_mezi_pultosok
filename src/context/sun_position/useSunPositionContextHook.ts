@@ -4,13 +4,14 @@ import { useDeviceLocation } from '../../hooks/useDeviceLocation';
 import { formatString } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import { SunEvent } from '../../interfaces/SunEvent';
-import { AppState } from 'react-native';
+import { useAppState } from '../../hooks/useAppState';
 
 export const useSunPositionContextHook = () => {
   const { location } = useDeviceLocation();
   const [nextEvent, setNextEvent] = useState<SunEvent>();
   const [nextEventCounter, setNextEventCounter] = useState(0);
   const { l } = useLocale();
+  const { onFocusCounter } = useAppState();
 
   function getSunTimes(date: Date) {
     return SunCalc.getTimes(date, location.latitude, location.longitude, 0);
@@ -144,7 +145,7 @@ export const useSunPositionContextHook = () => {
     if (location.latitude === undefined || location.longitude === undefined) return;
 
     setNextEvent(getNextEvent());
-  }, [location.longitude, location.latitude, l, nextEventCounter]);
+  }, [location.longitude, location.latitude, l, nextEventCounter, onFocusCounter]);
 
   // update next event
   useEffect(() => {
@@ -162,17 +163,7 @@ export const useSunPositionContextHook = () => {
     }, timeoutMS);
 
     return () => clearTimeout(timeout);
-  }, [nextEvent]);
-
-  // handling app state events
-  useEffect(() => {
-    const event = AppState.addEventListener('focus', () => {
-      // when the user opens the app, recalculate the next event
-      setNextEventCounter((prev) => prev + 1);
-    });
-
-    return () => event.remove();
-  }, []);
+  }, [nextEvent, onFocusCounter]);
 
   return {
     nextEvent: nextEvent,

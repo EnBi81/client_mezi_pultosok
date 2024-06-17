@@ -13,5 +13,6 @@ export interface Settings {
   notifications: {
     masterSwitch: boolean;
     appUpdates: boolean;
+    scheduleUpdates: boolean;
   };
 }
