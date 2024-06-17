@@ -96,6 +96,14 @@ export interface LanguageTranslation {
     };
     schedule: {
       scheduleChanged: string;
+      changeAddedSingle: string;
+      changeAddedMulti: string;
+      changeRemovedSingle: string;
+      changeRemovedMulti: string;
+      newDaysAddedTitle: string;
+      newDaysAddedMessage: string;
+      newDayAddedTitle: string;
+      newDayAddedMessage: string;
     };
   };
 }

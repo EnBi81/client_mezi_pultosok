@@ -1,5 +1,5 @@
 import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
-import { getUniqueElements, removeEmptyStrings } from './utils';
+import { formatString, getUniqueElements, removeEmptyStrings } from './utils';
 import { useNotificationService } from '../hooks/useNotificationService';
 import { storages } from '../storage/Storages';
 import { getCurrentLocalTranslations } from '../context/locale/locales';
@@ -79,8 +79,28 @@ export const ScheduleComparison = {
       return;
     }
 
+    const { notifications } = useNotificationService();
+    const locale = getCurrentLocalTranslations(settings);
+
     const partialDays = changes.filter((c) => c.type === 'partial');
     const fullDays = changes.filter((c) => c.type === 'full');
+
+    const getNotificationMessage = ({ workers, added }: { workers: WorkerUpdate[]; added: boolean }) => {
+      const names = workers.map((w) => w.workerName).join(', ');
+      const multipleWorkers = workers.length > 1;
+
+      if (added && multipleWorkers) {
+        return formatString(locale.notifications.schedule.changeAddedMulti, names);
+      }
+      if (added) {
+        return formatString(locale.notifications.schedule.changeAddedSingle, names);
+      }
+      if (multipleWorkers) {
+        return formatString(locale.notifications.schedule.changeRemovedMulti, names);
+      }
+
+      return formatString(locale.notifications.schedule.changeRemovedSingle, names);
+    };
 
     const notificationsData: PartialChangeNotificationData[] = partialDays
       .map((day) => {
@@ -90,7 +110,7 @@ export const ScheduleComparison = {
         if (cikolaAdded.length > 0) {
           arr.push({
             title: day.displayDate + ' (Cikola)',
-            message: cikolaAdded.map((w) => w.workerName).join(', ') + ' will be working',
+            message: getNotificationMessage({ workers: cikolaAdded, added: true }),
           });
         }
 
@@ -98,7 +118,7 @@ export const ScheduleComparison = {
         if (cikolaRemoved.length > 0) {
           arr.push({
             title: day.displayDate + ' (Cikola)',
-            message: cikolaRemoved.map((w) => w.workerName).join(', ') + ' has been taken off the schedule',
+            message: getNotificationMessage({ workers: cikolaRemoved, added: false }),
           });
         }
 
@@ -106,7 +126,7 @@ export const ScheduleComparison = {
         if (doborgazAdded.length > 0) {
           arr.push({
             title: day.displayDate + ' (Doborgaz)',
-            message: doborgazAdded.map((w) => w.workerName).join(', ') + ' will be working',
+            message: getNotificationMessage({ workers: doborgazAdded, added: true }),
           });
         }
 
@@ -114,7 +134,7 @@ export const ScheduleComparison = {
         if (doborgazRemoved.length > 0) {
           arr.push({
             title: day.displayDate + ' (Doborgaz)',
-            message: doborgazRemoved.map((w) => w.workerName).join(', ') + ' has been taken off the schedule',
+            message: getNotificationMessage({ workers: doborgazRemoved, added: false }),
           });
         }
 
@@ -127,18 +147,19 @@ export const ScheduleComparison = {
       const lastFullDay = fullDays.reduce((last, current) => (last.dateTime > current.dateTime ? last : current));
 
       notificationsData.push({
-        title: 'New Days Added',
-        message: `New Days added from ${firstFullDay.displayDate} to ${lastFullDay.displayDate}`,
+        title: locale.notifications.schedule.newDaysAddedTitle,
+        message: formatString(
+          locale.notifications.schedule.newDaysAddedMessage,
+          firstFullDay.displayDate,
+          lastFullDay.displayDate,
+        ),
       });
     } else if (fullDays.length === 1) {
       notificationsData.push({
-        title: 'New Day Added',
-        message: `New Day added: ${fullDays[0].displayDate}`,
+        title: locale.notifications.schedule.newDayAddedTitle,
+        message: formatString(locale.notifications.schedule.newDayAddedMessage, fullDays[0].displayDate),
       });
     }
-
-    const { notifications } = useNotificationService();
-    const locale = getCurrentLocalTranslations(settings);
 
     notifications.checkWorkersChangedSummaryExists({
       isTest: false,

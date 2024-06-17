@@ -106,7 +106,15 @@
       "updateAppPromptCancelled": "Update Cancelled"
     },
     "schedule": {
-      "scheduleChanged": "Schedule Changed"
+      "scheduleChanged": "Schedule Changed",
+      "changeAddedSingle": "{0} will be working",
+      "changeAddedMulti": "{0} will be working",
+      "changeRemovedSingle": "{0} was taken off the schedule",
+      "changeRemovedMulti": "{0} were taken off the schedule",
+      "newDaysAddedTitle": "New Schedule",
+      "newDaysAddedMessage": "New days added from {0} to {1}",
+      "newDayAddedTitle": "New Schedule",
+      "newDayAddedMessage": "New day added: {0}"
     }
   }
 }

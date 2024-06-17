@@ -118,7 +118,6 @@ export const useNotificationService = () => {
     const groupSummaryTag = isTest ? 'test-schedule-changed-group-summary' : 'schedule-changed-group-summary';
 
     PushNotification.getDeliveredNotifications((notifications) => {
-      console.log(notifications);
       const summaryExists = notifications.some((n) => n.tag === groupSummaryTag);
       callback(summaryExists);
     });
