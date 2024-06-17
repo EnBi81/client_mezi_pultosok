@@ -68,7 +68,8 @@
       "masterNotificationOff": "Kérlek kapcsol be az Értesítéseket",
       "notificationsButton": "Értesítések",
       "notificationsAppUpdatesButton": "Alkalmazás Frissítések",
-      "permissionDenied": "Kérlek engedélyezd az értesítéseket az alkalmazásnak"
+      "permissionDenied": "Kérlek engedélyezd az értesítéseket az alkalmazásnak",
+      "notificationScheduleUpdateButton": "Beosztás Frissítések"
     },
     "currentGradient": "Jelenlegi Színátmenet"
   },

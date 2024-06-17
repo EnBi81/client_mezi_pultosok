@@ -109,7 +109,7 @@ export const endpoints = {
 
       return {
         ...d,
-        isNew: false,
+        lastModifiedDate: undefined,
         dateStringShort: shortDate,
         dayOfWeekString: getDayOfWeek(date.getDay()),
       };

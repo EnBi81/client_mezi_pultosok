@@ -41,6 +41,15 @@ export const SettingsNotificationsSection = () => {
     modifySettings((settings) => (settings.notifications.appUpdates = !settings.notifications.appUpdates));
   };
 
+  const toggleNotificationsScheduleUpdates = () => {
+    if (!settings.notifications.masterSwitch) {
+      toast(l.settings.notifications.masterNotificationOff);
+      return;
+    }
+
+    modifySettings((settings) => (settings.notifications.scheduleUpdates = !settings.notifications.scheduleUpdates));
+  };
+
   return (
     <View>
       <SettingsOptionContainer
@@ -78,6 +87,27 @@ export const SettingsNotificationsSection = () => {
             }
           />
         )}
+        <SettingsOptionContainer
+          icon={<Icon name={settings.notifications.appUpdates ? 'notifications-on' : 'notifications-off'} />}
+          title={l.settings.notifications.notificationScheduleUpdateButton}
+          onPress={toggleNotificationsScheduleUpdates}
+          rightSide={
+            <Switch onValueChange={toggleNotificationsScheduleUpdates} value={settings.notifications.scheduleUpdates} />
+          }
+        />
+        {/*{isDebug && (
+          <SettingsOptionContainer
+            icon={<Icon name={'notification-add'} />}
+            title={'Test Update Notification'}
+            onPress={() =>
+              notificationService.notifications.sendApkUpdateNotification({
+                version: '1.4.3-test',
+                locale: l,
+                ignoreInForegroundOverride: false,
+              })
+            }
+          />
+        )}*/}
       </View>
     </View>
   );

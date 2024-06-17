@@ -1,7 +1,7 @@
 import { View, Text, TouchableNativeFeedback, StyleSheet } from 'react-native';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import { useLocale } from '../../hooks/useLocale';
-import { usePultosokDataContext } from '../../hooks/usePultosokDataContext';
+import { usePultosokData } from '../../hooks/usePultosokData';
 import { toast } from '../../utils/utils';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import { Icon } from '../Icon';
@@ -10,7 +10,7 @@ export const MarkAllReadButton = () => {
   const { colors } = useColorTheme();
   const { ripple } = useUIEffects();
   const { l } = useLocale();
-  const { markAllAsRead } = usePultosokDataContext();
+  const { markAllAsRead } = usePultosokData();
 
   return (
     <View>

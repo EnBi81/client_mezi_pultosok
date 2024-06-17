@@ -4,8 +4,6 @@ public class WorkingDayModel {
     private String date;
     private String dateStringShort;
     private String dayOfWeekString;
-    private Boolean isNew;
-    private Long isNewDateRegistered; // Use Long to allow null values
     private String[] cikola;
     private String[] doborgaz;
 
@@ -13,12 +11,10 @@ public class WorkingDayModel {
     public WorkingDayModel() {}
 
     // Parameterized constructor
-    public WorkingDayModel(String date, String dateStringShort, String dayOfWeekString, boolean isNew, Long isNewDateRegistered, String[] cikola, String[] doborgaz) {
+    public WorkingDayModel(String date, String dateStringShort, String dayOfWeekString, String[] cikola, String[] doborgaz) {
         this.date = date;
         this.dateStringShort = dateStringShort;
         this.dayOfWeekString = dayOfWeekString;
-        this.isNew = isNew;
-        this.isNewDateRegistered = isNewDateRegistered;
         this.cikola = cikola;
         this.doborgaz = doborgaz;
     }
@@ -46,22 +42,6 @@ public class WorkingDayModel {
 
     public void setDayOfWeekString(String dayOfWeekString) {
         this.dayOfWeekString = dayOfWeekString;
-    }
-
-    public boolean getIsNew() {
-        return isNew;
-    }
-
-    public void setIsNew(boolean isNew) {
-        this.isNew = isNew;
-    }
-
-    public Long getIsNewDateRegistered() {
-        return isNewDateRegistered;
-    }
-
-    public void setIsNewDateRegistered(Long isNewDateRegistered) {
-        this.isNewDateRegistered = isNewDateRegistered;
     }
 
     public String[] getCikola() {

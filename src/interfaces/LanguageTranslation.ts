@@ -58,6 +58,7 @@ export interface LanguageTranslation {
       notificationsButton: string;
       notificationsAppUpdatesButton: string;
       permissionDenied: string;
+      notificationScheduleUpdateButton: string;
     };
     currentGradient: string;
   };

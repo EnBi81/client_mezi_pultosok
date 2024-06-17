@@ -7,13 +7,13 @@ import React from 'react';
 import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { SettingsUpdateWrapper } from '../components/schedule/SettingsUpdateWrapper';
-import { usePultosokDataContext } from '../hooks/usePultosokDataContext';
+import { usePultosokData } from '../hooks/usePultosokData';
 import { useScrollUtils } from '../hooks/useScrollUtils';
 
 export const SchedulePage = () => {
   const scroll = useScrollUtils({ type: 'flatlist', thresholdTopScroll: 40 });
   const { colorPalette } = useGradientPalette();
-  const { workingDays, refresh: refreshPultosok, isRefreshing, error: pultosokDataError } = usePultosokDataContext();
+  const { workingDays, refresh: refreshPultosok, isRefreshing, error: pultosokDataError } = usePultosokData();
   const { workingDaysWithDividers, stickyHeaderIndices } = usePultosokAppDisplayData(workingDays);
 
   return (
