@@ -163,7 +163,7 @@ export const useSunPositionContextHook = () => {
     }, timeoutMS);
 
     return () => clearTimeout(timeout);
-  }, [nextEvent]);
+  }, [nextEvent, onFocusCounter]);
 
   return {
     nextEvent: nextEvent,

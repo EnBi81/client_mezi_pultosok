@@ -1,7 +1,7 @@
 import { Icon } from '../Icon';
 import { SettingsOptionContainer } from './SettingsOptionContainer';
 import { useSettings } from '../../hooks/useSettings';
-import { StyleSheet, Switch, View } from 'react-native';
+import { Switch, View } from 'react-native';
 import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import { useNotificationService } from '../../hooks/useNotificationService';
@@ -61,16 +61,14 @@ export const SettingsNotificationsSection = () => {
         }
       />
       <View
-        style={[
-          styles.subSection,
-          {
-            opacity: settings.notifications.masterSwitch ? 1 : 0.7,
-          },
-        ]}
+        style={{
+          opacity: settings.notifications.masterSwitch ? 1 : 0.7,
+        }}
       >
         <SettingsOptionContainer
           icon={<Icon name={settings.notifications.appUpdates ? 'notifications-on' : 'notifications-off'} />}
           title={l.settings.notifications.notificationsAppUpdatesButton}
+          level={1}
           onPress={toggleNotificationsAppUpdates}
           rightSide={<Switch onValueChange={toggleNotificationsAppUpdates} value={settings.notifications.appUpdates} />}
         />
@@ -78,6 +76,7 @@ export const SettingsNotificationsSection = () => {
           <SettingsOptionContainer
             icon={<Icon name={'notification-add'} />}
             title={'Test Update Notification'}
+            level={2}
             onPress={() =>
               notificationService.notifications.sendApkUpdateNotification({
                 version: '1.4.3-test',
@@ -88,33 +87,36 @@ export const SettingsNotificationsSection = () => {
           />
         )}
         <SettingsOptionContainer
-          icon={<Icon name={settings.notifications.appUpdates ? 'notifications-on' : 'notifications-off'} />}
+          icon={<Icon name={settings.notifications.scheduleUpdates ? 'notifications-on' : 'notifications-off'} />}
           title={l.settings.notifications.notificationScheduleUpdateButton}
+          level={1}
           onPress={toggleNotificationsScheduleUpdates}
           rightSide={
             <Switch onValueChange={toggleNotificationsScheduleUpdates} value={settings.notifications.scheduleUpdates} />
           }
         />
-        {/*{isDebug && (
+        {isDebug && (
           <SettingsOptionContainer
             icon={<Icon name={'notification-add'} />}
-            title={'Test Update Notification'}
+            title={'Test Worker Changed Notification'}
+            level={2}
             onPress={() =>
-              notificationService.notifications.sendApkUpdateNotification({
-                version: '1.4.3-test',
-                locale: l,
-                ignoreInForegroundOverride: false,
+              notificationService.notifications.checkWorkersChangedSummaryExists({
+                isTest: true,
+                callback: (exists) => {
+                  notificationService.notifications.sendWorkersChangedNotification({
+                    title: '2024.06.25 (Cikola)',
+                    message: 'Katu assigned to work',
+                    locale: l,
+                    isTest: true,
+                    groupSummary: !exists,
+                  });
+                },
               })
             }
           />
-        )}*/}
+        )}
       </View>
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  subSection: {
-    paddingLeft: 15,
-  },
-});

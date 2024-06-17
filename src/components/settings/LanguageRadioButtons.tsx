@@ -38,6 +38,7 @@ export const LanguageRadioButtons = () => {
         items={radioItems}
         selectedId={settings.languageId ? settings.languageId : idForSystemDefault}
         onSelect={onSelectionChange}
+        level={1}
       />
     </CollapsiblePanel>
   );

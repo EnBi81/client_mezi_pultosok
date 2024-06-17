@@ -33,3 +33,7 @@ export function getUniqueElements(arr: string[]): string[] {
   const uniqueSet = new Set<string>(arr);
   return Array.from(uniqueSet);
 }
+
+export function removeEmptyStrings(arr: string[]) {
+  return arr.filter((item) => item.length > 0);
+}

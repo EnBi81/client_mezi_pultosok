@@ -13,10 +13,12 @@ export const RadioGroup = ({
   items,
   selectedId,
   onSelect,
+  level,
 }: {
   items: RadioItem[];
   selectedId: string | undefined;
   onSelect: (string) => void;
+  level: number;
 }) => {
   const emptyFunction = () => {};
 
@@ -28,6 +30,7 @@ export const RadioGroup = ({
           ticked={item.id === selectedId}
           icon={item.icon}
           title={item.title}
+          level={level}
           onPress={() => onSelect(item.id)}
           onLongPress={item.onLongPress ?? emptyFunction}
         />
@@ -42,18 +45,21 @@ const RadioButton = ({
   icon,
   onPress,
   onLongPress,
+  level,
 }: {
   ticked: boolean;
   title: string;
   icon?: React.ReactNode;
   onPress: () => void;
   onLongPress: () => void;
+  level: number;
 }) => {
   return (
     <SettingsOptionContainer
       icon={icon}
       title={title}
       type={'secondary'}
+      level={level}
       rightSide={
         <View style={{ opacity: ticked ? 1 : 0 }}>
           <Icon name='done' />

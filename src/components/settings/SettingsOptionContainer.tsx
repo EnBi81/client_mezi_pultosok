@@ -9,6 +9,7 @@ interface SettingsOptionContainerProps {
   title: string;
   type?: 'primary' | 'secondary' | undefined;
   rightSide?: React.ReactNode | undefined;
+  level?: number;
 }
 
 export const SettingsOptionContainer = ({
@@ -18,6 +19,7 @@ export const SettingsOptionContainer = ({
   onLongPress,
   rightSide,
   type = 'primary',
+  level = 0,
 }: SettingsOptionContainerProps) => {
   const { ripple } = useUIEffects();
   const { colors } = useColorTheme();
@@ -29,6 +31,7 @@ export const SettingsOptionContainer = ({
     <View style={styles.maxWidth}>
       <TouchableNativeFeedback background={ripple} onPress={onPress} onLongPress={onLongPress}>
         <View style={[styles.row, { padding: isPrimary ? 15 : 10 }]}>
+          <View style={{ width: level * 15 }}></View>
           <View style={styles.icon}>{icon}</View>
           {isPrimary && <Text style={[styles.title, { fontWeight: 'bold', color: colors.text.main }]}>{title}</Text>}
           {isSecondary && <Text style={[styles.title, { color: colors.text.secondary }]}>{title}</Text>}

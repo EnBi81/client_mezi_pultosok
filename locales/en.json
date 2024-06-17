@@ -104,6 +104,9 @@
       "updateAppPromptUpdateButton": "Update",
       "updateAppPromptCancelButton": "Cancel",
       "updateAppPromptCancelled": "Update Cancelled"
+    },
+    "schedule": {
+      "scheduleChanged": "Schedule Changed"
     }
   }
 }

@@ -104,6 +104,9 @@
       "updateAppPromptUpdateButton": "Frissítés",
       "updateAppPromptCancelButton": "Mégse",
       "updateAppPromptCancelled": "Frissítés megszakítva"
+    },
+    "schedule": {
+      "scheduleChanged": "Beosztás Megváltozott"
     }
   }
 }

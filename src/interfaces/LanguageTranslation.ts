@@ -94,5 +94,8 @@ export interface LanguageTranslation {
       updateAppPromptCancelButton: string;
       updateAppPromptCancelled: string;
     };
+    schedule: {
+      scheduleChanged: string;
+    };
   };
 }
