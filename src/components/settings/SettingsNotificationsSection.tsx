@@ -28,6 +28,7 @@ export const SettingsNotificationsSection = () => {
 
       if (!settings.notifications.masterSwitch) {
         settings.notifications.appUpdates = false;
+        settings.notifications.scheduleUpdates = false;
       }
     });
   };

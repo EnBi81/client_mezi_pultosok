@@ -5,7 +5,6 @@ import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.widget.RemoteViews;
 import android.content.SharedPreferences;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import android.app.PendingIntent;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -18,25 +17,17 @@ import android.content.ComponentName;
 import android.os.Handler;
 import android.os.Looper;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import com.client_mezi_pultosok.models.WorkingDayModel;
+import com.client_mezi_pultosok.shared_preferences.PultosokDataSharedPreference;
 
 public class PultosokAppWidgetProvider extends AppWidgetProvider {
-    private static final String PREFERENCES_NAME = "com.client_mezi_pultosok.PultosokSharedPreferences";
-    private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
-
     public static final String ACTION_WIDGET_CLICK = "com.client_mezi_pultosok.WIDGET_CLICK";
     public static final String ACTION_WIDGET_PRESS = "com.client_mezi_pultosok.WIDGET_PRESS";
 
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
-        SharedPreferences sharedPreferences = context.getSharedPreferences(PREFERENCES_NAME, Context.MODE_PRIVATE);
-
-        String value = sharedPreferences.getString("apiData", "");
-        WorkingDayModel[] data = parseWorkingDayModel(value);
-        WorkingDayModel today = getTodayWorkingDayModel(data);
+        var pultosokDataSharedPreference = new PultosokDataSharedPreference(context);
+        WorkingDayModel today = pultosokDataSharedPreference.getToday();
 
         for (int appWidgetId : appWidgetIds) {
             RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_pultosok);
@@ -129,27 +120,5 @@ public class PultosokAppWidgetProvider extends AppWidgetProvider {
     }
 
 
-    private WorkingDayModel[] parseWorkingDayModel(String text) {
-        ObjectMapper objectMapper = new ObjectMapper();
 
-        try {
-            return objectMapper.readValue(text, WorkingDayModel[].class);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new WorkingDayModel[0];
-        }
-    }
-
-    private WorkingDayModel getTodayWorkingDayModel(WorkingDayModel[] data) {
-        LocalDate today = LocalDate.now();
-
-        for (WorkingDayModel workingDay : data) {
-            ZonedDateTime workingDayDate = ZonedDateTime.parse(workingDay.getDate(), formatter);
-            if (workingDayDate.toLocalDate().equals(today)) {
-                return workingDay;
-            }
-        }
-
-        return null;
-    }
 }
