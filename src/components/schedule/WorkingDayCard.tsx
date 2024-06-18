@@ -8,6 +8,7 @@ import { useLocale } from '../../hooks/useLocale';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
+import { Icon } from '../Icon';
 
 export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) => {
   const isCikolaDown = schedule.cikola.length === 0;
@@ -22,10 +23,13 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
   const { colors, isLightTheme } = useColorTheme();
   const { colorPalette, gradientEffects } = useGradientPalette();
 
-  const newTagThreshold = new Date().getTime() - 24 * 60 * 60 * 1000;
+  const nowTime = new Date().getTime();
+  const newTagThreshold = nowTime - 24 * 60 * 60 * 1000;
   const isLastModifiedDateADayBefore = schedule.lastModifiedDate && newTagThreshold < schedule.lastModifiedDate;
+  const isOnlyPartiallyChanged = schedule.change && schedule.change.type === 'partial';
 
-  const isNew = !isJanicsDown && !markedAsReadAfterLastModifiedDate && isLastModifiedDateADayBefore;
+  const isNew =
+    !isJanicsDown && !markedAsReadAfterLastModifiedDate && !isOnlyPartiallyChanged && isLastModifiedDateADayBefore;
 
   return (
     <View
@@ -75,11 +79,31 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
               <View style={styles.leftSideInner}>
                 {isCikolaDown && <Text style={[styles.worker, { color: colors.text.main }]}>-</Text>}
                 {!isCikolaDown &&
-                  schedule.cikola.map((p, i) => (
-                    <Text key={i} style={[styles.worker, { color: colors.text.main }]}>
-                      {p}
-                    </Text>
-                  ))}
+                  schedule.cikola.map((p, i) => {
+                    const workerChange =
+                      schedule.change &&
+                      isOnlyPartiallyChanged &&
+                      newTagThreshold < schedule.change.dateTime &&
+                      schedule.change.cikolaUpdateDetails.find((c) => c.workerName === p);
+
+                    return (
+                      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                        <Text
+                          style={[
+                            styles.worker,
+                            {
+                              color: colors.text.main,
+                            },
+                          ]}
+                        >
+                          {p}
+                        </Text>
+                        {workerChange && workerChange.type === 'added' && (
+                          <Icon name={'add-circle'} color={'#009100'} />
+                        )}
+                      </View>
+                    );
+                  })}
               </View>
             </View>
           </TouchableNativeFeedback>
@@ -95,11 +119,35 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
               <View style={styles.rightSideInner}>
                 {isDoborgazDown && <Text style={[styles.worker, { color: colors.text.main }]}>-</Text>}
                 {!isDoborgazDown &&
-                  schedule.doborgaz.map((p, i) => (
-                    <Text key={i} style={[styles.worker, { color: colors.text.main }]}>
-                      {p}
-                    </Text>
-                  ))}
+                  schedule.doborgaz.map((p, i) => {
+                    const workerChange =
+                      schedule.change &&
+                      isOnlyPartiallyChanged &&
+                      newTagThreshold < schedule.change.dateTime &&
+                      schedule.change.doborgazUpdateDetails.find((c) => c.workerName === p);
+
+                    return (
+                      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+                        {workerChange && workerChange.type === 'added' && (
+                          <Icon name={'add-circle'} color={'#009100'} />
+                        )}
+                        {workerChange && workerChange.type === 'removed' && (
+                          <Icon name={'remove-circle'} color={'#bd0909'} />
+                        )}
+                        <Text
+                          style={[
+                            styles.worker,
+                            {
+                              color: colors.text.main,
+                              textDecorationLine: workerChange && workerChange.type === 'removed' ? 'line-through' : '',
+                            },
+                          ]}
+                        >
+                          {p}
+                        </Text>
+                      </View>
+                    );
+                  })}
               </View>
             </View>
           </TouchableNativeFeedback>

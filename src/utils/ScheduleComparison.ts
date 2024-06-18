@@ -3,6 +3,7 @@ import { formatString, getUniqueElements, removeEmptyStrings } from './utils';
 import { useNotificationService } from '../hooks/useNotificationService';
 import { storages } from '../storage/Storages';
 import { getCurrentLocalTranslations } from '../context/locale/locales';
+import { ScheduleDayChange, WorkerUpdate } from '../interfaces/ScheduleDayChange';
 
 export const ScheduleComparison = {
   compare: (scheduleOld: WorkingDaySchedule[], scheduleNew: WorkingDaySchedule[]) => {
@@ -21,13 +22,16 @@ export const ScheduleComparison = {
       if (oldDay === undefined) {
         // never seen new day
         day.lastModifiedDate = nowTime;
-        changes.push({
+        const neverSeenChange: ScheduleDayChange = {
           dateTime: new Date(day.date).getTime(),
           displayDate: day.dateStringShort,
           type: 'full',
           cikolaUpdateDetails: compareWorkerArrays([], day.cikola),
           doborgazUpdateDetails: compareWorkerArrays([], day.doborgaz),
-        });
+        };
+
+        day.change = neverSeenChange;
+        changes.push(neverSeenChange);
         continue;
       }
 
@@ -62,8 +66,14 @@ export const ScheduleComparison = {
 
       // evaluating changes
       if (isChanged) {
+        if (oldDay.change) {
+          mergeScheduleDayChange(oldDay.change).into(change);
+        }
         changes.push(change);
         day.lastModifiedDate = nowTime;
+        day.change = change;
+      } else if (oldDay.change && nowTime - 24 * 60 * 60 * 1000 < oldDay.change.dateTime) {
+        day.change = oldDay.change;
       }
     }
 
@@ -184,21 +194,9 @@ export const ScheduleComparison = {
   },
 };
 
-export interface ScheduleDayChange {
-  dateTime: number;
-  displayDate: string;
-  type: 'full' | 'partial';
-  cikolaUpdateDetails: WorkerUpdate[];
-  doborgazUpdateDetails: WorkerUpdate[];
-}
-
-interface WorkerUpdate {
-  workerName: string;
-  type: 'added' | 'removed';
-}
-
 const compareWorkerArrays = (workersOld: string[], workersNew: string[]): WorkerUpdate[] => {
   const arr: WorkerUpdate[] = [];
+  const now = new Date().getTime();
 
   for (const worker of workersNew) {
     const oldWorker = workersOld.find((w) => w === worker);
@@ -207,6 +205,7 @@ const compareWorkerArrays = (workersOld: string[], workersNew: string[]): Worker
       arr.push({
         workerName: worker,
         type: 'added',
+        timestamp: now,
       });
     }
   }
@@ -218,11 +217,32 @@ const compareWorkerArrays = (workersOld: string[], workersNew: string[]): Worker
       arr.push({
         workerName: oldWorker,
         type: 'removed',
+        timestamp: now,
       });
     }
   }
 
   return arr;
+};
+
+const mergeScheduleDayChange = (change: ScheduleDayChange) => {
+  return {
+    into: (changeInto: ScheduleDayChange) => {
+      changeInto.doborgazUpdateDetails = mergeWorkerUpdateArrays(
+        change.doborgazUpdateDetails,
+        changeInto.doborgazUpdateDetails,
+      );
+      changeInto.cikolaUpdateDetails = mergeWorkerUpdateArrays(
+        change.cikolaUpdateDetails,
+        changeInto.cikolaUpdateDetails,
+      );
+    },
+  };
+};
+
+const mergeWorkerUpdateArrays = (arr1: WorkerUpdate[], arr2: WorkerUpdate[]): WorkerUpdate[] => {
+  const arr1WithoutArr2Workers = arr1.filter((a) => !arr2.find((a2) => a2.workerName === a.workerName));
+  return [...arr2, ...arr1WithoutArr2Workers];
 };
 
 interface PartialChangeNotificationData {
