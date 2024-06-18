@@ -1,4 +1,4 @@
-package com.client_mezi_pultosok;
+package com.client_mezi_pultosok.shared_preferences;
 
 import android.content.SharedPreferences;
 import android.content.Context;

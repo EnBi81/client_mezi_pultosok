@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.os.Looper;
 
 import com.client_mezi_pultosok.models.WorkingDayModel;
+import com.client_mezi_pultosok.shared_preferences.PultosokDataSharedPreference;
 
 public class PultosokAppWidgetProvider extends AppWidgetProvider {
     public static final String ACTION_WIDGET_CLICK = "com.client_mezi_pultosok.WIDGET_CLICK";

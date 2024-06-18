@@ -2,6 +2,7 @@ package com.client_mezi_pultosok;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
 
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.client_mezi_pultosok.models.WorkingDayModel;
+import com.client_mezi_pultosok.shared_preferences.PultosokDataSharedPreference;
+import com.client_mezi_pultosok.utils.ThemeUtils;
 
 public class PultosokListRemoteViewsFactory implements RemoteViewsService.RemoteViewsFactory {
     private final Context context;
@@ -46,15 +49,26 @@ public class PultosokListRemoteViewsFactory implements RemoteViewsService.Remote
     public RemoteViews getViewAt(int position) {
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_pultosok_list_item);
         var item = items.get(position);
-
-        views.setTextViewText(R.id.widget_item_text_date, item.getDateStringShort());
-        views.setTextViewText(R.id.widget_item_text_day_of_week, item.getDayOfWeekString());
+        var isDarkMode = ThemeUtils.isDarkTheme(context);
 
         String cikolaText = "Cikola: " + (item.getCikola().length > 0 ? String.join(", ", item.getCikola()) : " - ");
         String doborgazText = "Doborgaz: " + (item.getDoborgaz().length > 0 ? String.join(", ", item.getDoborgaz()) : " - ");
 
+        views.setTextViewText(R.id.widget_item_text_date, item.getDateStringShort());
+        views.setTextViewText(R.id.widget_item_text_day_of_week, item.getDayOfWeekString());
         views.setTextViewText(R.id.widget_item_text_cikola, cikolaText);
         views.setTextViewText(R.id.widget_item_text_doborgaz, doborgazText);
+
+        // Set text colors
+        int textColor = isDarkMode ? Color.parseColor("#ededed") : Color.parseColor("#242424");
+        views.setTextColor(R.id.widget_item_text_date, textColor);
+        views.setTextColor(R.id.widget_item_text_day_of_week, textColor);
+        views.setTextColor(R.id.widget_item_text_cikola, textColor);
+        views.setTextColor(R.id.widget_item_text_doborgaz, textColor);
+
+        // Set background color
+        int bgColor = isDarkMode ? Color.parseColor("#242424") : Color.parseColor("#ededed");
+        views.setInt(R.id.widget_pultosok_list_item_bg, "setBackgroundColor", bgColor);
 
         return views;
     }
