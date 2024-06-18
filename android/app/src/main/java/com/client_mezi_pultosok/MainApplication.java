@@ -1,9 +1,6 @@
 package com.client_mezi_pultosok;
 
-import com.rnfs.RNFSPackage;
 import android.app.Application;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 import com.facebook.react.PackageList;
@@ -15,8 +12,6 @@ import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint;
 import com.facebook.react.defaults.DefaultReactHost;
 import com.facebook.react.defaults.DefaultReactNativeHost;
 import com.facebook.soloader.SoLoader;
-import in.sriraman.sharedpreferences.RNSharedPreferencesReactPackage;
-import com.dieam.reactnativepushnotification.ReactNativePushNotificationPackage;
 
 import java.util.List;
 
@@ -28,7 +23,6 @@ public class MainApplication extends Application implements ReactApplication {
                 public List<ReactPackage> getPackages() {
                     List<ReactPackage> packages = new PackageList(this).getPackages();
                     // Packages that cannot be autolinked yet can be added manually here, for example:
-                    // packages.add(new RNSharedPreferencesReactPackage());
                     packages.add(new InstallModulePackage());
                     return packages;
                 }
