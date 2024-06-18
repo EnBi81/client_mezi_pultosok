@@ -4,6 +4,8 @@ public class WorkingDayModel {
     private String date;
     private String dateStringShort;
     private String dayOfWeekString;
+    private Long lastModifiedDate;
+    private Long markedAsReadTime;
     private String[] cikola;
     private String[] doborgaz;
 
@@ -42,6 +44,22 @@ public class WorkingDayModel {
 
     public void setDayOfWeekString(String dayOfWeekString) {
         this.dayOfWeekString = dayOfWeekString;
+    }
+
+    public Long getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(Long lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
+    }
+
+    public Long getMarkedAsReadTime() {
+        return markedAsReadTime;
+    }
+
+    public void setMarkedAsReadTime(Long markedAsReadTime) {
+        this.markedAsReadTime = markedAsReadTime;
     }
 
     public String[] getCikola() {
