@@ -1,4 +1,4 @@
-package com.client_mezi_pultosok;
+package com.client_mezi_pultosok.models;
 
 public class WorkingDayModel {
     private String date;

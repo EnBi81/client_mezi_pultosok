@@ -1,4 +1,4 @@
-package com.client_mezi_pultosok;
+package com.client_mezi_pultosok.modules;
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;

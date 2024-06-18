@@ -23,6 +23,8 @@ import java.time.LocalDate;
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 
+import com.client_mezi_pultosok.models.WorkingDayModel;
+
 public class PultosokAppWidgetProvider extends AppWidgetProvider {
     private static final String PREFERENCES_NAME = "com.client_mezi_pultosok.PultosokSharedPreferences";
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSX");
