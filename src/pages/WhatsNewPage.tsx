@@ -4,6 +4,11 @@ export const WhatsNewPage = () => {
   return (
     <View>
       <ScrollView style={{ padding: 10 }}>
+        <VersionSection version={'V1.5.1'}>
+          <BulletPoint text={'Added new, scrollable widget to view the list of the schedules'} />
+          <BulletPoint text={'Fixed the current day widget'} />
+          <BulletPoint text={'Master notification switch now turns off schedule update notifications'} />
+        </VersionSection>
         <VersionSection version={'V1.5.0'}>
           <BulletPoint text={'Added Working Schedule Notifications'} />
           <BulletPoint text={'Auto refresh schedule when app is opened'} />
