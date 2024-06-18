@@ -1,3 +1,5 @@
+import { ScheduleDayChange } from './ScheduleDayChange';
+
 export interface WorkingDaySchedule {
   date: string;
   dateStringShort: string;
@@ -6,4 +8,5 @@ export interface WorkingDaySchedule {
   markedAsReadTime: number | undefined;
   cikola: string[];
   doborgaz: string[];
+  change: ScheduleDayChange | undefined;
 }

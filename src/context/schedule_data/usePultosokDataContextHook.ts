@@ -50,8 +50,18 @@ export const usePultosokDataContextHook = () => {
   useEffect(() => {
     if (!workingDays) return;
 
+    const data = workingDays.map((day) => ({
+      date: day.date,
+      cikola: day.cikola,
+      doborgaz: day.doborgaz,
+      dateStringShort: day.dateStringShort,
+      dayOfWeekString: day.dayOfWeekString,
+      markedAsReadTime: day.markedAsReadTime,
+      lastModifiedDate: day.lastModifiedDate,
+    }));
+
     PultosokSharedPreferences.setName('com.client_mezi_pultosok.PultosokSharedPreferences');
-    PultosokSharedPreferences.setItem('apiData', JSON.stringify(workingDays));
+    PultosokSharedPreferences.setItem('apiData', JSON.stringify(data));
   }, [workingDays]);
 
   // displaying error toasts
