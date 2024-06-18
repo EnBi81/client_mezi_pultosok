@@ -3,7 +3,7 @@
     android:minWidth="180dp"
     android:minHeight="90dp"
     android:updatePeriodMillis="10800000"
-    android:previewImage="@drawable/widget_pultosok_preview"
+    android:previewLayout="@drawable/widget_pultosok_preview"
     android:initialLayout="@layout/widget_pultosok"
     android:resizeMode="horizontal|vertical"
     android:widgetCategory="home_screen">
