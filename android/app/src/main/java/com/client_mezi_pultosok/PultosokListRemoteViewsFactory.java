@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.widget.RemoteViews;
 import android.widget.RemoteViewsService;
+import android.text.SpannableString;
+import android.text.style.StrikethroughSpan;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,13 +53,31 @@ public class PultosokListRemoteViewsFactory implements RemoteViewsService.Remote
         var item = items.get(position);
         var isDarkMode = ThemeUtils.isDarkTheme(context);
 
-        String cikolaText = "Cikola: " + (item.getCikola().length > 0 ? String.join(", ", item.getCikola()) : " - ");
-        String doborgazText = "Doborgaz: " + (item.getDoborgaz().length > 0 ? String.join(", ", item.getDoborgaz()) : " - ");
-
         views.setTextViewText(R.id.widget_item_text_date, item.getDateStringShort());
         views.setTextViewText(R.id.widget_item_text_day_of_week, item.getDayOfWeekString());
-        views.setTextViewText(R.id.widget_item_text_cikola, cikolaText);
-        views.setTextViewText(R.id.widget_item_text_doborgaz, doborgazText);
+
+        var cikola = item.getCikola();
+        if(cikola.length > 0) {
+            String cikolaText = "Cikola: " + String.join(", ", item.getCikola());
+            views.setTextViewText(R.id.widget_item_text_cikola, cikolaText);
+        }
+        else {
+            SpannableString strikethroughText = new SpannableString("Cikola");
+            strikethroughText.setSpan(new StrikethroughSpan(), 0, strikethroughText.length(), 0);
+            views.setTextViewText(R.id.widget_item_text_cikola, strikethroughText);
+        }
+
+        var doborgaz = item.getDoborgaz();
+        if(doborgaz.length > 0) {
+            String doborgazText = "Doborgaz: " + String.join(", ", item.getDoborgaz());
+            views.setTextViewText(R.id.widget_item_text_doborgaz, doborgazText);
+        }
+        else {
+            SpannableString strikethroughText = new SpannableString("Doborgaz");
+            strikethroughText.setSpan(new StrikethroughSpan(), 0, strikethroughText.length(), 0);
+            views.setTextViewText(R.id.widget_item_text_doborgaz, strikethroughText);
+        }
+
 
         // Set text colors
         int textColor = isDarkMode ? Color.parseColor("#ededed") : Color.parseColor("#242424");
