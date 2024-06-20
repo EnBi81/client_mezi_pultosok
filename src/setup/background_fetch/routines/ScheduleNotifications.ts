@@ -2,6 +2,7 @@ import { endpoints } from '../../../api/endpoints';
 import { ScheduleComparison } from '../../../utils/ScheduleComparison';
 import { storages } from '../../../storage/Storages';
 import { getCurrentLocalTranslations, getDevicePrimaryLanguage } from '../../../context/locale/locales';
+import { SharedPreferences } from '../../../shared_preferences/SharedPreferences';
 
 export const ScheduleNotifications = async () => {
   const settingsStorage = storages.settings();
@@ -31,5 +32,6 @@ export const ScheduleNotifications = async () => {
 
   if (networkingData?.data) {
     await scheduleCacheStorage.store({ data: comparisonResult.processedSchedule, cacheTime: new Date().getTime() });
+    SharedPreferences.pultosok.set(comparisonResult.processedSchedule);
   }
 };
