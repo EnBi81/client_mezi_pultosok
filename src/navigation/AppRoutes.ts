@@ -1,6 +1,6 @@
 import { AppRoute } from '../interfaces/AppRoute';
 
-export const AppRoutes: { schedule: AppRoute; settings: AppRoute; whatsNew: AppRoute } = {
+export const AppRoutes: AppRoutesCollection = {
   schedule: {
     name: 'Schedule',
   },
@@ -10,4 +10,14 @@ export const AppRoutes: { schedule: AppRoute; settings: AppRoute; whatsNew: AppR
   whatsNew: {
     name: 'WhatsNew',
   },
+  debugGradient: {
+    name: 'DebugGradient',
+  },
 };
+
+interface AppRoutesCollection {
+  schedule: AppRoute;
+  settings: AppRoute;
+  whatsNew: AppRoute;
+  debugGradient: AppRoute;
+}

@@ -37,3 +37,7 @@ export function getUniqueElements(arr: string[]): string[] {
 export function removeEmptyStrings(arr: string[]) {
   return arr.filter((item) => item.length > 0);
 }
+
+export function range(count: number): number[] {
+  return [...Array(count).keys()];
+}

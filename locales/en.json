@@ -8,6 +8,9 @@
     },
     "whatsNewPage": {
       "name": "What's New"
+    },
+    "debugGradient": {
+      "name": "Gradient Manager"
     }
   },
   "schedule": {

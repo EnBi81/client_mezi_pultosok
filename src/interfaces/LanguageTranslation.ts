@@ -9,6 +9,9 @@ export interface LanguageTranslation {
     whatsNewPage: {
       name: string;
     };
+    debugGradient: {
+      name: string;
+    };
   };
   schedule: {
     errorOccurred: string;

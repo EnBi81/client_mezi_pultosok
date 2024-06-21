@@ -10,6 +10,7 @@ export const useNavigation = () => {
       to: {
         settings: () => navigation.navigate(AppRoutes.settings.name),
         whatsNew: () => navigation.navigate(AppRoutes.whatsNew.name),
+        debugGradientManager: () => navigation.navigate(AppRoutes.debugGradient.name),
       },
     },
   };

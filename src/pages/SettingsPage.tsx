@@ -1,4 +1,4 @@
-import { View, StyleSheet, SafeAreaView, ScrollView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, ScrollView, Text, TouchableOpacity } from 'react-native';
 import { SettingsHeader } from '../components/settings/SettingsHeader';
 import { LanguageRadioButtons } from '../components/settings/LanguageRadioButtons';
 import { useLocale } from '../hooks/useLocale';
@@ -13,11 +13,15 @@ import { SettingsUpdateButton } from '../components/settings/SettingsUpdateButto
 import { SettingsNotificationsSection } from '../components/settings/SettingsNotificationsSection';
 import { SettingsAppInfoComponent } from '../components/settings/SettingsAppInfoComponent';
 import { SettingsCurrentGradientDisplay } from '../components/settings/SettingsCurrentGradientDisplay';
+import { useEnvironment } from '../hooks/useEnvironment';
+import { useNavigation } from '../hooks/useNavigation';
 
 export const SettingsPage = () => {
   const { l } = useLocale();
   const { colors } = useColorTheme();
   const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
+  const { isDebug } = useEnvironment();
+  const { navigate } = useNavigation();
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
@@ -56,6 +60,14 @@ export const SettingsPage = () => {
           <SettingsSectionDivider />
 
           <SettingsCurrentGradientDisplay />
+
+          {isDebug && (
+            <View style={{ marginTop: 20 }}>
+              <TouchableOpacity onPress={() => navigate.to.debugGradientManager()}>
+                <Text style={{ color: colors.text.main }}>Gradient Debug Manager</Text>
+              </TouchableOpacity>
+            </View>
+          )}
 
           <SettingsSectionDivider />
           <View style={styles.versionContainer}>
