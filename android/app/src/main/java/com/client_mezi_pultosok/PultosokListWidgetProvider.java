@@ -8,6 +8,9 @@ import android.app.PendingIntent;
 import android.widget.RemoteViews;
 import android.graphics.Color;
 import android.content.ComponentName;
+import android.os.Handler;
+import android.os.Looper;
+
 import com.client_mezi_pultosok.utils.ThemeUtils;
 
 public class PultosokListWidgetProvider extends AppWidgetProvider {
@@ -70,7 +73,29 @@ public class PultosokListWidgetProvider extends AppWidgetProvider {
             AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
             ComponentName thisAppWidget = new ComponentName(context.getPackageName(), getClass().getName());
             int[] appWidgetIds = appWidgetManager.getAppWidgetIds(thisAppWidget);
+
             onUpdate(context, appWidgetManager, appWidgetIds);
+
+            int appWidgetId = intent.getIntExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+            if (appWidgetId != AppWidgetManager.INVALID_APPWIDGET_ID) {
+                changeImageButtonSrc(context, appWidgetId);
+            }
+
         }
+    }
+
+    private void changeImageButtonSrc(Context context, int appWidgetId) {
+        RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.widget_pultosok_list);
+
+        views.setImageViewResource(R.id.widget_pultosok_list_refresh, R.drawable.ic_check);
+
+        AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(context);
+        appWidgetManager.updateAppWidget(appWidgetId, views);
+
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(() -> {
+            views.setImageViewResource(R.id.widget_pultosok_list_refresh, R.drawable.ic_refresh);
+            appWidgetManager.updateAppWidget(appWidgetId, views);
+        }, 1500);
     }
 }
