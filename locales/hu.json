@@ -8,6 +8,9 @@
     },
     "whatsNewPage": {
       "name": "Újdonságok (angolul)"
+    },
+    "debugGradient": {
+      "name": "Szín Menedzser"
     }
   },
   "schedule": {
@@ -53,7 +56,9 @@
         "sunSyncModeEnableLocationToTurnOnSunSyncMode": "Engedélyezze a helymeghatározást a Nap-szinkronizált mód használatához",
         "eventHappeningNow": "{0} is happening now",
         "eventIn": "{0} {1} {2} múlva",
-        "failedToGetSunEvent": "Nem sikerült lekérni a következő nap eseményt"
+        "failedToGetSunEvent": "Nem sikerült lekérni a következő nap eseményt",
+        "updateLocation": "Helymeghatározási frissítés",
+        "locationRequested": "Helymeghatározás frissítése..."
       },
       "markAllAsRead": "Mindet olvasottnak jelölni",
       "markedAllAsRead": "Nahh ez is megvolt"

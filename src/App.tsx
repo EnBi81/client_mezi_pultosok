@@ -6,7 +6,7 @@ import { SettingsContextProvider } from './context/settings/SettingsContextProvi
 import { PultosokDataContextProvider } from './context/schedule_data/PultosokDataContextProvider';
 import { LocaleContextProvider } from './context/locale/LocaleContextProvider';
 import { AppBackground } from './components/AppBackground';
-import { DeviceLocationManager } from './global_managers/location/DeviceLocationManager';
+import { DeviceLocationProvider } from './context/location/DeviceLocationProvider';
 import { ThemeManager } from './global_managers/theme/ThemeManager';
 import { SunPositionContextProvider } from './context/sun_position/SunPositionContextProvider';
 import { ApkUpdateContextProvider } from './context/update/ApkUpdateContextProvider';
@@ -23,7 +23,7 @@ export default function App() {
     EnvironmentContextProvider,
     PultosokDataContextProvider,
     ApkUpdateContextProvider,
-    DeviceLocationManager,
+    DeviceLocationProvider,
     SunPositionContextProvider,
     ThemeManager,
     AppBackground,

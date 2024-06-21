@@ -1,12 +1,13 @@
 import { useEffect, useState } from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
-import PultosokSharedPreferences from 'react-native-shared-preferences';
+
 import { usePultosokDataNetworking } from './usePultosokDataNetworking';
 import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import { storages } from '../../storage/Storages';
 import { ScheduleComparison } from '../../utils/ScheduleComparison';
 import { useAppState } from '../../hooks/useAppState';
+import { SharedPreferences } from '../../shared_preferences/SharedPreferences';
 
 export const usePultosokDataContextHook = () => {
   const { refresh, data: networkingData, isRefreshing, error: networkingError } = usePultosokDataNetworking();
@@ -48,20 +49,7 @@ export const usePultosokDataContextHook = () => {
 
   // sending data to the widget
   useEffect(() => {
-    if (!workingDays) return;
-
-    const data = workingDays.map((day) => ({
-      date: day.date,
-      cikola: day.cikola,
-      doborgaz: day.doborgaz,
-      dateStringShort: day.dateStringShort,
-      dayOfWeekString: day.dayOfWeekString,
-      markedAsReadTime: day.markedAsReadTime,
-      lastModifiedDate: day.lastModifiedDate,
-    }));
-
-    PultosokSharedPreferences.setName('com.client_mezi_pultosok.PultosokSharedPreferences');
-    PultosokSharedPreferences.setItem('apiData', JSON.stringify(data));
+    SharedPreferences.pultosok.set(workingDays);
   }, [workingDays]);
 
   // displaying error toasts

@@ -1,13 +1,15 @@
 import React from 'react';
 import { NavigationContainer, useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { SchedulePage } from '../pages/SchedulePage';
-import { SettingsPage } from '../pages/SettingsPage';
 import { useLocale } from '../hooks/useLocale';
 import { useColorTheme } from '../hooks/useColorTheme';
 import { AppRoutes } from './AppRoutes';
-import { WhatsNewPage } from '../pages/WhatsNewPage';
 import { Text, TouchableOpacity, View } from 'react-native';
+
+import { SchedulePage } from '../pages/SchedulePage';
+import { SettingsPage } from '../pages/SettingsPage';
+import { WhatsNewPage } from '../pages/WhatsNewPage';
+import { DebugGradientPage } from '../pages/DebugGradientPage';
 
 const Stack = createStackNavigator();
 
@@ -55,6 +57,17 @@ export const AppNavigation = () => {
           component={WhatsNewPage}
           options={{
             title: l.navigation.whatsNewPage.name,
+            headerStyle: {
+              backgroundColor: colors.background.component, // Set the background color here
+            },
+            headerTintColor: colors.text.main, // Set the title color here
+          }}
+        />
+        <Stack.Screen
+          name={AppRoutes.debugGradient.name}
+          component={DebugGradientPage}
+          options={{
+            title: l.navigation.debugGradient.name,
             headerStyle: {
               backgroundColor: colors.background.component, // Set the background color here
             },

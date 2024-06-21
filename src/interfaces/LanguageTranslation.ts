@@ -9,6 +9,9 @@ export interface LanguageTranslation {
     whatsNewPage: {
       name: string;
     };
+    debugGradient: {
+      name: string;
+    };
   };
   schedule: {
     errorOccurred: string;
@@ -43,6 +46,8 @@ export interface LanguageTranslation {
         eventHappeningNow: string;
         eventIn: string;
         failedToGetSunEvent: string;
+        updateLocation: string;
+        locationRequested: string;
       };
       markAllAsRead: string;
       markedAllAsRead: string;
