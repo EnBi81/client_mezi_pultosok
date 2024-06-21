@@ -27,23 +27,6 @@ export const useSunPositionContextHook = () => {
     }
 
     const todaySunTimes = getSunTimes(now);
-    /*
-      {
-        // sunrise (top edge of the sun appears on the horizon)
-        "sunrise": "2024-06-07T12:48:47.622Z",
-        // sunrise ends (bottom edge of the sun touches the horizon)
-        "sunriseEnd": "2024-06-07T12:51:53.113Z",
-        // morning golden hour (soft light, best time for photography) ends
-        "goldenHourEnd": "2024-06-07T13:27:27.627Z",
-
-        // evening golden hour starts
-        "goldenHour": "2024-06-08T02:50:01.427Z"
-        // sunset starts (bottom edge of the sun touches the horizon)
-        "sunsetStart": "2024-06-08T03:25:35.941Z",
-        // sunset (sun disappears below the horizon, evening civil twilight starts)
-        "sunset": "2024-06-08T03:28:41.432Z",
-      }
-    */
 
     const isBeforeSunrise = nowTime < todaySunTimes.sunrise.getTime();
     if (isBeforeSunrise) {

@@ -7,12 +7,13 @@ import { Icon } from '../Icon';
 import { useDeviceLocation } from '../../hooks/useDeviceLocation';
 import { toast } from '../../utils/utils';
 import { useSunPosition } from '../../hooks/useSunPosition';
+import { SettingsOptionContainer } from './SettingsOptionContainer';
 
 export const ColorThemeRadioButtons = () => {
   const { modifySettings } = useSettings();
   const { colorThemeSettings } = useColorTheme();
   const { l } = useLocale();
-  const { location } = useDeviceLocation();
+  const { location, updateLocation } = useDeviceLocation();
   const { nextSunEvent } = useSunPosition();
 
   const radioItems: RadioItem[] = [
@@ -75,6 +76,18 @@ export const ColorThemeRadioButtons = () => {
       icon={<Icon name={'theme-light-dark'} provider={'material-community'} />}
     >
       <RadioGroup items={radioItems} level={1} selectedId={colorThemeSettings} onSelect={onSelectionChange} />
+      {colorThemeSettings === 'custom-sunsync' && (
+        <SettingsOptionContainer
+          icon={<Icon name={'my-location'} />}
+          title={l.settings.general.colorTheme.updateLocation}
+          type={'secondary'}
+          level={2}
+          onPress={() => {
+            updateLocation();
+            toast(l.settings.general.colorTheme.locationRequested);
+          }}
+        />
+      )}
     </CollapsiblePanel>
   );
 };

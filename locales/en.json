@@ -56,7 +56,9 @@
         "sunSyncModeEnableLocationToTurnOnSunSyncMode": "Enable location access to use Sun-Synced Mode",
         "eventHappeningNow": "{0} is happening now",
         "eventIn": "{0} in {1} {2}",
-        "failedToGetSunEvent": "Failed to calculate next sun event"
+        "failedToGetSunEvent": "Failed to calculate next sun event",
+        "updateLocation": "Update Location",
+        "locationRequested": "Location Requested"
       },
       "markAllAsRead": "Mark all as read",
       "markedAllAsRead": "Marked all of them!"

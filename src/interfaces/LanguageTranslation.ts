@@ -46,6 +46,8 @@ export interface LanguageTranslation {
         eventHappeningNow: string;
         eventIn: string;
         failedToGetSunEvent: string;
+        updateLocation: string;
+        locationRequested: string;
       };
       markAllAsRead: string;
       markedAllAsRead: string;

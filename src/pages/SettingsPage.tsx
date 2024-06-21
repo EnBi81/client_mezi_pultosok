@@ -15,6 +15,8 @@ import { SettingsAppInfoComponent } from '../components/settings/SettingsAppInfo
 import { SettingsCurrentGradientDisplay } from '../components/settings/SettingsCurrentGradientDisplay';
 import { useEnvironment } from '../hooks/useEnvironment';
 import { useNavigation } from '../hooks/useNavigation';
+import { useSunPosition } from '../hooks/useSunPosition';
+import { useDeviceLocation } from '../hooks/useDeviceLocation';
 
 export const SettingsPage = () => {
   const { l } = useLocale();
@@ -22,6 +24,8 @@ export const SettingsPage = () => {
   const { isUpdateAvailable, latestApkVersion } = useApkUpdater();
   const { isDebug } = useEnvironment();
   const { navigate } = useNavigation();
+  const { nextSunEvent } = useSunPosition();
+  const { location } = useDeviceLocation();
 
   return (
     <SafeAreaView style={styles.safeAreaContainer}>
@@ -64,8 +68,32 @@ export const SettingsPage = () => {
           {isDebug && (
             <View style={{ marginTop: 20 }}>
               <TouchableOpacity onPress={() => navigate.to.debugGradientManager()}>
-                <Text style={{ color: colors.text.main }}>Gradient Debug Manager</Text>
+                <Text
+                  style={{ color: colors.text.main, borderWidth: 1, borderColor: colors.text.main, borderRadius: 5 }}
+                >
+                  Gradient Debug Manager
+                </Text>
               </TouchableOpacity>
+            </View>
+          )}
+
+          {isDebug && (
+            <View style={{ marginTop: 20 }}>
+              <Text style={{ color: colors.text.main, fontSize: 20 }}>Next sun event: </Text>
+              <Text style={{ color: colors.text.main }}>
+                {nextSunEvent === undefined ? 'next sun event undefined' : 'not undefined'}
+              </Text>
+              <Text style={{ color: colors.text.main }}>{nextSunEvent?.type}</Text>
+              <Text style={{ color: colors.text.main }}>{nextSunEvent?.getDisplayTextUntil()}</Text>
+              <Text style={{ color: colors.text.main }}>{nextSunEvent?.startAt.toLocaleString()}</Text>
+            </View>
+          )}
+
+          {isDebug && (
+            <View style={{ marginTop: 20 }}>
+              <Text style={{ color: colors.text.main, fontSize: 20 }}>Current Location:</Text>
+              <Text style={{ color: colors.text.main }}>Latitude: {location.latitude}</Text>
+              <Text style={{ color: colors.text.main }}>Longitude: {location.longitude}</Text>
             </View>
           )}
 

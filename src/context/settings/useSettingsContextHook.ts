@@ -22,21 +22,21 @@ export const useSettingsContextHook = () => {
         }
 
         // this was an old settings, if it exists, then assign its value to the new settings
-        if ('colorTheme' in data) {
+        if ('colorTheme' in data && data.colorThemeProps) {
           tempSettings.colorThemeProps.type = data['colorTheme'];
         }
 
-        if ('colorThemeProps' in data) {
+        if ('colorThemeProps' in data && data.colorThemeProps) {
           tempSettings.colorThemeProps = data['colorThemeProps'];
         }
 
-        if ('locationCache' in data) {
+        if ('locationCache' in data && data.locationCache) {
           tempSettings.locationCache = data['locationCache'];
           // on each restart, set the locationAccess to false
           tempSettings.locationCache.locationAccess = undefined;
         }
 
-        if ('notifications' in data) {
+        if ('notifications' in data && data.notifications) {
           tempSettings.notifications = data['notifications'];
         }
 
