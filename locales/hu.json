@@ -89,7 +89,7 @@
   "sunEvents": {
     "sunrise": "Napkelte",
     "sunset": "Napnyugta",
-    "golderHourEvening": "Arany Óra",
+    "goldenHourEvening": "Arany Óra",
     "goldenHourEndMorning": "Világosság"
   },
   "time": {

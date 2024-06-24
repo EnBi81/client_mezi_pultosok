@@ -38,6 +38,7 @@ export const ScheduleComparison = {
       // copying old properties to new
       day.markedAsReadTime = oldDay.markedAsReadTime;
       day.lastModifiedDate = oldDay.lastModifiedDate ?? nowTime;
+      day.createdDate = oldDay.createdDate;
 
       let isChanged = false;
       const change: ScheduleDayChange = {

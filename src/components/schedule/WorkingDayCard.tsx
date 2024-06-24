@@ -25,11 +25,10 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
 
   const nowTime = new Date().getTime();
   const newTagThreshold = nowTime - 24 * 60 * 60 * 1000;
-  const isLastModifiedDateADayBefore = schedule.lastModifiedDate && newTagThreshold < schedule.lastModifiedDate;
+  const isCreatedDateADayBefore = schedule.createdDate && newTagThreshold < schedule.createdDate;
   const isOnlyPartiallyChanged = schedule.change && schedule.change.type === 'partial';
 
-  const isNew =
-    !isJanicsDown && !markedAsReadAfterLastModifiedDate && !isOnlyPartiallyChanged && isLastModifiedDateADayBefore;
+  const isNew = !isJanicsDown && !markedAsReadAfterLastModifiedDate && isCreatedDateADayBefore;
 
   return (
     <View
@@ -82,6 +81,7 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                   schedule.cikola.map((p, i) => {
                     const workerChange =
                       schedule.change &&
+                      !isCreatedDateADayBefore &&
                       isOnlyPartiallyChanged &&
                       newTagThreshold < schedule.change.dateTime &&
                       schedule.change.cikolaUpdateDetails.find((c) => c.workerName === p);
@@ -122,6 +122,7 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                   schedule.doborgaz.map((p, i) => {
                     const workerChange =
                       schedule.change &&
+                      !isCreatedDateADayBefore &&
                       isOnlyPartiallyChanged &&
                       newTagThreshold < schedule.change.dateTime &&
                       schedule.change.doborgazUpdateDetails.find((c) => c.workerName === p);

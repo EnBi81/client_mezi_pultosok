@@ -78,7 +78,7 @@ export interface LanguageTranslation {
   sunEvents: {
     sunrise: string;
     sunset: string;
-    golderHourEvening: string;
+    goldenHourEvening: string;
     goldenHourEndMorning: string;
   };
   time: {

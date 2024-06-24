@@ -89,7 +89,7 @@
   "sunEvents": {
     "sunrise": "Sunrise",
     "sunset": "Sunset",
-    "golderHourEvening": "Golder Hour",
+    "goldenHourEvening": "Golden Hour",
     "goldenHourEndMorning": "Golden Hour ends"
   },
   "time": {
@@ -117,9 +117,9 @@
       "changeRemovedSingle": "{0} was taken off the schedule",
       "changeRemovedMulti": "{0} were taken off the schedule",
       "newDaysAddedTitle": "New Schedule",
-      "newDaysAddedMessage": "New days added from {0} to {1}",
+      "newDaysAddedMessage": "New schedule added from {0} to {1}",
       "newDayAddedTitle": "New Schedule",
-      "newDayAddedMessage": "New day added: {0}"
+      "newDayAddedMessage": "New schedule added: {0}"
     }
   }
 }

@@ -62,7 +62,7 @@ export const useSunPositionContextHook = () => {
         getDisplayTextUntil: () =>
           timeUntilString({
             secondsUntil: secondsUntil(newDate(), todaySunTimes.goldenHour),
-            eventName: l.sunEvents.golderHourEvening,
+            eventName: l.sunEvents.goldenHourEvening,
           }),
       };
     }

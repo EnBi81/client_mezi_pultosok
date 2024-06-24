@@ -108,10 +108,18 @@ export const endpoints = {
       }
 
       return {
-        ...d,
-        lastModifiedDate: undefined,
+        // api data
+        date: d.date,
+        doborgaz: d.doborgaz,
+        cikola: d.cikola,
+        // added data
+        createdDate: date.getTime(),
         dateStringShort: shortDate,
         dayOfWeekString: getDayOfWeek(date.getDay()),
+        //undefined
+        change: undefined,
+        lastModifiedDate: undefined,
+        markedAsReadTime: undefined,
       };
     });
 
