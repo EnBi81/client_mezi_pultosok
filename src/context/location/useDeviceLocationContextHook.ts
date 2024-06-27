@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 import { useSettings } from '../../hooks/useSettings';
@@ -8,7 +8,6 @@ import { useLocale } from '../../hooks/useLocale';
 export const useDeviceLocationContextHook = () => {
   const { settings, modifySettings } = useSettings();
   const { l } = useLocale();
-  const [counter, setCounter] = useState(0);
 
   useEffect(() => {
     // if we already got the location once, don't get it again
@@ -16,6 +15,10 @@ export const useDeviceLocationContextHook = () => {
     // dont request the device location if we don't need it
     if (settings.colorThemeProps.type !== 'custom-sunsync') return;
 
+    updateLocation({});
+  }, [settings.colorThemeProps.type]);
+
+  function updateLocation({ displayErrorToastMessage }: { displayErrorToastMessage?: boolean }) {
     const granted = PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
 
     granted
@@ -39,6 +42,9 @@ export const useDeviceLocationContextHook = () => {
             );
           },
           (error) => {
+            if (!displayErrorToastMessage) {
+              return;
+            }
             if (error.code === 1) {
               toast(l.location.permissionDenied);
             } else if (error.code === 2) {
@@ -57,7 +63,7 @@ export const useDeviceLocationContextHook = () => {
         );
       })
       .catch((err) => console.log('error while requesting device location: ', err));
-  }, [settings.colorThemeProps.type, counter]);
+  }
 
   return {
     location: {
@@ -65,6 +71,6 @@ export const useDeviceLocationContextHook = () => {
       longitude: settings.locationCache.longitude,
       access: settings.locationCache.locationAccess,
     },
-    updateLocation: () => setCounter((counter) => counter + 1),
+    updateLocation: () => updateLocation({ displayErrorToastMessage: true }),
   };
 };
