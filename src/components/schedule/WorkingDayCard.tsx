@@ -3,12 +3,14 @@ import React from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
 import { View, Text, TouchableNativeFeedback } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
-import { toast } from '../../utils/utils';
+import { clipboard, date, toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import { useUIEffects } from '../../hooks/useUIEffects';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { Icon } from '../Icon';
+import { CHANGE_VISIBLE_FOR_MINUTES } from '../../utils/constants';
+import { useEnvironment } from '../../hooks/useEnvironment';
 
 export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) => {
   const isCikolaDown = schedule.cikola.length === 0;
@@ -22,10 +24,10 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
   const { l } = useLocale();
   const { colors, isLightTheme } = useColorTheme();
   const { colorPalette, gradientEffects } = useGradientPalette();
+  const { isDebug } = useEnvironment();
 
-  const nowTime = new Date().getTime();
-  const newTagThreshold = nowTime - 24 * 60 * 60 * 1000;
-  const isCreatedDateADayBefore = schedule.createdDate && newTagThreshold < schedule.createdDate;
+  const isCreatedDateADayBefore =
+    schedule.createdDate && date(schedule.createdDate).within.last.minutes(CHANGE_VISIBLE_FOR_MINUTES);
   const isOnlyPartiallyChanged = schedule.change && schedule.change.type === 'partial';
 
   const isNew = !isJanicsDown && !markedAsReadAfterLastModifiedDate && isCreatedDateADayBefore;
@@ -67,6 +69,17 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
         <Text style={[styles.date, { color: colors.text.main }]}>{schedule.dateStringShort}</Text>
       </View>
 
+      {isDebug && (
+        <TouchableNativeFeedback
+          style={{ borderBottomWidth: 1, borderColor: colors.card.separatorLine }}
+          onPress={() => clipboard().set(JSON.stringify(schedule)).toast()}
+        >
+          <View>
+            <Text>{JSON.stringify(schedule)}</Text>
+          </View>
+        </TouchableNativeFeedback>
+      )}
+
       {!isJanicsDown && (
         <View style={styles.content}>
           <TouchableNativeFeedback
@@ -79,12 +92,19 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                 {isCikolaDown && <Text style={[styles.worker, { color: colors.text.main }]}>-</Text>}
                 {!isCikolaDown &&
                   schedule.cikola.map((p, i) => {
+                    let showPlusSign = false;
+
                     const workerChange =
                       schedule.change &&
                       !isCreatedDateADayBefore &&
                       isOnlyPartiallyChanged &&
-                      newTagThreshold < schedule.change.dateTime &&
                       schedule.change.cikolaUpdateDetails.find((c) => c.workerName === p);
+
+                    if (workerChange && workerChange.type === 'added') {
+                      if (date(workerChange.timestamp).within.last.minutes(CHANGE_VISIBLE_FOR_MINUTES)) {
+                        showPlusSign = true;
+                      }
+                    }
 
                     return (
                       <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
@@ -98,9 +118,7 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                         >
                           {p}
                         </Text>
-                        {workerChange && workerChange.type === 'added' && (
-                          <Icon name={'add-circle'} color={'#009100'} />
-                        )}
+                        {showPlusSign && <Icon name={'add-circle'} color={'#009100'} />}
                       </View>
                     );
                   })}
@@ -120,21 +138,23 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                 {isDoborgazDown && <Text style={[styles.worker, { color: colors.text.main }]}>-</Text>}
                 {!isDoborgazDown &&
                   schedule.doborgaz.map((p, i) => {
+                    let showPlusSign = false;
+
                     const workerChange =
                       schedule.change &&
                       !isCreatedDateADayBefore &&
                       isOnlyPartiallyChanged &&
-                      newTagThreshold < schedule.change.dateTime &&
                       schedule.change.doborgazUpdateDetails.find((c) => c.workerName === p);
+
+                    if (workerChange && workerChange.type === 'added') {
+                      if (date(workerChange.timestamp).within.last.minutes(CHANGE_VISIBLE_FOR_MINUTES)) {
+                        showPlusSign = true;
+                      }
+                    }
 
                     return (
                       <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                        {workerChange && workerChange.type === 'added' && (
-                          <Icon name={'add-circle'} color={'#009100'} />
-                        )}
-                        {workerChange && workerChange.type === 'removed' && (
-                          <Icon name={'remove-circle'} color={'#bd0909'} />
-                        )}
+                        {showPlusSign && <Icon name={'add-circle'} color={'#009100'} />}
                         <Text
                           style={[
                             styles.worker,
