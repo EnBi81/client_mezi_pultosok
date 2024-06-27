@@ -4,6 +4,11 @@ export const WhatsNewPage = () => {
   return (
     <View>
       <ScrollView style={{ padding: 10 }}>
+        <VersionSection version={'V1.5.5'}>
+          <BulletPoint text={'Fixed issue with plus signs appearing for old changes'} />
+          <BulletPoint text={'Removed location access issue toast messages when location is requested on startup'} />
+          <BulletPoint text={'Note: Location is only requested in sun sync mode'} />
+        </VersionSection>
         <VersionSection version={'V1.5.4'}>
           <BulletPoint text={'Fixed some typos'} />
           <BulletPoint text={'Reworked the logic of the NEW tag'} />
