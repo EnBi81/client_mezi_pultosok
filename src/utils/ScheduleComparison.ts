@@ -243,6 +243,7 @@ const mergeScheduleDayChange = (change: ScheduleDayChange) => {
 
 const mergeWorkerUpdateArrays = (arr1: WorkerUpdate[], arr2: WorkerUpdate[]): WorkerUpdate[] => {
   const arr1WithoutArr2Workers = arr1.filter((a) => !arr2.find((a2) => a2.workerName === a.workerName));
+
   return [...arr2, ...arr1WithoutArr2Workers];
 };
 

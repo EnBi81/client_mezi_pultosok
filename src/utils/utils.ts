@@ -1,4 +1,5 @@
 import { Platform, ToastAndroid } from 'react-native';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 export function toast(text: string) {
   if (Platform.OS === 'android') {
@@ -40,4 +41,32 @@ export function removeEmptyStrings(arr: string[]) {
 
 export function range(count: number): number[] {
   return [...Array(count).keys()];
+}
+
+export function date(ticks: number) {
+  const now = () => new Date().getTime();
+
+  return {
+    within: {
+      last: {
+        days: (days: number) => now() - 1000 * 60 * 60 * 24 * days < ticks,
+        minutes: (minutes: number) => now() - 1000 * 60 * minutes < ticks,
+      },
+    },
+  };
+}
+
+export function clipboard() {
+  return {
+    set: (text: string) => {
+      Clipboard.setString(text);
+
+      return {
+        toast: () => {
+          const displayText = text.length > 20 ? text.substring(0, 20) + '...' : text;
+          toast(`'${displayText}' was copied to clipboard.`);
+        },
+      };
+    },
+  };
 }
