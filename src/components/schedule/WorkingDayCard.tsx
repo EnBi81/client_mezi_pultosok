@@ -107,21 +107,22 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                     }
 
                     return (
-                      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                        <Text
-                          style={[
-                            styles.worker,
-                            {
-                              color: colors.text.main,
-                            },
-                          ]}
-                        >
-                          {p}
-                        </Text>
-                        {showPlusSign && <Icon name={'add-circle'} color={'#009100'} />}
-                      </View>
+                      <WorkerName
+                        key={i}
+                        iconPosition={'right'}
+                        icon={showPlusSign ? 'added' : undefined}
+                        workerName={p}
+                      />
                     );
                   })}
+                {schedule.change &&
+                  schedule.change.cikolaUpdateDetails
+                    .filter((c) => c.type === 'removed')
+                    .filter((c) => date(c.timestamp).within.last.minutes(CHANGE_VISIBLE_FOR_MINUTES))
+                    .filter((c) => !schedule.cikola.includes(c.workerName))
+                    .map((p, i) => {
+                      return <WorkerName key={i} workerName={p.workerName} icon={'removed'} iconPosition={'right'} />;
+                    })}
               </View>
             </View>
           </TouchableNativeFeedback>
@@ -153,27 +154,57 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                     }
 
                     return (
-                      <View key={i} style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
-                        {showPlusSign && <Icon name={'add-circle'} color={'#009100'} />}
-                        <Text
-                          style={[
-                            styles.worker,
-                            {
-                              color: colors.text.main,
-                              textDecorationLine: workerChange && workerChange.type === 'removed' ? 'line-through' : '',
-                            },
-                          ]}
-                        >
-                          {p}
-                        </Text>
-                      </View>
+                      <WorkerName
+                        key={i}
+                        iconPosition={'left'}
+                        icon={showPlusSign ? 'added' : undefined}
+                        workerName={p}
+                      />
                     );
                   })}
+                {schedule.change &&
+                  schedule.change.doborgazUpdateDetails
+                    .filter((c) => c.type === 'removed')
+                    .filter((c) => date(c.timestamp).within.last.minutes(CHANGE_VISIBLE_FOR_MINUTES))
+                    .filter((c) => !schedule.doborgaz.includes(c.workerName))
+                    .map((p, i) => {
+                      return <WorkerName key={i} workerName={p.workerName} icon={'removed'} iconPosition={'left'} />;
+                    })}
               </View>
             </View>
           </TouchableNativeFeedback>
         </View>
       )}
+    </View>
+  );
+};
+
+const WorkerName = ({
+  workerName,
+  icon,
+  iconPosition,
+}: {
+  iconPosition: 'left' | 'right';
+  icon: 'added' | 'removed' | undefined;
+  workerName: string;
+}) => {
+  const { colors } = useColorTheme();
+
+  return (
+    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
+      {icon === 'added' && iconPosition === 'left' && <Icon name={'add-circle'} color={'#009100'} />}
+      <Text
+        style={[
+          styles.worker,
+          {
+            color: colors.text.main,
+            textDecorationLine: icon === 'removed' ? 'line-through' : '',
+          },
+        ]}
+      >
+        {workerName}
+      </Text>
+      {icon === 'added' && iconPosition === 'right' && <Icon name={'add-circle'} color={'#009100'} />}
     </View>
   );
 };
