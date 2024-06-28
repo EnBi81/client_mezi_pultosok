@@ -26,8 +26,8 @@ export const SchedulePage = () => {
           style={styles.maxSize}
         >
           <View style={styles.tasksWrapper}>
-            {!workingDays && pultosokDataError.isError && (
-              <View style={{ marginHorizontal: 20 }}>
+            {pultosokDataError.isError && (
+              <View style={{ marginHorizontal: 10 }}>
                 <ErrorCard errorText={pultosokDataError.errorMessage ?? 'Unexpected error occured.'} />
               </View>
             )}
