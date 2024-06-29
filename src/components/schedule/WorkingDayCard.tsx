@@ -193,6 +193,7 @@ const WorkerName = ({
   return (
     <View style={{ flexDirection: 'row', alignItems: 'center', gap: 5 }}>
       {icon === 'added' && iconPosition === 'left' && <Icon name={'add-circle'} color={'#009100'} />}
+      {icon === 'removed' && iconPosition === 'left' && <Icon name={'remove-circle'} color={'#bb0707'} />}
       <Text
         style={[
           styles.worker,
@@ -204,6 +205,7 @@ const WorkerName = ({
       >
         {workerName}
       </Text>
+      {icon === 'removed' && iconPosition === 'right' && <Icon name={'remove-circle'} color={'#bb0707'} />}
       {icon === 'added' && iconPosition === 'right' && <Icon name={'add-circle'} color={'#009100'} />}
     </View>
   );
@@ -260,8 +262,8 @@ const styles = StyleSheet.create({
     width: '50%',
   },
   rightSideInner: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
+    flexDirection: 'column',
+    alignItems: 'flex-end',
     padding: 10,
     paddingRight: 16,
     paddingTop: 15,
