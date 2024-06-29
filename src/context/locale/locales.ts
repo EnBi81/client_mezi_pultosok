@@ -1,5 +1,5 @@
-import en from '../../../locales/en.json';
-import hu from '../../../locales/hu.json';
+import en from '../../assets/locales/en.json';
+import hu from '../../assets/locales/hu.json';
 
 import { Settings } from '../../interfaces/Settings';
 import { NativeModules, Platform } from 'react-native';

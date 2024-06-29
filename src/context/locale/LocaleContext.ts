@@ -1,11 +1,10 @@
 import { createContext } from 'react';
 import { LanguageTranslation } from '../../interfaces/LanguageTranslation';
 import { AppLanguage } from '../../interfaces/AppLanguage';
-
-import en from '../../../locales/en.json';
+import { localeTranslations } from './locales';
 
 const DefaultSettingsContext = {
-  l: en,
+  l: localeTranslations.en,
   currentLocale: 'en',
   availableLanguages: [],
 };
