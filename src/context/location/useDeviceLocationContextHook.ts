@@ -1,12 +1,18 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { PermissionsAndroid } from 'react-native';
 import { useSettings } from '../../hooks/useSettings';
 import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
+import DeviceCountry from 'react-native-device-country';
+import RNCountry from 'react-native-countries';
 
 export const useDeviceLocationContextHook = () => {
   const { settings, modifySettings } = useSettings();
+  const [country, setCountry] = useState({
+    countryCode: '-',
+    countryName: '-',
+  });
   const { l } = useLocale();
 
   useEffect(() => {
@@ -32,6 +38,26 @@ export const useDeviceLocationContextHook = () => {
 
         Geolocation.getCurrentPosition(
           (position) => {
+            DeviceCountry.getCountryCode()
+              .then((result) => {
+                const countryCode = result.code.toUpperCase();
+                const country = RNCountry.getCountryNamesWithCodes.find((c) => c.code === countryCode);
+                if (!country) {
+                  throw new Error('Country is undefined');
+                }
+
+                setCountry({
+                  countryCode: country.code,
+                  countryName: country.name,
+                });
+              })
+              .catch(() => {
+                setCountry({
+                  countryName: '-',
+                  countryCode: '-',
+                });
+              });
+
             modifySettings(
               (settings) =>
                 (settings.locationCache = {
@@ -70,6 +96,10 @@ export const useDeviceLocationContextHook = () => {
       latitude: settings.locationCache.latitude,
       longitude: settings.locationCache.longitude,
       access: settings.locationCache.locationAccess,
+    },
+    deviceCountry: {
+      code: country.countryCode,
+      name: country.countryName,
     },
     updateLocation: () => updateLocation({ displayErrorToastMessage: true }),
   };

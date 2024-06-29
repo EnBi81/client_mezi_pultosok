@@ -15,6 +15,7 @@ export const usePultosokDataContextHook = () => {
   const [workingDays, setWorkingDays] = useState<WorkingDaySchedule[]>();
   const { l } = useLocale();
   const { onFocusCounter } = useAppState();
+  const [errorToastShown, setErrorToastShown] = useState(false);
 
   // handling cache x network data
   useEffect(() => {
@@ -54,10 +55,12 @@ export const usePultosokDataContextHook = () => {
 
   // displaying error toasts
   useEffect(() => {
-    if (networkingError.isError) {
+    if (networkingError.isError && !errorToastShown) {
       if (networkingError.isNetworkError) toast(l.schedule.networking.networkError);
       else toast(l.schedule.networking.dataError);
-      return;
+      setErrorToastShown(true);
+    } else {
+      setErrorToastShown(false);
     }
   }, [networkingData, networkingError]);
 

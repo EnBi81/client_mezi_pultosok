@@ -1,6 +1,6 @@
 {
   "name": "client_mezi_pultosok",
-  "version": "1.5.5",
+  "version": "1.5.6",
   "private": true,
   "scripts": {
     "android": "react-native run-android",
@@ -24,6 +24,8 @@
     "react-native-background-fetch": "^4.2.5",
     "react-native-collapsible": "^1.6.1",
     "react-native-config": "^1.5.1",
+    "react-native-countries": "^1.0.3",
+    "react-native-device-country": "^1.0.4",
     "react-native-device-info": "^11.1.0",
     "react-native-fs": "^2.20.0",
     "react-native-geolocation-service": "^5.3.1",

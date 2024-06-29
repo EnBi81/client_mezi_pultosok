@@ -1,5 +1,5 @@
 import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
-import { formatString, getUniqueElements, removeEmptyStrings } from './utils';
+import { date, formatString, getUniqueElements, removeEmptyStrings } from './utils';
 import { useNotificationService } from '../hooks/useNotificationService';
 import { storages } from '../storage/Storages';
 import { getCurrentLocalTranslations } from '../context/locale/locales';
@@ -73,7 +73,7 @@ export const ScheduleComparison = {
         changes.push(change);
         day.lastModifiedDate = nowTime;
         day.change = change;
-      } else if (oldDay.change && nowTime - 24 * 60 * 60 * 1000 < oldDay.change.dateTime) {
+      } else if (oldDay.change && date(oldDay.change.dateTime).within.last.days(1)) {
         day.change = oldDay.change;
       }
     }

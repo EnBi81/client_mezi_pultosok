@@ -14,7 +14,7 @@
     }
   },
   "schedule": {
-    "errorOccurred": "Hiba történt:",
+    "errorOccurred": "Hiba történt a szerver elérése során, kérlek próbáld meg újra",
     "new": "Új",
     "weekNumber": "{0}. Hét",
     "thisShouldNotBeSeen": "Ennek nem kéne látszania",
