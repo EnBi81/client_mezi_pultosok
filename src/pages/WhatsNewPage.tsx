@@ -4,6 +4,11 @@ export const WhatsNewPage = () => {
   return (
     <View>
       <ScrollView style={{ padding: 10 }}>
+        <VersionSection version={'V1.5.6'}>
+          <BulletPoint text={'Working Day card now displays workers taken off the schedule'} />
+          <BulletPoint text={'Displaying error card upon network failure instead of spamming toast'} />
+          <BulletPoint text={'Display device country name next to the Update Location button'} />
+        </VersionSection>
         <VersionSection version={'V1.5.5'}>
           <BulletPoint text={'Fixed issue with plus signs appearing for old changes'} />
           <BulletPoint text={'Removed location access issue toast messages when location is requested on startup'} />
