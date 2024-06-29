@@ -13,7 +13,7 @@ export const ColorThemeRadioButtons = () => {
   const { modifySettings } = useSettings();
   const { colorThemeSettings } = useColorTheme();
   const { l } = useLocale();
-  const { location, updateLocation } = useDeviceLocation();
+  const { location, deviceCountry, updateLocation } = useDeviceLocation();
   const { nextSunEvent } = useSunPosition();
 
   const radioItems: RadioItem[] = [
@@ -80,6 +80,7 @@ export const ColorThemeRadioButtons = () => {
         <SettingsOptionContainer
           icon={<Icon name={'my-location'} />}
           title={l.settings.general.colorTheme.updateLocation}
+          secondaryText={deviceCountry.name}
           type={'secondary'}
           level={2}
           onPress={() => {

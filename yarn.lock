@@ -3921,6 +3921,8 @@ __metadata:
     react-native-background-fetch: ^4.2.5
     react-native-collapsible: ^1.6.1
     react-native-config: ^1.5.1
+    react-native-countries: ^1.0.3
+    react-native-device-country: ^1.0.4
     react-native-device-info: ^11.1.0
     react-native-fs: ^2.20.0
     react-native-geolocation-service: ^5.3.1
@@ -8390,6 +8392,23 @@ __metadata:
     react-native-windows:
       optional: true
   checksum: ae17b750e445310573ce33798db67c9b8c50e55cb2ba136e9a9ef8372dd3f7669ce236bb18bf1fa8a426fd1aa9e6b516fb2f593767bd24688242f6847cd37712
+  languageName: node
+  linkType: hard
+
+"react-native-countries@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "react-native-countries@npm:1.0.3"
+  checksum: 49b1a2c6bc9c827475f0edcb486f422a72dc614fce50e237b1d833dfb1a8e038d58f50d71bf3ae2b354f2ad49cab82a1412188000d3819ebcb1450fd358c4c4f
+  languageName: node
+  linkType: hard
+
+"react-native-device-country@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "react-native-device-country@npm:1.0.4"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 63405fbdfdb8ccc8d140a1da9d3425841df5e2e86d912875a4cd1fc80740f57bddda95dde324388857b0093df6b3caebc5e09ab32cf58c0cbb6d239b216c7b1c
   languageName: node
   linkType: hard
 

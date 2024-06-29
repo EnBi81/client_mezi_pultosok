@@ -7,6 +7,7 @@ interface SettingsOptionContainerProps {
   onLongPress?: () => void;
   icon: React.ReactNode;
   title: string;
+  secondaryText?: string | undefined;
   type?: 'primary' | 'secondary' | undefined;
   rightSide?: React.ReactNode | undefined;
   level?: number;
@@ -14,6 +15,7 @@ interface SettingsOptionContainerProps {
 
 export const SettingsOptionContainer = ({
   title,
+  secondaryText,
   icon,
   onPress,
   onLongPress,
@@ -33,8 +35,11 @@ export const SettingsOptionContainer = ({
         <View style={[styles.row, { padding: isPrimary ? 15 : 10 }]}>
           <View style={{ width: level * 15 }}></View>
           <View style={styles.icon}>{icon}</View>
-          {isPrimary && <Text style={[styles.title, { fontWeight: 'bold', color: colors.text.main }]}>{title}</Text>}
-          {isSecondary && <Text style={[styles.title, { color: colors.text.secondary }]}>{title}</Text>}
+          <View style={styles.titleWrapper}>
+            {isPrimary && <Text style={[styles.title, { fontWeight: 'bold', color: colors.text.main }]}>{title}</Text>}
+            {isSecondary && <Text style={[styles.title, { color: colors.text.secondary }]}>{title}</Text>}
+            {secondaryText && <Text>{secondaryText}</Text>}
+          </View>
           <View>{rightSide}</View>
         </View>
       </TouchableNativeFeedback>
@@ -57,8 +62,10 @@ const styles = StyleSheet.create({
   icon: {
     marginRight: 10,
   },
-  title: {
+  titleWrapper: {
     flex: 1,
+  },
+  title: {
     fontSize: 16,
   },
   arrow: {

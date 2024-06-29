@@ -8,7 +8,7 @@ export interface Settings {
   locationCache: {
     latitude: number | undefined;
     longitude: number | undefined;
-    locationAccess: 'granted' | 'denied' | undefined;
+    locationAccess: PermissionType;
   };
   notifications: {
     masterSwitch: boolean;
@@ -16,3 +16,5 @@ export interface Settings {
     scheduleUpdates: boolean;
   };
 }
+
+export type PermissionType = 'granted' | 'denied' | undefined;
