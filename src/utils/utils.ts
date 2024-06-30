@@ -1,13 +1,14 @@
-import { Platform, ToastAndroid } from 'react-native';
+import { ToastAndroid, Alert } from 'react-native';
 import Clipboard from '@react-native-clipboard/clipboard';
+import { OSPlatform } from './OSPlatform';
 
 export function toast(text: string) {
-  if (Platform.OS === 'android') {
-    ToastAndroid.showWithGravity(text, ToastAndroid.SHORT, ToastAndroid.CENTER);
-  } else {
-    // Handle iOS or other platforms
-    throw new Error('iOS toast not implemented');
-  }
+  const toast = OSPlatform.select({
+    android: () => ToastAndroid.showWithGravity(text, ToastAndroid.SHORT, ToastAndroid.CENTER),
+    ios: () => Alert.alert(text)
+  });
+
+  toast();
 }
 
 export function getWeekNumber(d) {

@@ -1,5 +1,5 @@
 import React from 'react';
-import './setup/notification/PushNotificationsConfig';
+//import './setup/notification/PushNotificationsConfig';
 import './setup/background_fetch/BackgroundFetch';
 import { AppNavigation } from './navigation/AppNavigation';
 import { SettingsContextProvider } from './context/settings/SettingsContextProvider';

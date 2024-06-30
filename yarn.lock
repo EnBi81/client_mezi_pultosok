@@ -2372,6 +2372,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@react-native-community/push-notification-ios@npm:^1.11.0":
+  version: 1.11.0
+  resolution: "@react-native-community/push-notification-ios@npm:1.11.0"
+  dependencies:
+    invariant: ^2.2.4
+  peerDependencies:
+    react: ">=16.6.3"
+    react-native: ">=0.58.4"
+  checksum: d8c8cdd0d4e8112752a13bf2c426618ec8edd91eacadf03f05375648b5f12ffa761e8676e9d6ac9e5bc5ded73c991ab2219c67fe02e110dfaf38f4cb59695868
+  languageName: node
+  linkType: hard
+
 "@react-native-masked-view/masked-view@npm:^0.3.1":
   version: 0.3.1
   resolution: "@react-native-masked-view/masked-view@npm:0.3.1"
@@ -2879,6 +2891,13 @@ __metadata:
   dependencies:
     react-native-fs: "*"
   checksum: 4a3fd0c777e0accba157ae240c59e3a9dc744692a07f41d64f6962695c2538e3fe4760709965261a6ebd168639e69aa8cdf257ef818f18df74615b79142efe73
+  languageName: node
+  linkType: hard
+
+"@types/react-native-push-notification@npm:^8.1.4":
+  version: 8.1.4
+  resolution: "@types/react-native-push-notification@npm:8.1.4"
+  checksum: d3017ebffcbb6760dfd287b0f789eebf65f9856476f9a35554e77327ac5732ff8dd015384c826dd7c56c8b6beff08dea1240bf3d8d82d1ff6836eb85e1e55bf2
   languageName: node
   linkType: hard
 
@@ -3902,6 +3921,7 @@ __metadata:
     "@babel/runtime": ^7.20.0
     "@react-native-async-storage/async-storage": ^1.23.1
     "@react-native-clipboard/clipboard": ^1.14.1
+    "@react-native-community/push-notification-ios": ^1.11.0
     "@react-native-masked-view/masked-view": ^0.3.1
     "@react-native/babel-preset": 0.74.83
     "@react-native/eslint-config": 0.74.83
@@ -3911,6 +3931,7 @@ __metadata:
     "@react-navigation/stack": ^6.3.29
     "@types/react": ^18.2.6
     "@types/react-native-fs": ^2.13.0
+    "@types/react-native-push-notification": ^8.1.4
     "@types/react-test-renderer": ^18.0.0
     babel-jest: ^29.6.3
     eslint: ^8.19.0
