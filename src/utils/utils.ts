@@ -5,7 +5,7 @@ import { OSPlatform } from './OSPlatform';
 export function toast(text: string) {
   const toast = OSPlatform.select({
     android: () => ToastAndroid.showWithGravity(text, ToastAndroid.SHORT, ToastAndroid.CENTER),
-    ios: () => Alert.alert(text)
+    ios: () => Alert.alert(text) // TODO: toast for ios
   });
 
   toast();
