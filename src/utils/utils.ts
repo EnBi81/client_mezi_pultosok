@@ -11,7 +11,7 @@ export function toast(text: string) {
   toast();
 }
 
-export function getWeekNumber(d) {
+export function getWeekNumber(d: Date) {
   // Copy date so don't modify original
   d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
   // Set to nearest Thursday: current date + 4 - current day number
@@ -20,12 +20,12 @@ export function getWeekNumber(d) {
   // Get first day of year
   const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
   // Calculate full weeks to nearest Thursday
-  const weekNo = Math.ceil(((d - yearStart) / 86400000 + 1) / 7);
+  const weekNo = Math.ceil(((d.getTime() - yearStart.getTime()) / 86400000 + 1) / 7);
 
   return { year: d.getUTCFullYear(), weekNo };
 }
 
-export function formatString(template, ...args) {
+export function formatString(template: string, ...args: string[]) {
   return template.replace(/{([0-9]+)}/g, function (match, index) {
     return typeof args[index] === 'undefined' ? match : args[index];
   });
