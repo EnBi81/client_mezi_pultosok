@@ -43,7 +43,7 @@ function createQueue<Payload>(): ReactAppSingleMessageQueue<Payload> {
 
     while (queue.length > 0) {
       const payload = queue.pop();
-      if (payload === undefined) return;
+      if (payload === undefined) break;
       callEventListeners(payload);
     }
 

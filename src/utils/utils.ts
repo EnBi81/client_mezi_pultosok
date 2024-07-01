@@ -1,11 +1,14 @@
-import { ToastAndroid, Alert } from 'react-native';
+import { ToastAndroid } from 'react-native';
+import Toast from 'react-native-simple-toast';
 import Clipboard from '@react-native-clipboard/clipboard';
 import { OSPlatform } from './OSPlatform';
 
 export function toast(text: string) {
   const toast = OSPlatform.select({
     android: () => ToastAndroid.showWithGravity(text, ToastAndroid.SHORT, ToastAndroid.CENTER),
-    ios: () => Alert.alert(text) // TODO: toast for ios
+    ios: () => Toast.show('This is a toast that can be dismissed (iOS only).', Toast.SHORT, {
+      tapToDismissEnabled: true,
+    })// TODO: toast for ios
   });
 
   toast();

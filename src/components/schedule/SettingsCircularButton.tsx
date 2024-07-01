@@ -1,10 +1,10 @@
 import { Animated, Easing, StyleSheet, TouchableOpacity, View } from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
 import MaskedView from '@react-native-masked-view/masked-view';
 import LinearGradient from 'react-native-linear-gradient';
 import { useRef } from 'react';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useColorTheme } from '../../hooks/useColorTheme';
+import { Icon } from '../Icon';
 
 export const SettingsCircularButton = ({ onPress }: { onPress: () => void }) => {
   const { colorPalette, gradientEffects } = useGradientPalette();
@@ -73,7 +73,7 @@ export const SettingsCircularButton = ({ onPress }: { onPress: () => void }) => 
             style={[styles.maxSize]}
             maskElement={
               <Animated.View style={[styles.maxSize, styles.center, { transform: [{ rotate }] }]}>
-                <Icon style={styles.icon} name='settings' size={45} color='#000' />
+                <Icon name='settings' size={45}/>
               </Animated.View>
             }
           >

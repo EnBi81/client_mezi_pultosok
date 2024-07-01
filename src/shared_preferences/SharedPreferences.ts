@@ -1,5 +1,6 @@
 import PultosokSharedPreferences from 'react-native-shared-preferences';
 import { WorkingDaySchedule } from '../interfaces/WorkingDaySchedule';
+import { OSPlatform } from '../utils/OSPlatform';
 
 export const SharedPreferences = {
   pultosok: {
@@ -16,8 +17,17 @@ export const SharedPreferences = {
         lastModifiedDate: day.lastModifiedDate,
       }));
 
-      PultosokSharedPreferences.setName('com.client_mezi_pultosok.PultosokSharedPreferences');
-      PultosokSharedPreferences.setItem('apiData', JSON.stringify(data));
+      const set = OSPlatform.select({
+        android: () => { 
+          PultosokSharedPreferences.setName('com.client_mezi_pultosok.PultosokSharedPreferences');
+          PultosokSharedPreferences.setItem('apiData', JSON.stringify(data));
+        },
+        ios: () => {
+           
+        }
+      });
+
+      set();
     },
   },
 };
