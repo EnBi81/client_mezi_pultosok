@@ -46,6 +46,8 @@
 		7FA45163220C0ACBC04C0527 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; name = PrivacyInfo.xcprivacy; path = client_mezi_pultosok/PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = client_mezi_pultosok/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-client_mezi_pultosok-client_mezi_pultosokTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-client_mezi_pultosok-client_mezi_pultosokTests.release.xcconfig"; path = "Target Support Files/Pods-client_mezi_pultosok-client_mezi_pultosokTests/Pods-client_mezi_pultosok-client_mezi_pultosokTests.release.xcconfig"; sourceTree = "<group>"; };
+		BF0494B82C32F202003753C7 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
+		BF0494B92C32F202003753C7 /* MaterialIcons.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -89,6 +91,7 @@
 		13B07FAE1A68108700A75B9A /* client_mezi_pultosok */ = {
 			isa = PBXGroup;
 			children = (
+				BF0494B72C32F0DF003753C7 /* Fonts */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -151,6 +154,15 @@
 				89C6BE57DB24E9ADA2F236DE /* Pods-client_mezi_pultosok-client_mezi_pultosokTests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		BF0494B72C32F0DF003753C7 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				BF0494B82C32F202003753C7 /* MaterialCommunityIcons.ttf */,
+				BF0494B92C32F202003753C7 /* MaterialIcons.ttf */,
+			);
+			name = Fonts;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
