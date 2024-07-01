@@ -44,7 +44,8 @@
       "description": "General behaviour and appearance",
       "language": {
         "collapseTitle": "Languages",
-        "systemDefault": "System Default"
+        "systemDefault": "System Default",
+        "missingLanguage": "Missing Language: {0}"
       },
       "colorTheme": {
         "collapseTitle": "Light / Dark mode",

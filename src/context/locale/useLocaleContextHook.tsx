@@ -44,6 +44,10 @@ export const useLocaleContextHook = () => {
   const { settings } = useSettings();
   const [translation, setTranslation] = useState<LanguageTranslation>(languages.en.translates);
   const [currentLocale, setCurrentLocale] = useState<string>();
+  const [fallbackLanguageStatus, setFallbackLanguageStatus] = useState({
+    isFallbackLanguageUsed: false,
+    missingCountry: undefined
+  });
 
   useEffect(() => {
     const savedLanguageId = settings.languageId;
@@ -53,6 +57,10 @@ export const useLocaleContextHook = () => {
       localizedStrings.current.setLanguage(savedLanguageId);
       setTranslation({ ...localizedStrings.current });
       setCurrentLocale(languages[savedLanguageId].locale);
+      setFallbackLanguageStatus({
+        isFallbackLanguageUsed: false,
+        missingCountry: undefined
+      })
       return;
     }
 
@@ -63,6 +71,10 @@ export const useLocaleContextHook = () => {
       localizedStrings.current.setLanguage(devicePrimaryLanguage.countryCode);
       setTranslation({ ...localizedStrings.current });
       setCurrentLocale(devicePrimaryLanguage.locale);
+      setFallbackLanguageStatus({
+        isFallbackLanguageUsed: false,
+        missingCountry: undefined
+      })
     } else {
       const fallbackLanguage = languages.en;
 
@@ -70,9 +82,10 @@ export const useLocaleContextHook = () => {
       setTranslation({ ...localizedStrings.current });
       setCurrentLocale(fallbackLanguage.locale);
 
-      toast(
-        `Language '${devicePrimaryLanguage.countryCode}' is not supported. Fallback to '${fallbackLanguage.name}'.`,
-      );
+      setFallbackLanguageStatus({
+        isFallbackLanguageUsed: true,
+        missingCountry: devicePrimaryLanguage.countryCode
+      });
     }
   }, [settings.languageId]);
 
@@ -80,6 +93,7 @@ export const useLocaleContextHook = () => {
     l: translation,
     currentLocale: currentLocale,
     availableLanguages: availableLanguages,
+    fallbackLanguageStatus: fallbackLanguageStatus
   };
 };
 

@@ -34,7 +34,11 @@ export interface LanguageTranslation {
     general: {
       title: string;
       description: string;
-      language: { collapseTitle: string; systemDefault: string };
+      language: {
+        collapseTitle: string;
+        systemDefault: string;
+        missingLanguage: string;
+      };
       colorTheme: {
         collapseTitle: string;
         systemDefault: string;

@@ -1,22 +1,8 @@
 import { LocaleContext } from './LocaleContext';
 import { useLocaleContextHook } from './useLocaleContextHook';
 
-export const LocaleContextProvider = ({
-  children,
-}: {
-  children: React.ReactNode;
-}) => {
-  const { currentLocale, l, availableLanguages } = useLocaleContextHook();
+export const LocaleContextProvider = ({ children }: { children: React.ReactNode }) => {
+  const context = useLocaleContextHook();
 
-  return (
-    <LocaleContext.Provider
-      value={{
-        currentLocale: currentLocale,
-        l: l,
-        availableLanguages: availableLanguages,
-      }}
-    >
-      {children}
-    </LocaleContext.Provider>
-  );
+  return <LocaleContext.Provider value={context}>{children}</LocaleContext.Provider>;
 };

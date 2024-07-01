@@ -7,7 +7,7 @@ interface SettingsOptionContainerProps {
   onLongPress?: () => void;
   icon: React.ReactNode;
   title: string;
-  secondaryText?: string | undefined;
+  secondaryText?: string | React.ReactNode | undefined;
   type?: 'primary' | 'secondary' | undefined;
   rightSide?: React.ReactNode | undefined;
   level?: number;

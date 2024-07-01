@@ -44,7 +44,8 @@
       "description": "Általános működés és megjelenés",
       "language": {
         "collapseTitle": "Nyelvbeállítások",
-        "systemDefault": "Rendszer alapértelmezett"
+        "systemDefault": "Rendszer alapértelmezett",
+        "missingLanguage": "Nyelv hiányzik: {0}"
       },
       "colorTheme": {
         "collapseTitle": "Világos / Sötét mód",

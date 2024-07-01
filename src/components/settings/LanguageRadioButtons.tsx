@@ -4,10 +4,12 @@ import { useLocale } from '../../hooks/useLocale';
 import { useMemo } from 'react';
 import { useSettings } from '../../hooks/useSettings';
 import { Icon } from '../Icon';
+import { View, Text } from 'react-native'
+import { formatString } from '../../utils/utils';
 
 export const LanguageRadioButtons = () => {
   const { settings, modifySettings } = useSettings();
-  const { availableLanguages, l } = useLocale();
+  const { availableLanguages, l, fallbackLanguageStatus } = useLocale();
 
   const idForSystemDefault = 'id_for_system_default';
 
@@ -23,10 +25,16 @@ export const LanguageRadioButtons = () => {
         id: idForSystemDefault,
         icon: <Icon name={'person'} />,
         title: l.settings.general.language.systemDefault,
+        secondaryTitle: fallbackLanguageStatus.isFallbackLanguageUsed ?
+          (<View style={{ flexDirection: 'row', paddingTop: 5, gap: 5 }}>
+            <Icon name='warning' color='#ffcc00' size={15}/>
+            <Text>{formatString(l.settings.general.language.missingLanguage, fallbackLanguageStatus.missingCountry?.toUpperCase() ?? '-')}</Text>
+          </View>) : 
+          undefined,
       },
       ...convertedAvailableLanguages,
     ];
-  }, [availableLanguages, l]);
+  }, [availableLanguages, l, fallbackLanguageStatus]);
 
   const onSelectionChange = (languageId: string) => {
     modifySettings((settings) => (settings.languageId = languageId === idForSystemDefault ? undefined : languageId));
