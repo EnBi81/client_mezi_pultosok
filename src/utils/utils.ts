@@ -6,7 +6,7 @@ import { OSPlatform } from './OSPlatform';
 export function toast(text: string) {
   const toast = OSPlatform.select({
     android: () => ToastAndroid.showWithGravity(text, ToastAndroid.SHORT, ToastAndroid.CENTER),
-    ios: () => Toast.show('This is a toast that can be dismissed (iOS only).', Toast.SHORT, {
+    ios: () => Toast.show(text, Toast.SHORT, {
       tapToDismissEnabled: true,
     })// TODO: toast for ios
   });
