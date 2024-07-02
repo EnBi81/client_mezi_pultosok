@@ -493,6 +493,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = client_mezi_pultosok/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mezi Pultos Gárda";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -521,6 +522,7 @@
 				CODE_SIGN_ENTITLEMENTS = client_mezi_pultosok/client_mezi_pultosok.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				INFOPLIST_FILE = client_mezi_pultosok/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Mezi Pultos Gárda";
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
