@@ -82,10 +82,10 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
       {!isJanicsDown && (
         <View style={styles.content}>
           <View style={styles.touchableWrapper}>
-          <Touchable
-            style={styles.touchableFeedback}
-            onLongPress={() => toast('Cikola')}
-          >
+            <View style={styles.touchableWrapperWidth}>
+              <Touchable
+                style={styles.touchableFeedback}
+                onLongPress={() => toast('Cikola')}>
             <View style={styles.leftSideOuter}>
               <View style={styles.leftSideInner}>
                 {isCikolaDown && <Text style={[styles.worker, { color: colors.text.main }]}>-</Text>}
@@ -125,11 +125,13 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
               </View>
             </View>
           </Touchable>
+            </View>
           </View>
 
           <View style={[styles.middleLine, { borderLeftColor: colors.card.separatorLine }]} />
 
           <View style={styles.touchableWrapper}>
+            <View style={styles.touchableWrapperWidth}>
           <Touchable
             style={styles.touchableFeedback}
             onLongPress={() => toast('Doborgaz')}
@@ -173,6 +175,7 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
               </View>
             </View>
           </Touchable>
+            </View>
           </View>
         </View>
       )}
@@ -250,7 +253,6 @@ const styles = StyleSheet.create({
   content: {
     width: '100%',
     flexDirection: 'row',
-    backgroundColor: 'red'
   },
   leftSideOuter: {
     width: '100%',
@@ -280,11 +282,13 @@ const styles = StyleSheet.create({
   },
   touchableWrapper: {
     flex: 1,
-    alignItems: 'stretch',
-    backgroundColor: 'green'
+    
+  },
+  touchableWrapperWidth: {
+    flex: 1,
   },
   touchableFeedback: {
     width: '100%',
-    backgroundColor: 'blue'
+    height: '100%',
   },
 });

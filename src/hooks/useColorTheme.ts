@@ -44,6 +44,10 @@ interface ColorTheme {
   };
   effect: {
     ripple: string;
+    press: {
+      overlay: string;
+      opacity: number;
+    }
     skeleton: {
       light: string;
       dark: string;
@@ -69,6 +73,10 @@ const lightTheme: ColorTheme = {
   },
   effect: {
     ripple: 'rgba(213,213,213,0.53)',
+    press: {
+      opacity: 0.9,
+      overlay: '#00000020'
+    },
     skeleton: {
       light: '#cbcbcb',
       dark: '#f5f5f5',
@@ -94,6 +102,10 @@ const darkTheme: ColorTheme = {
   },
   effect: {
     ripple: 'rgba(255,255,255,0.2)',
+    press: {
+      opacity: 0.9,
+      overlay: '#ffffff20'
+    },
     skeleton: {
       light: '#555',
       dark: '#000',

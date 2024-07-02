@@ -2,6 +2,7 @@ import { TouchableNativeFeedback, TouchableOpacity, ViewStyle } from 'react-nati
 import { OSPlatform } from '../utils/OSPlatform';
 import { UIEffectsProps, useUIEffects } from '../hooks/useUIEffects';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import { useColorTheme } from '../hooks/useColorTheme';
 
 interface TouchableProps { 
     children: React.ReactNode;
@@ -19,6 +20,7 @@ export const Touchable = ({
     uiEffectProps
 }: TouchableProps) => {
   const { ripple } = useUIEffects(uiEffectProps);
+  const { colors } = useColorTheme();
 
   if (OSPlatform.is.android) {
     return (
@@ -33,7 +35,12 @@ export const Touchable = ({
   }
 
   return (
-    <TouchableHighlight style={style} onPress={onPress} onLongPress={onLongPress}>
+    <TouchableHighlight 
+      activeOpacity={colors.effect.press.opacity}
+      underlayColor={colors.effect.press.overlay}
+      style={style} 
+      onPress={onPress} 
+      onLongPress={onLongPress}>
       {children}
     </TouchableHighlight>
   );
