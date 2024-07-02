@@ -1,15 +1,15 @@
-import { StyleSheet, View, Text, TouchableNativeFeedback, Animated, Dimensions, Easing } from 'react-native';
+import { StyleSheet, View, Text, Animated, Dimensions, Easing } from 'react-native';
 import { useApkUpdater } from '../../hooks/useApkUpdater';
 import { useLocale } from '../../hooks/useLocale';
 import { SettingsCircularButton } from './SettingsCircularButton';
 import { useNavigation } from '../../hooks/useNavigation';
 import { formatString } from '../../utils/utils';
-import { useUIEffects } from '../../hooks/useUIEffects';
 import React, { useEffect, useRef, useState } from 'react';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import { BackToTopButton } from './BackToTopButton';
+import { Touchable } from '../Touchable';
 
 export const SettingsUpdateWrapper = ({
   showScrollToTopButton,
@@ -32,7 +32,6 @@ export const SettingsUpdateWrapper = ({
 
   const { l } = useLocale();
   const { navigate } = useNavigation();
-  const { ripple } = useUIEffects();
   const { colorPalette } = useGradientPalette();
   const { colors } = useColorTheme();
   const [scrollToTopY] = useState(new Animated.Value(0));
@@ -126,7 +125,7 @@ export const SettingsUpdateWrapper = ({
               borderWidth: 1,
             }}
           >
-            <TouchableNativeFeedback background={ripple} onPress={() => handleUpdate()}>
+            <Touchable onPress={() => handleUpdate()}>
               <View
                 style={[
                   {
@@ -145,9 +144,9 @@ export const SettingsUpdateWrapper = ({
                     zIndex: 1,
                   }}
                 >
-                  {isDownloading && formatString(l.update.downloading, downloadPercent)}
-                  {canDownloadBePressed && formatString(l.update.updateTo, latestApkVersion)}
-                  {isDownloadCompleted && formatString(l.update.installing, latestApkVersion)}
+                  {isDownloading && formatString(l.update.downloading, downloadPercent + '')}
+                  {canDownloadBePressed && formatString(l.update.updateTo, latestApkVersion + '')}
+                  {isDownloadCompleted && formatString(l.update.installing, latestApkVersion + '')}
                 </Text>
                 <View style={{ width: 60 }}></View>
                 {isDownloading && (
@@ -168,11 +167,11 @@ export const SettingsUpdateWrapper = ({
                   style={{
                     ...styles.updateButtonProgressBar,
                     backgroundColor: colors.background.component,
-                    width: `${100 - downloadPercent ?? 0}%`,
+                    width: `${100 - (downloadPercent ?? 0)}%`,
                   }}
                 ></View>
               </View>
-            </TouchableNativeFeedback>
+            </Touchable>
 
             <View pointerEvents={'box-none'} style={styles.circularButtonContainer}>
               <SettingsCircularButton onPress={() => navigate.to.settings()} />

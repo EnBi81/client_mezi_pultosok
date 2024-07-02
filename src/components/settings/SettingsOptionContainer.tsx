@@ -1,6 +1,6 @@
-import { StyleSheet, TouchableNativeFeedback, View, Text } from 'react-native';
-import { useUIEffects } from '../../hooks/useUIEffects';
+import { StyleSheet, View, Text } from 'react-native';
 import { useColorTheme } from '../../hooks/useColorTheme';
+import { Touchable } from '../Touchable';
 
 interface SettingsOptionContainerProps {
   onPress?: () => void;
@@ -23,7 +23,6 @@ export const SettingsOptionContainer = ({
   type = 'primary',
   level = 0,
 }: SettingsOptionContainerProps) => {
-  const { ripple } = useUIEffects();
   const { colors } = useColorTheme();
 
   const isPrimary = type === 'primary' || type === undefined;
@@ -31,7 +30,7 @@ export const SettingsOptionContainer = ({
 
   return (
     <View style={styles.maxWidth}>
-      <TouchableNativeFeedback background={ripple} onPress={onPress} onLongPress={onLongPress}>
+      <Touchable onPress={onPress} onLongPress={onLongPress}>
         <View style={[styles.row, { padding: isPrimary ? 15 : 10 }]}>
           <View style={{ width: level * 15 }}></View>
           <View style={styles.icon}>{icon}</View>
@@ -44,7 +43,7 @@ export const SettingsOptionContainer = ({
           </View>
           <View>{rightSide}</View>
         </View>
-      </TouchableNativeFeedback>
+      </Touchable>
     </View>
   );
 };

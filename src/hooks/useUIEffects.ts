@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { TouchableNativeFeedback } from 'react-native';
 import { useColorTheme } from './useColorTheme';
 
-interface UIEffectsProps {
+export interface UIEffectsProps {
   darkColorOverride?: string | undefined;
   lightColorOverride?: string | undefined;
 }

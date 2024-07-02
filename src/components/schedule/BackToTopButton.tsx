@@ -1,13 +1,12 @@
-import { StyleSheet, TouchableNativeFeedback, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { Icon } from '../Icon';
-import { useUIEffects } from '../../hooks/useUIEffects';
 import LinearGradient from 'react-native-linear-gradient';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import MaskedView from '@react-native-masked-view/masked-view';
+import { Touchable } from '../Touchable';
 
-export const BackToTopButton = ({ onPress }: { onPress: (e) => void }) => {
-  const { ripple } = useUIEffects();
+export const BackToTopButton = ({ onPress }: { onPress: () => void }) => {
   const { colorPalette, gradientEffects } = useGradientPalette();
   const { isLightTheme, colors } = useColorTheme();
 
@@ -25,7 +24,7 @@ export const BackToTopButton = ({ onPress }: { onPress: (e) => void }) => {
           },
         ]}
       >
-        <TouchableNativeFeedback background={ripple} style={styles.maxSize} onPress={onPress}>
+        <Touchable style={styles.maxSize} onPress={onPress}>
           <View style={styles.maxSize}>
             <MaskedView
               style={styles.maxSize}
@@ -43,7 +42,7 @@ export const BackToTopButton = ({ onPress }: { onPress: (e) => void }) => {
               ></LinearGradient>
             </MaskedView>
           </View>
-        </TouchableNativeFeedback>
+        </Touchable>
       </View>
     </View>
   );

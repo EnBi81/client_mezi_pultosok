@@ -2,15 +2,14 @@ import { LinearGradient } from 'react-native-linear-gradient';
 import { toast } from '../../utils/utils';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useLocale } from '../../hooks/useLocale';
-import { useUIEffects } from '../../hooks/useUIEffects';
-import { TouchableNativeFeedback, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { useEnvironment } from '../../hooks/useEnvironment';
 import { useEffect, useState } from 'react';
+import { Touchable } from '../Touchable';
 
 export const SettingsCurrentGradientDisplay = () => {
   const { colorPalette } = useGradientPalette();
   const { l } = useLocale();
-  const { ripple } = useUIEffects({ lightColorOverride: '#ffffff30' });
   const { isDebug, setDebug } = useEnvironment();
   const [gradientText, setGradientText] = useState(colorPalette.gradientName);
 
@@ -53,13 +52,13 @@ export const SettingsCurrentGradientDisplay = () => {
         start={{ x: 0, y: 0 }}
         end={{ x: 1, y: 1 }}
       >
-        <TouchableNativeFeedback background={ripple} onPress={onPress} onLongPress={onLongPress}>
+        <Touchable onPress={onPress} onLongPress={onLongPress} uiEffectProps={{ lightColorOverride: '#ffffff30' }}>
           <View style={{ padding: 5, paddingVertical: 20 }}>
             <View style={{ width: '100%', flexDirection: 'row', justifyContent: 'center' }}>
               <Text style={{ color: colorPalette.textColor, fontSize: 20, fontWeight: 'bold' }}>{gradientText}</Text>
             </View>
           </View>
-        </TouchableNativeFeedback>
+        </Touchable>
       </LinearGradient>
     </View>
   );

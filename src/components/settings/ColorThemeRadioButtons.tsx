@@ -48,7 +48,7 @@ export const ColorThemeRadioButtons = () => {
   ];
 
   const onSelectionChange = (newColorTheme: string) => {
-    let colorTheme;
+    let colorTheme: 'light' | 'dark' | 'user-preference' | 'custom-sunsync';
 
     if (newColorTheme === 'light') colorTheme = 'light';
     else if (newColorTheme === 'dark') colorTheme = 'dark';

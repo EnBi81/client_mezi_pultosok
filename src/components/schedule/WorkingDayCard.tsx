@@ -1,16 +1,16 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet, TextStyle } from 'react-native';
 import React from 'react';
 import { WorkingDaySchedule } from '../../interfaces/WorkingDaySchedule';
-import { View, Text, TouchableNativeFeedback } from 'react-native';
+import { View, Text } from 'react-native';
 import { LinearGradient } from 'react-native-linear-gradient';
 import { clipboard, date, toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
-import { useUIEffects } from '../../hooks/useUIEffects';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { Icon } from '../Icon';
 import { CHANGE_VISIBLE_FOR_MINUTES } from '../../utils/constants';
 import { useEnvironment } from '../../hooks/useEnvironment';
+import { Touchable } from '../Touchable';
 
 export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) => {
   const isCikolaDown = schedule.cikola.length === 0;
@@ -20,7 +20,6 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
   const markedAsReadAfterLastModifiedDate =
     schedule.markedAsReadTime && schedule.lastModifiedDate && schedule.markedAsReadTime > schedule.lastModifiedDate;
 
-  const { ripple } = useUIEffects();
   const { l } = useLocale();
   const { colors, isLightTheme } = useColorTheme();
   const { colorPalette, gradientEffects } = useGradientPalette();
@@ -70,22 +69,22 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
       </View>
 
       {isDebug && (
-        <TouchableNativeFeedback
+        <Touchable
           style={{ borderBottomWidth: 1, borderColor: colors.card.separatorLine }}
           onPress={() => clipboard().set(JSON.stringify(schedule)).toast()}
         >
           <View>
             <Text>{JSON.stringify(schedule)}</Text>
           </View>
-        </TouchableNativeFeedback>
+        </Touchable>
       )}
 
       {!isJanicsDown && (
         <View style={styles.content}>
-          <TouchableNativeFeedback
+          <View style={styles.touchableWrapper}>
+          <Touchable
             style={styles.touchableFeedback}
             onLongPress={() => toast('Cikola')}
-            background={ripple}
           >
             <View style={styles.leftSideOuter}>
               <View style={styles.leftSideInner}>
@@ -125,14 +124,15 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                     })}
               </View>
             </View>
-          </TouchableNativeFeedback>
+          </Touchable>
+          </View>
 
           <View style={[styles.middleLine, { borderLeftColor: colors.card.separatorLine }]} />
 
-          <TouchableNativeFeedback
+          <View style={styles.touchableWrapper}>
+          <Touchable
             style={styles.touchableFeedback}
             onLongPress={() => toast('Doborgaz')}
-            background={ripple}
           >
             <View style={styles.rightSideOuter}>
               <View style={styles.rightSideInner}>
@@ -172,7 +172,8 @@ export const WorkingDayCard = ({ schedule }: { schedule: WorkingDaySchedule }) =
                     })}
               </View>
             </View>
-          </TouchableNativeFeedback>
+          </Touchable>
+          </View>
         </View>
       )}
     </View>
@@ -200,7 +201,7 @@ const WorkerName = ({
           {
             color: colors.text.main,
             textDecorationLine: icon === 'removed' ? 'line-through' : '',
-          },
+          } as TextStyle,
         ]}
       >
         {workerName}
@@ -247,11 +248,12 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   content: {
+    width: '100%',
     flexDirection: 'row',
-    position: 'relative',
+    backgroundColor: 'red'
   },
   leftSideOuter: {
-    width: '50%',
+    width: '100%',
   },
   leftSideInner: {
     padding: 10,
@@ -259,7 +261,7 @@ const styles = StyleSheet.create({
     paddingTop: 15,
   },
   rightSideOuter: {
-    width: '50%',
+    width: '100%',
   },
   rightSideInner: {
     flexDirection: 'column',
@@ -276,8 +278,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: '#000',
   },
+  touchableWrapper: {
+    flex: 1,
+    alignItems: 'stretch',
+    backgroundColor: 'green'
+  },
   touchableFeedback: {
     width: '100%',
-    height: '100%',
+    backgroundColor: 'blue'
   },
 });

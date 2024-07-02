@@ -1,10 +1,18 @@
-import { View, Text, ScrollView } from 'react-native';
+import { View, Text, ScrollView, Platform } from 'react-native';
 import { useColorTheme } from '../hooks/useColorTheme';
 
 export const WhatsNewPage = () => {
   return (
     <View>
       <ScrollView style={{ padding: 10 }}>
+        <VersionSection version={'V1.6.0'}>
+          <BulletPoint text={'Set up basic app for IOS'} platform='ios' />
+          <BulletPoint text={'Fixed Text colors on whats new page'} />
+          <BulletPoint text={'Missing Language text instead of toast when user default locale is not available'} />
+        </VersionSection>
+
+        <EventDivider title={'Added IOS Support'} />
+
         <VersionSection version={'V1.5.6'}>
           <BulletPoint text={'Working Day card now displays workers taken off the schedule'} />
           <BulletPoint text={'Displaying error card upon network failure instead of spamming toast'} />
@@ -159,7 +167,7 @@ export const WhatsNewPage = () => {
   );
 };
 
-export const VersionSection = ({ version, children }: { version: string; children: React.ReactNode }) => {
+const VersionSection = ({ version, children }: { version: string; children: React.ReactNode }) => {
   const { colors } = useColorTheme();
 
   return (
@@ -172,12 +180,31 @@ export const VersionSection = ({ version, children }: { version: string; childre
   );
 };
 
-export const BulletPoint = ({ text }: { text: string }) => {
+const BulletPoint = ({ text, platform }: { text: string, platform?: 'android' | 'ios' }) => {
   const { colors } = useColorTheme();
+
+  const platformText = platform !== undefined ? `(${platform} only)` : '';
 
   return (
     <Text style={{ color: colors.text.secondary }}>
-      {`\u2022`} {text}
+      {`\u2022`} {text} {platformText}
     </Text>
   );
 };
+
+const EventDivider = ({ title } : { title: string }) => {
+  const { colors } = useColorTheme();
+
+  return (
+    <View style={{ 
+      width: '100%', 
+      marginVertical: 20, 
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
+      <View style={{ width: '100%', height: 1, backgroundColor: colors.text.secondary }}></View>
+      <Text style={{ color: colors.text.main, marginVertical: 10 }}>{title}</Text>
+      <View style={{ width: '100%', height: 1, backgroundColor: colors.text.secondary }}></View>
+    </View>
+  );
+}

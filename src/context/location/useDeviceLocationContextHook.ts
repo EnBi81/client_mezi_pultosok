@@ -6,7 +6,6 @@ import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import DeviceCountry from 'react-native-device-country';
 import RNCountry from 'react-native-countries';
-import Geocoder from 'react-native-geocoder';
 import { OSPlatform } from '../../utils/OSPlatform';
 
 export const useDeviceLocationContextHook = () => {
