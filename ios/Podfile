@@ -25,6 +25,7 @@ prepare_react_native_project!
 # https://github.com/zoontek/react-native-permissionss
 setup_permissions([
   'Notifications',
+  'LocationWhenInUse',
   # 'AppTrackingTransparency',
   # 'Bluetooth',
   # 'Calendars',
@@ -34,7 +35,6 @@ setup_permissions([
   # 'FaceID',
   # 'LocationAccuracy',
   # 'LocationAlways',
-  # 'LocationWhenInUse',
   # 'MediaLibrary',
   # 'Microphone',
   # 'Motion',
@@ -56,6 +56,7 @@ target 'client_mezi_pultosok' do
   config = use_native_modules!
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
+  pod 'ReactNativeCountries', :path => '../node_modules/react-native-countries/ios'
 
   use_react_native!(
     :path => config[:reactNativePath],

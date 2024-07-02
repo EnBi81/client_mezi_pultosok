@@ -6,6 +6,7 @@ import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import DeviceCountry from 'react-native-device-country';
 import RNCountry from 'react-native-countries';
+import { OSPlatform } from '../../utils/OSPlatform';
 
 export const useDeviceLocationContextHook = () => {
   const { settings, modifySettings } = useSettings();
@@ -24,71 +25,79 @@ export const useDeviceLocationContextHook = () => {
     updateLocation({});
   }, [settings.colorThemeProps.type]);
 
-  function updateLocation({ displayErrorToastMessage }: { displayErrorToastMessage?: boolean }) {
-    const granted = PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+  async function updateLocation({ displayErrorToastMessage }: { displayErrorToastMessage?: boolean }) {
+    const requestPermission = OSPlatform.select({
+      android: async () => {
+        const result = await PermissionsAndroid.request(PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION);
+        return result === PermissionsAndroid.RESULTS.GRANTED;
+      },
+      ios: async () => {
+        const result = await Geolocation.requestAuthorization('whenInUse');
+        return result === 'granted';
+      }
+    })
 
-    granted
-      .then((granted) => {
-        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          toast(l.location.permissionDenied);
-          modifySettings((settings) => (settings.locationCache.locationAccess = 'denied'));
+    const permissionGranted = await requestPermission();
+    if(!permissionGranted) {
+      toast(l.location.permissionDenied);
+      modifySettings((settings) => (settings.locationCache.locationAccess = 'denied'));
+      return;
+    }
+    
 
+    Geolocation.getCurrentPosition(
+      (position) => {
+        DeviceCountry.getCountryCode()
+          .then((result) => {
+            console.log('device country result: ', result)
+            const countryCode = result.code.toUpperCase();
+            const country = RNCountry.getCountryNamesWithCodes.find((c) => c.code === countryCode);
+            if (!country) {
+              throw new Error('Country is undefined');
+            }
+
+            setCountry({
+              countryCode: country.code,
+              countryName: country.name,
+            });
+          })
+          .catch((err) => {
+            console.log('Device country error: ', err)
+            setCountry({
+              countryName: '-',
+              countryCode: '-',
+            });
+          });
+
+        modifySettings(
+          (settings) =>
+            (settings.locationCache = {
+              longitude: position.coords.longitude,
+              latitude: position.coords.latitude,
+              locationAccess: 'granted',
+            }),
+        );
+      },
+      (error) => {
+        if (!displayErrorToastMessage) {
           return;
         }
-
-        Geolocation.getCurrentPosition(
-          (position) => {
-            DeviceCountry.getCountryCode()
-              .then((result) => {
-                const countryCode = result.code.toUpperCase();
-                const country = RNCountry.getCountryNamesWithCodes.find((c) => c.code === countryCode);
-                if (!country) {
-                  throw new Error('Country is undefined');
-                }
-
-                setCountry({
-                  countryCode: country.code,
-                  countryName: country.name,
-                });
-              })
-              .catch(() => {
-                setCountry({
-                  countryName: '-',
-                  countryCode: '-',
-                });
-              });
-
-            modifySettings(
-              (settings) =>
-                (settings.locationCache = {
-                  longitude: position.coords.longitude,
-                  latitude: position.coords.latitude,
-                  locationAccess: 'granted',
-                }),
-            );
-          },
-          (error) => {
-            if (!displayErrorToastMessage) {
-              return;
-            }
-            if (error.code === 1) {
-              toast(l.location.permissionDenied);
-            } else if (error.code === 2) {
-              toast(l.location.providerNotAvailable);
-            } else if (error.code === 3) {
-              toast(l.location.requestTimedOut);
-            } else if (error.code === 4) {
-              toast(l.location.googlePlayNotAvailable);
-            } else if (error.code === 5) {
-              toast(l.location.serviceNotAvailable);
-            } else {
-              toast(l.location.error);
-            }
-          },
-          { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
-        );
-      })
-      .catch((err) => console.log('error while requesting device location: ', err));
+        if (error.code === 1) {
+          toast(l.location.permissionDenied);
+        } else if (error.code === 2) {
+          toast(l.location.providerNotAvailable);
+        } else if (error.code === 3) {
+          toast(l.location.requestTimedOut);
+        } else if (error.code === 4) {
+          toast(l.location.googlePlayNotAvailable);
+        } else if (error.code === 5) {
+          toast(l.location.serviceNotAvailable);
+        } else {
+          toast(l.location.error);
+        }
+      },
+      { enableHighAccuracy: false, timeout: 15000, maximumAge: 10000 },
+    );
   }
 
   return {

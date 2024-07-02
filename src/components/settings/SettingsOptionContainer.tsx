@@ -38,7 +38,9 @@ export const SettingsOptionContainer = ({
           <View style={styles.titleWrapper}>
             {isPrimary && <Text style={[styles.title, { fontWeight: 'bold', color: colors.text.main }]}>{title}</Text>}
             {isSecondary && <Text style={[styles.title, { color: colors.text.secondary }]}>{title}</Text>}
-            {secondaryText && <Text>{secondaryText}</Text>}
+            {secondaryText && <Text style={{
+              color: colors.text.secondary
+            }}>{secondaryText}</Text>}
           </View>
           <View>{rightSide}</View>
         </View>
