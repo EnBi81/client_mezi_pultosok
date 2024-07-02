@@ -1,4 +1,5 @@
 import { View, Text, ScrollView } from 'react-native';
+import { useColorTheme } from '../hooks/useColorTheme';
 
 export const WhatsNewPage = () => {
   return (
@@ -159,10 +160,12 @@ export const WhatsNewPage = () => {
 };
 
 export const VersionSection = ({ version, children }: { version: string; children: React.ReactNode }) => {
+  const { colors } = useColorTheme();
+
   return (
     <View style={{ marginBottom: 28 }}>
       <View>
-        <Text style={{ fontSize: 24 }}>{version}</Text>
+        <Text style={{ fontSize: 24, color: colors.text.main }}>{version}</Text>
       </View>
       <View>{children}</View>
     </View>
@@ -170,8 +173,10 @@ export const VersionSection = ({ version, children }: { version: string; childre
 };
 
 export const BulletPoint = ({ text }: { text: string }) => {
+  const { colors } = useColorTheme();
+
   return (
-    <Text>
+    <Text style={{ color: colors.text.secondary }}>
       {`\u2022`} {text}
     </Text>
   );

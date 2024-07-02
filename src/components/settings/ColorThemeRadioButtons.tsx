@@ -80,7 +80,7 @@ export const ColorThemeRadioButtons = () => {
         <SettingsOptionContainer
           icon={<Icon name={'my-location'} />}
           title={l.settings.general.colorTheme.updateLocation}
-          secondaryText={deviceCountry.name}
+          secondaryText={deviceCountry.name !== '' ? deviceCountry.name : undefined }
           type={'secondary'}
           level={2}
           onPress={() => {

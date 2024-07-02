@@ -6,13 +6,14 @@ import { toast } from '../../utils/utils';
 import { useLocale } from '../../hooks/useLocale';
 import DeviceCountry from 'react-native-device-country';
 import RNCountry from 'react-native-countries';
+import Geocoder from 'react-native-geocoder';
 import { OSPlatform } from '../../utils/OSPlatform';
 
 export const useDeviceLocationContextHook = () => {
   const { settings, modifySettings } = useSettings();
   const [country, setCountry] = useState({
-    countryCode: '-',
-    countryName: '-',
+    countryCode: '',
+    countryName: '',
   });
   const { l } = useLocale();
 
@@ -47,7 +48,8 @@ export const useDeviceLocationContextHook = () => {
 
     Geolocation.getCurrentPosition(
       (position) => {
-        DeviceCountry.getCountryCode()
+        if (OSPlatform.is.android) {
+          DeviceCountry.getCountryCode()
           .then((result) => {
             console.log('device country result: ', result)
             const countryCode = result.code.toUpperCase();
@@ -64,10 +66,11 @@ export const useDeviceLocationContextHook = () => {
           .catch((err) => {
             console.log('Device country error: ', err)
             setCountry({
-              countryName: '-',
-              countryCode: '-',
+              countryName: '',
+              countryCode: '',
             });
           });
+        }
 
         modifySettings(
           (settings) =>
