@@ -24,6 +24,7 @@ prepare_react_native_project!
 # uncomment the permissions you need
 # https://github.com/zoontek/react-native-permissionss
 setup_permissions([
+  'Notifications',
   # 'AppTrackingTransparency',
   # 'Bluetooth',
   # 'Calendars',
@@ -37,7 +38,6 @@ setup_permissions([
   # 'MediaLibrary',
   # 'Microphone',
   # 'Motion',
-  # 'Notifications',
   # 'PhotoLibrary',
   # 'PhotoLibraryAddOnly',
   # 'Reminders',
@@ -56,6 +56,10 @@ target 'client_mezi_pultosok' do
   config = use_native_modules!
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
+
+  # Notifications
+  #permissions_path = '../node_modules/react-native-permissions/ios'
+  #pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
 
   use_react_native!(
     :path => config[:reactNativePath],

@@ -114,7 +114,7 @@ export const useNotificationService = () => {
     });
   };
 
-  const checkWorkersChangedSummaryExists = ({ callback, isTest }: { isTest: boolean; callback: (boolean) => void }) => {
+  const checkWorkersChangedSummaryExists = ({ callback, isTest }: { isTest: boolean; callback: (boolean: boolean) => void }) => {
     const groupSummaryTag = isTest ? 'test-schedule-changed-group-summary' : 'schedule-changed-group-summary';
 
     PushNotification.getDeliveredNotifications((notifications) => {
