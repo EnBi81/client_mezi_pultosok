@@ -5,6 +5,7 @@ import { useRef } from 'react';
 import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import { Icon } from '../Icon';
+import { OSPlatform } from '../../utils/OSPlatform';
 
 export const SettingsCircularButton = ({ onPress }: { onPress: () => void }) => {
   const { colorPalette, gradientEffects } = useGradientPalette();
@@ -95,7 +96,10 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.85,
+    shadowOpacity: OSPlatform.select({
+      android: 0.85,
+      ios: 0.3
+    }),
     elevation: 8,
   },
   maxSize: {

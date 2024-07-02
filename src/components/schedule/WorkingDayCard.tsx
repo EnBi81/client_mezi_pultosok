@@ -224,7 +224,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
     shadowOpacity: 0.15,
     elevation: 4,
-    overflow: 'hidden',
   },
   newTag: {
     borderRadius: 20,
@@ -253,6 +252,9 @@ const styles = StyleSheet.create({
   content: {
     width: '100%',
     flexDirection: 'row',
+    overflow: 'hidden',
+    borderBottomLeftRadius: 12,
+    borderBottomRightRadius: 12,
   },
   leftSideOuter: {
     width: '100%',

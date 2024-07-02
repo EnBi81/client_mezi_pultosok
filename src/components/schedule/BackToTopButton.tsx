@@ -5,24 +5,25 @@ import { useGradientPalette } from '../../hooks/useGradientPalette';
 import { useColorTheme } from '../../hooks/useColorTheme';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { Touchable } from '../Touchable';
+import { OSPlatform } from '../../utils/OSPlatform';
 
 export const BackToTopButton = ({ onPress }: { onPress: () => void }) => {
   const { colorPalette, gradientEffects } = useGradientPalette();
   const { isLightTheme, colors } = useColorTheme();
 
   return (
-    <View>
+    <View style={[
+      styles.circularWrapper,
+      styles.shadowContainer,
+      {
+        backgroundColor: colors.background.settings,
+        shadowColor: colors.card.shadow,
+        borderColor: '#ffffff30',
+        borderWidth: 1,
+      },
+    ]}>
       <View
-        style={[
-          styles.circularWrapper,
-          styles.shadowContainer,
-          {
-            backgroundColor: colors.background.settings,
-            shadowColor: colors.card.shadow,
-            borderColor: '#ffffff30',
-            borderWidth: 1,
-          },
-        ]}
+        style={[styles.maxSize, { overflow: 'hidden', borderRadius: 9999 }]}
       >
         <Touchable style={styles.maxSize} onPress={onPress}>
           <View style={styles.maxSize}>
@@ -53,13 +54,15 @@ const styles = StyleSheet.create({
     borderRadius: 9999,
     width: 45,
     height: 45,
-    overflow: 'hidden',
   },
   shadowContainer: {
     shadowColor: '#000',
     shadowRadius: 10,
     shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.85,
+    shadowOpacity: OSPlatform.select({
+      android: 0.85,
+      ios: 0.3
+    }),
     elevation: 8,
   },
   maxSize: {

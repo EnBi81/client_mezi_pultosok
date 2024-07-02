@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { useColorTheme } from '../../hooks/useColorTheme';
+import { OSPlatform } from '../../utils/OSPlatform';
 
 export const WorkingDayScheduleWeekDividerCard = ({ text }: { text: string }) => {
   const { colors } = useColorTheme();
@@ -31,7 +32,10 @@ const styles = StyleSheet.create({
     shadowColor: '#000',
     shadowRadius: 8,
     shadowOffset: { width: 0, height: 8 },
-    shadowOpacity: 0.6,
+    shadowOpacity: OSPlatform.select({
+      ios: 0.15,
+      android: 0.6
+    }),
     elevation: 6,
   },
   header: {
