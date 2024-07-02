@@ -57,10 +57,6 @@ target 'client_mezi_pultosok' do
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
 
-  # Notifications
-  #permissions_path = '../node_modules/react-native-permissions/ios'
-  #pod 'Permission-Notifications', :path => "#{permissions_path}/Notifications"
-
   use_react_native!(
     :path => config[:reactNativePath],
     # An absolute path to your application root.
