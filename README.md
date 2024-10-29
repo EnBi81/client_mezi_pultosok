@@ -27,9 +27,9 @@ develop this app on.
 - Sun-Sync mode: will switch automatically between light and dark modes based on the user's location and the sun position
 - Localization (English and Hungarian)
 
-<img src="docs/images/settings-light.png" height="500">
-<img src="docs/images/settings-light-2.png" height="500">
-<img src="docs/images/settings-dark.png" height="500">
+  <img src="docs/images/settings-light.png" height="500">
+  <img src="docs/images/settings-light-2.png" height="500">
+  <img src="docs/images/settings-dark.png" height="500">
 
 
 ## Installation
